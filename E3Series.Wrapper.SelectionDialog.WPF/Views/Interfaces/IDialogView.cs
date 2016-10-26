@@ -3,7 +3,7 @@
     /// <summary>
     /// Selection Dialog must implement this interface
     /// </summary>
-    internal interface IDialogView
+    public interface IDialogView
     {
         /// <summary>
         /// DataContext of View (etc. concrete ViewModel)

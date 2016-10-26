@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Wrapper", "E3Serie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Wrapper.SelectionDialog.WPF", "E3Series.Wrapper.SelectionDialog.WPF\E3Series.Wrapper.SelectionDialog.WPF.csproj", "{B95A7153-AE19-4D3F-BD95-77029E76381B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Wrapper.Demo", "E3Series.Wrapper.Demo\E3Series.Wrapper.Demo.csproj", "{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B95A7153-AE19-4D3F-BD95-77029E76381B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B95A7153-AE19-4D3F-BD95-77029E76381B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B95A7153-AE19-4D3F-BD95-77029E76381B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

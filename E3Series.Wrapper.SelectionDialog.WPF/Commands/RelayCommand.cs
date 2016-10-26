@@ -6,7 +6,7 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.Commands
     /// <summary>
     /// Implementation of ICommand
     /// </summary>
-    internal class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         #region Private Fields
 
