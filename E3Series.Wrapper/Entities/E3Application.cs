@@ -16,14 +16,5 @@ namespace E3Series.Wrapper.Entities
         }
 
         #endregion
-        
-        #region IComObjectProvider Members
-
-        public object ComObject
-        {
-            get { return UntypedComObject; }
-        }
-
-        #endregion
     }
 }

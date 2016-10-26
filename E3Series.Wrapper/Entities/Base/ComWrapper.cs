@@ -9,7 +9,7 @@ namespace E3Series.Wrapper.Entities.Base
     /// <summary>
     /// Base class for all classes-wrappers of E3.series COM objects
     /// </summary>
-    public abstract class ComWrapper : IComObject, IDisposable
+    public abstract class ComWrapper : IComObject, IComObjectProvider
     {
         #region Private Fields
 
@@ -25,7 +25,7 @@ namespace E3Series.Wrapper.Entities.Base
         /// Wrapped COM object
         /// <exception cref="ObjectDisposedException"/>
         /// </summary>
-        internal object UntypedComObject
+        public dynamic ComObject
         {
             get
             {
