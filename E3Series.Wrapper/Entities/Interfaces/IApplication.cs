@@ -7,6 +7,10 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// </summary>
     public interface IApplication : IComObjectProvider
     {
-        
+        /// <summary>
+        /// Returns an object, that enables the use of methods for reading and writing to a project (may also be called a job or drawing).
+        /// </summary>
+        /// <returns></returns>
+        IJob CreateJobObject();
     }
 }
