@@ -3,10 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:E3Series.Wrapper.Demo.ViewModels"
         mc:Ignorable="d"
-        Title="E3Series.Wrapper - Demo" Height="350" Width="525"
-        WindowStartupLocation="CenterScreen">
+        Title="E3Series.Wrapper - Demo" 
+        Height="350" Width="525"
+        WindowStartupLocation="CenterScreen" 
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Grid>
-
+        <StackPanel Orientation="Vertical">
+            <Expander Header="Connect to E3.series"
+                      IsExpanded="True">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Connect\Disconnect E3.series COM"
+                           Margin="20 2 2 2"/>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="40 2 2 2">
+                        <Button Content="Connect"
+                                MinWidth="100"
+                                Command="{Binding Path=ConnectCommand}"/>
+                        <Button Content="Disconnect"
+                                Margin="2 0 0 0"
+                                MinWidth="100"
+                                Command="{Binding Path=DisconnectCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
     </Grid>
 </Window>
