@@ -22,7 +22,9 @@ namespace E3Series.Wrapper
         /// <returns>Wrapped e3Application COM object</returns>
         public virtual IApplication Connect()
         {
-            return new E3Application(GetProcess());
+            var comObject = GetProcess();
+
+            return comObject != null ? new E3Application(comObject) : null;
         }
 
         /// <summary>
@@ -33,7 +35,9 @@ namespace E3Series.Wrapper
         /// <returns>Wrapped e3Application COM object</returns>
         public virtual IApplication Connect(IConnectorSelectionDialog connectorSelectionDialog)
         {
-            return new E3Application(GetProcess(connectorSelectionDialog));
+            var comObject = GetProcess(connectorSelectionDialog);
+
+            return comObject != null ? new E3Application(comObject) : null;
         }
         
         /// <summary>
@@ -43,7 +47,9 @@ namespace E3Series.Wrapper
         /// <returns>Wrapped e3Application COM object</returns>
         public virtual IApplication Connect(int processId)
         {
-            return new E3Application(GetProcess(processId));
+            var comObject = GetProcess(processId);
+
+            return comObject != null ? new E3Application(comObject) : null;
         }
 
         #endregion
