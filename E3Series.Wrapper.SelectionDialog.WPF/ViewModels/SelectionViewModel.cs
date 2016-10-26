@@ -50,7 +50,8 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.ViewModels
                 Processes.Add(new RunningApplication(process));
 
             var result = View.ShowDialog() == true;
-            selectedProcess = SelectedProcess.ComObject;
+            selectedProcess = SelectedProcess != null && result ? SelectedProcess.ComObject : null;
+
             return result;
         }
 

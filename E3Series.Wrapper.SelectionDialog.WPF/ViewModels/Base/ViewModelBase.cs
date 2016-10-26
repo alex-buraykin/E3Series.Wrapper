@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.ViewModels.Base
     /// Base class for ViewModels
     /// </summary>
     /// <typeparam name="TViewType"></typeparam>
-    internal class ViewModelBase<TViewType> : INotifyPropertyChanged where TViewType : IDialogView
+    public class ViewModelBase<TViewType> : INotifyPropertyChanged where TViewType : IDialogView
     {
         #region INotifyPropertyChanged Members
 
