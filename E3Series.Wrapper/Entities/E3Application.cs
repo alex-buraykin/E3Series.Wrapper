@@ -11,7 +11,7 @@ namespace E3Series.Wrapper.Entities
     {
         #region Constructor
 
-        public E3Application(object comObject)
+        protected internal E3Application(object comObject)
             : base(null, () => comObject)
         {
         }

@@ -10,7 +10,8 @@ namespace E3Series.Wrapper.Entities
     {
         #region Constructor
 
-        public E3Job(E3Application app) : base(app, () => app.ComObject.CreateJobObject())
+        protected internal E3Job(E3Application app) 
+            : base(app, () => app.ComObject.CreateJobObject())
         {
         }
 
