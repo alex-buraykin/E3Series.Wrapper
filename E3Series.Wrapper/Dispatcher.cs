@@ -8,7 +8,7 @@ namespace E3Series.Wrapper
     /// <summary>
     /// Class-dispatcher of running E3.series COM objects
     /// </summary>
-    internal static class Dispatcher
+    public static class Dispatcher
     {
         #region WinApi Imports
 

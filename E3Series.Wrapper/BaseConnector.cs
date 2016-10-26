@@ -5,23 +5,26 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using E3Series.Wrapper.Entities;
 using E3Series.Wrapper.Entities.Interfaces;
+using E3Series.Wrapper.Interfaces;
 
 namespace E3Series.Wrapper
 {
     /// <summary>
     /// Entry point for this library
     /// </summary>
-    public static class Connector
+    public class BaseConnector : IConnector
     {
-        #region Public Methods
+        #region IConnector Members
 
         /// <summary>
         /// Connect to E3.series process
         /// </summary>
         /// <returns>Wrapped e3Application COM object</returns>
-        public static IApplication Connect()
+        public virtual IApplication Connect()
         {
-            return new E3Application(GetProcess());
+            var comObject = GetProcess();
+
+            return comObject != null ? new E3Application(comObject) : null;
         }
 
         /// <summary>
@@ -30,9 +33,11 @@ namespace E3Series.Wrapper
         /// <param name="connectorSelectionDialog">Implementation of Selection Dialog 
         /// (used in case of multiple running E3.series instances)</param>
         /// <returns>Wrapped e3Application COM object</returns>
-        public static IApplication Connect(IConnectorSelectionDialog connectorSelectionDialog)
+        public virtual IApplication Connect(IConnectorSelectionDialog connectorSelectionDialog)
         {
-            return new E3Application(GetProcess(connectorSelectionDialog));
+            var comObject = GetProcess(connectorSelectionDialog);
+
+            return comObject != null ? new E3Application(comObject) : null;
         }
         
         /// <summary>
@@ -40,9 +45,11 @@ namespace E3Series.Wrapper
         /// </summary>
         /// <param name="processId">E3.series application process id</param>
         /// <returns>Wrapped e3Application COM object</returns>
-        public static IApplication Connect(int processId)
+        public virtual IApplication Connect(int processId)
         {
-            return new E3Application(GetProcess(processId));
+            var comObject = GetProcess(processId);
+
+            return comObject != null ? new E3Application(comObject) : null;
         }
 
         #endregion
@@ -112,8 +119,8 @@ namespace E3Series.Wrapper
                 throw new NotImplementedException(
                     "Multiple running E3.series processes. Bring needed E3.series instance on top and restart application or implement connectorSelectionDialog in your application");
 
-            object selectedProcess = null;
-            var result = connectorSelectionDialog.ShowDialog(processes, ref selectedProcess);
+            object selectedProcess;
+            var result = connectorSelectionDialog.ShowDialog(processes, out selectedProcess);
             return result ? selectedProcess : null;
         }
 
