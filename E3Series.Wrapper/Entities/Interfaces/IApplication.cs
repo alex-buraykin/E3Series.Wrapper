@@ -1,16 +1,41 @@
-﻿using E3Series.Wrapper.Entities.Base.Interfaces;
+﻿using System.Collections.Generic;
+using E3Series.Wrapper.Entities.Base.Interfaces;
 
 namespace E3Series.Wrapper.Entities.Interfaces
 {
     /// <summary>
-    /// Interface for class-wrapper of e3Apllication COM object
+    /// Interface for class-wrapper of e3Apllication COM object (E3.series COM version 16.5)
     /// </summary>
     public interface IApplication : IComObjectProvider
     {
-        int AvoidAutomaticClosing(int avoid = 1);
+        /// <summary>
+        /// According to other programs like MS Word™ or Excel™, E³ exits if the last (COM-)reference to its application object is released (using "Set e3 = Nothing" or simply exiting a script) and there is no project open. This behavior may be changed by e3.AvoidAutomaticClosing([avoid=true]). 
+        /// If called with parameter avoid=1 or without any parameters, E³ will remain active after the script exits.
+        /// You may call e3.AvoidAutomaticClosing(false) later to return to the default behavior.
+        /// </summary>
+        /// <param name="avoid"></param>
+        /// <returns></returns>
+        int AvoidAutomaticClosing(bool avoid = true);
+
+        /// <summary>
+        /// When accessing to another program from the E³.series process and the program doesn't respond within 10 seconds, a Windows message 'Switch to...' is displayed by default. This message cannot be closed until the request of the other program is finished. Even so, the message must be applied with 'retry'.
+        /// This method sets E³ to a status, in which no interactive entries are possible. The hour glass cursor indicates that another program is active. If the other program communicates with E³ by the COM interface, no unnecessary "waiting" dialogs are displayed, when the communication exceeds any time limits. 
+        /// </summary>
+        /// <returns></returns>
         int BeginForeignTask();
+
+        /// <summary>
+        /// Clears the output window (clear screen). 
+        /// </summary>
         void ClearOutputWindow();
+
+        /// <summary>
+        /// Available since Build 2014-1400
+        /// Clears the Results Window(clear screen). 
+        /// </summary>
         void ClearResultWindow();
+
+        // TODO: Convert for return wrapped DllObject
         object CreateDllObject();
 
         /// <summary>
@@ -19,22 +44,98 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <returns></returns>
         IJob CreateJobObject();
 
+        // TODO: Convert for return wrapped MenuItemObject
+        /// <summary>
+        /// Creates a new menu item object, this is to access other menu items in project.
+        /// </summary>
+        /// <returns></returns>
         object CreateMenuItemObject();
+
+        // TODO: Convert for return wrapped WespeObject
         object CreateWespeObject();
+
+        /// <summary>
+        /// Recreates the display before last minimize mode.
+        /// </summary>
+        /// <returns></returns>
         int Display();
+
+        // ReSharper disable once InconsistentNaming
         int EnableCOM(string password);
-        int EnableLogfile(int en);
+
+        /// <summary>
+        /// Enables output of all messages to logfile of enabled=true. If output is enabled, the current logfile name is written to the output window.
+        /// </summary>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        int EnableLogfile(bool enabled);
+
+        /// <summary>
+        /// This method resets E³.series to a normal status.
+        /// When accessing to another program from the E³.series process and the program doesn't respond within 10 seconds, a Windows message 'Switch to...' is displayed by default. This message cannot be closed until the request of the other program is finished. Even so, the message must be applied with 'retry'.
+        /// </summary>
+        /// <returns>The value that was active before executing the methods is returned as return value:
+        /// the return value is 1, if E³.series was inactive
+        /// the return value is 0, if E³.series was active(i.e.normal status)
+        /// </returns>
         int EndForeignTask();
+
         int FreeLicense(string feature);
+
         int FreeLicensePermanent(string feature);
-        string fullname();
+
+        /// <summary>
+        /// Returns the application's name and version as a string.
+        /// </summary>
+        /// <returns></returns>
+        string FullName();
+
+        /// <summary>
+        /// To define current database(s).
+        /// Connection strings itself can be called using GetConfigurationDatabase(), GetComponentDatabase() and GetSymbolDatabase().   
+        /// </summary>
+        /// <returns>The string under which the user sees the database in the database tree in the register 'Component' (i.e. not the connection string).</returns>
         string GetActualDatabase();
-        int GetAvailableLanguages(ref object languages);
+
+        /// <summary>
+        /// Get all available languages from the text database.
+        /// In contrast to job.GetAvailableLanguages() no open project is required.
+        /// Note:
+        /// This COM command doesn't function with E³.ViewPlus or E³.Redliner because no access to the text database is possible.
+        /// </summary>
+        /// <returns></returns>
+        IList<string> GetAvailableLanguages();
+
+        /// <summary>
+        /// Get the current build version of E³ in form of main version number + 2000 and main version number * 100 + patchlevel.
+        /// </summary>
+        /// <returns></returns>
         string GetBuild();
+
+        /// <summary>
+        /// Get connection sting of currently active component database.
+        /// </summary>
+        /// <returns></returns>
         string GetComponentDatabase();
+
+        /// <summary>
+        /// Determine the component database's table schema.
+        /// </summary>
+        /// <returns></returns>
         string GetComponentDatabaseTableSchema();
+
+        /// <summary>
+        /// Get connection sting of currently active configuration database.
+        /// </summary>
+        /// <returns></returns>
         string GetConfigurationDatabase();
+
+        /// <summary>
+        /// Determine the configuration database's table schema.
+        /// </summary>
+        /// <returns></returns>
         string GetConfigurationDatabaseTableSchema();
+
         int GetDatabaseTableSelectedComponents(ref object ComponentArray, ref object VersionArray);
         int GetDatabaseTreeSelectedComponents(out object ComponentArray, out object VersionArray);
         int GetDatabaseTreeSelectedModels(out object ModelArray);

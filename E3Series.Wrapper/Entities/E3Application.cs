@@ -1,4 +1,6 @@
-﻿using E3Series.Wrapper.Entities.Base;
+﻿using System.Collections.Generic;
+using System.Linq;
+using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
 
@@ -20,9 +22,9 @@ namespace E3Series.Wrapper.Entities
 
         #region IApplication Members
 
-        public int AvoidAutomaticClosing(int avoid = 1)
+        public int AvoidAutomaticClosing(bool avoid = true)
         {
-            return ComObject.AvoidAutomaticClosing(avoid);
+            return ComObject.AvoidAutomaticClosing(avoid ? 1 : 0);
         }
 
         public int BeginForeignTask()
@@ -70,9 +72,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.EnableCOM(password);
         }
 
-        public int EnableLogfile(int en)
+        public int EnableLogfile(bool enabled)
         {
-            return ComObject.EnableLogfile(en);
+            return ComObject.EnableLogfile(enabled ? 1 : 0);
         }
 
         public int EndForeignTask()
@@ -90,7 +92,7 @@ namespace E3Series.Wrapper.Entities
             return ComObject.FreeLicensePermanent(feature);
         }
 
-        public string fullname()
+        public string FullName()
         {
             return ComObject.fullname();
         }
@@ -100,9 +102,12 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetActualDatabase();
         }
 
-        public int GetAvailableLanguages(ref object languages)
+        public IList<string> GetAvailableLanguages()
         {
-            return ComObject.GetAvailableLanguages(ref languages);
+            object languages = null;
+            ComObject.GetAvailableLanguages(ref languages);
+
+            return languages.ToIEnumerable<string>().ToList();
         }
 
         public string GetBuild()
