@@ -136,20 +136,125 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <returns></returns>
         string GetConfigurationDatabaseTableSchema();
 
+        // TODO: Convert to return array
+        /// <summary>
+        /// Available since Build 2014-1400
+        /// Get selected components from the Component Table 
+        /// </summary>
+        /// <param name="ComponentArray">Contains selected component from the Component Table </param>
+        /// <param name="VersionArray">Contains version numbers</param>
+        /// <returns>Number of objects found</returns>
         int GetDatabaseTableSelectedComponents(ref object ComponentArray, ref object VersionArray);
+
+        // TODO: Convert to return array
+        /// <summary>
+        /// Available since Build 2014-1400
+        /// Get selected components from the Database Tree
+        /// </summary>
+        /// <param name="ComponentArray">Contains selected components from the Database Tree</param>
+        /// <param name="VersionArray">Contains version numbers</param>
+        /// <returns>Number of objects found</returns>
         int GetDatabaseTreeSelectedComponents(out object ComponentArray, out object VersionArray);
+
+        // TODO: Convert to return array
+        /// <summary>
+        /// Available since Build 2014-1400
+        /// Get selected models from the Database and Model Trees 
+        /// cnt number of objects found
+        /// </summary>
+        /// <param name="ModelArray">Contains selected models from the Database and Model Trees</param>
+        /// <returns>Number of objects found</returns>
         int GetDatabaseTreeSelectedModels(out object ModelArray);
+
+        // TODO: Convert to return array
+        /// <summary>
+        /// Get selected symbols from the Database, Symbol and Misc Trees
+        /// </summary>
+        /// <param name="SymbolArray">Contains selected symbols from the Database, Symbol and Misc Trees</param>
+        /// <param name="VersionArray">Contains version numbers</param>
+        /// <returns>Number of objects found</returns>
         int GetDatabaseTreeSelectedSymbols(out object SymbolArray, out object VersionArray);
+
+        // TODO: Convert to return array
+        /// <summary>
+        /// Returns for dbname the configured connection strings. 
+        /// </summary>
+        /// <param name="dbname">As dbname only names are supported that are visible in the component tab</param>
+        /// <param name="cmp_cs">Components database connection string</param>
+        /// <param name="sym_cs">Symbols database connection string</param>
+        /// <param name="cnf_cs">Configuration database connection string</param>
+        /// <returns></returns>
         int GetDefinedDatabaseConnectionStrings(string dbname, out object cmp_cs, out object sym_cs, out object cnf_cs);
-        int GetDefinedDatabases(out object dbnames);
-        int GetEnableInteractiveDialogs();
+
+        /// <summary>
+        /// Returns an array of database names, that can be used with e3.SetActualDatabase(). 
+        /// Note: Only names that are visible in the component tab are visible.
+        /// </summary>
+        /// <returns></returns>
+        IList<string> GetDefinedDatabases();
+
+        /// <summary>
+        /// There are situations in which a user wants to permit explicit (modal) dialogs because certain scripts can only run interactively (also in the presence of the user).  
+        /// The current setting can be queried.curval is either false (dialogs switched off) or true (dialogs switched on). 
+        /// </summary>
+        /// <returns></returns>
+        bool GetEnableInteractiveDialogs();
+
+        /// <summary>
+        /// Get count of errors
+        /// </summary>
+        /// <returns></returns>
         int GetErrorCount();
+
+        /// <summary>
+        /// Get fully qualified name including the names of the superior options.
+        /// </summary>
+        /// <returns></returns>
         string GetFullName();
+
+        /// <summary>
+        /// Returns a unique integer, which identifies an E³ application. It may be used to check whether E³ has been stopped and restarted between different script execution events.
+        /// </summary>
+        /// <returns>Process id</returns>
         int GetId();
+
+        /// <summary>
+        /// Get count of info messages
+        /// </summary>
+        /// <returns></returns>
         int GetInfoCount();
+
+        /// <summary>
+        /// Get installation language as number code:
+        /// </summary>
+        /// <returns>
+        /// Returns the following installation language as number code:
+        /// 1   -   English(US)
+        /// 44  -   English(UK)
+        /// 2 or 33 -   French
+        /// 7   -   Russian
+        /// 34  -   Spanish
+        /// 39  -   Italian
+        /// 49  -   German
+        /// 55 or 351   -   Portuguese
+        /// 86  -   Chinese
+        /// 81  -   Japanese
+        /// 90  -   Turkish
+        /// </returns>
         int GetInstallationLanguage();
+
+        /// <summary>
+        /// Returns the application's installation path (Windows folder name) as a string.
+        /// </summary>
+        /// <returns></returns>
         string GetInstallationPath();
+
+        /// <summary>
+        /// Returns count of currently opened projects in E³ window. Presently, E³ allows you to have only one open project
+        /// </summary>
+        /// <returns></returns>
         int GetJobCount();
+
         int GetJobIds(ref object ids);
         string GetLanguageDatabase();
         string GetLanguageDatabaseTableSchema();

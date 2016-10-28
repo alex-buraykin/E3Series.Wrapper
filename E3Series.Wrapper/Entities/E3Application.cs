@@ -160,14 +160,17 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetDefinedDatabaseConnectionStrings(dbname, out cmp_cs, out sym_cs, out cnf_cs);
         }
 
-        public int GetDefinedDatabases(out object dbnames)
+        public IList<string> GetDefinedDatabases()
         {
-            return ComObject.GetDefinedDatabases(out dbnames);
+            object dbnames;
+            ComObject.GetDefinedDatabases(out dbnames);
+
+            return dbnames.ToIEnumerable<string>().ToList();
         }
 
-        public int GetEnableInteractiveDialogs()
+        public bool GetEnableInteractiveDialogs()
         {
-            return ComObject.GetEnableInteractiveDialogs();
+            return ComObject.GetEnableInteractiveDialogs() == 1;
         }
 
         public int GetErrorCount()
