@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
@@ -102,12 +104,12 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetActualDatabase();
         }
 
-        public IList<string> GetAvailableLanguages()
+        public ReadOnlyCollection<string> GetAvailableLanguages()
         {
             object languages = null;
             ComObject.GetAvailableLanguages(ref languages);
 
-            return languages.ToIEnumerable<string>().ToList();
+            return new ReadOnlyCollection<string>(languages.CastToIEnumerable<string>().ToList());
         }
 
         public string GetBuild()
@@ -135,37 +137,37 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetConfigurationDatabaseTableSchema();
         }
 
-        public int GetDatabaseTableSelectedComponents(ref object ComponentArray, ref object VersionArray)
+        public int GetDatabaseTableSelectedComponents(ref object componentArray, ref object versionArray)
         {
-            return ComObject.GetDatabaseTableSelectedComponents(ref ComponentArray, ref VersionArray);
+            return ComObject.GetDatabaseTableSelectedComponents(ref componentArray, ref versionArray);
         }
 
-        public int GetDatabaseTreeSelectedComponents(out object ComponentArray, out object VersionArray)
+        public int GetDatabaseTreeSelectedComponents(out object componentArray, out object versionArray)
         {
-            return ComObject.GetDatabaseTreeSelectedComponents(out ComponentArray, out VersionArray);
+            return ComObject.GetDatabaseTreeSelectedComponents(out componentArray, out versionArray);
         }
 
-        public int GetDatabaseTreeSelectedModels(out object ModelArray)
+        public int GetDatabaseTreeSelectedModels(out object modelArray)
         {
-            return ComObject.GetDatabaseTreeSelectedModels(out ModelArray);
+            return ComObject.GetDatabaseTreeSelectedModels(out modelArray);
         }
 
-        public int GetDatabaseTreeSelectedSymbols(out object SymbolArray, out object VersionArray)
+        public int GetDatabaseTreeSelectedSymbols(out object symbolArray, out object versionArray)
         {
-            return ComObject.GetDatabaseTreeSelectedSymbols(out SymbolArray, out VersionArray);
+            return ComObject.GetDatabaseTreeSelectedSymbols(out symbolArray, out versionArray);
         }
 
-        public int GetDefinedDatabaseConnectionStrings(string dbname, out object cmp_cs, out object sym_cs, out object cnf_cs)
+        public int GetDefinedDatabaseConnectionStrings(string dbname, out object cmpCs, out object symCs, out object cnfCs)
         {
-            return ComObject.GetDefinedDatabaseConnectionStrings(dbname, out cmp_cs, out sym_cs, out cnf_cs);
+            return ComObject.GetDefinedDatabaseConnectionStrings(dbname, out cmpCs, out symCs, out cnfCs);
         }
 
-        public IList<string> GetDefinedDatabases()
+        public ReadOnlyCollection<string> GetDefinedDatabases()
         {
             object dbnames;
             ComObject.GetDefinedDatabases(out dbnames);
 
-            return dbnames.ToIEnumerable<string>().ToList();
+            return new ReadOnlyCollection<string>(dbnames.CastToIEnumerable<string>().ToList());
         }
 
         public bool GetEnableInteractiveDialogs()
@@ -208,9 +210,12 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetJobCount();
         }
 
-        public int GetJobIds(ref object ids)
+        public ReadOnlyCollection<int> GetJobIds()
         {
-            return ComObject.GetJobIds(ref ids);
+            object ids = null;
+            ComObject.GetJobIds(ref ids);
+
+            return new ReadOnlyCollection<int>(ids.CastToIEnumerable().ToList());
         }
 
         public string GetLanguageDatabase()
@@ -238,19 +243,25 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetLogfileName(index);
         }
 
-        public object GetModalWindow()
+        public IntPtr GetModalWindow()
         {
-            return ComObject.GetModalWindow();
+            return (IntPtr) ComObject.GetModalWindow();
         }
 
-        public int GetMultiuserFolderPath(out object path)
+        public KeyValuePair<int, string> GetMultiuserFolderPath()
         {
-            return ComObject.GetMultiuserFolderPath(out path);
+            object path;
+            var id = ComObject.GetMultiuserFolderPath(out path);
+
+            return new KeyValuePair<int, string>(id, (string) path);
         }
 
-        public int GetMultiuserProjects(ref object name)
+        public ReadOnlyCollection<string> GetMultiuserProjects()
         {
-            return ComObject.GetMultiuserProjects(ref name);
+            object names = null;
+            ComObject.GetMultiuserProjects(ref names);
+
+            return new ReadOnlyCollection<string>(names.CastToIEnumerable<string>().ToList());
         }
 
         public string GetName()
@@ -258,9 +269,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetName();
         }
 
-        public object GetPluginObject(ref object Plugin)
+        public object GetPluginObject(ref object plugin)
         {
-            return ComObject.GetPluginObject(ref Plugin);
+            return ComObject.GetPluginObject(ref plugin);
         }
 
         public int GetPrintCropMarks()
@@ -288,9 +299,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetPrinterName();
         }
 
-        public int GetPrintPageNumbers()
+        public bool GetPrintPageNumbers()
         {
-            return ComObject.GetPrintPageNumbers();
+            return ComObject.GetPrintPageNumbers() == 1;
         }
 
         public int GetPrintSheetOrder()
@@ -298,9 +309,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetPrintSheetOrder();
         }
 
-        public int GetPrintSplitPages()
+        public bool GetPrintSplitPages()
         {
-            return ComObject.GetPrintSplitPages();
+            return ComObject.GetPrintSplitPages() == 1;
         }
 
         public object GetProcessProperty(string what)

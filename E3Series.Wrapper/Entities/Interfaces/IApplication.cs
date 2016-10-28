@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using E3Series.Wrapper.Entities.Base.Interfaces;
 
 namespace E3Series.Wrapper.Entities.Interfaces
@@ -104,7 +106,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// This COM command doesn't function with E³.ViewPlus or E³.Redliner because no access to the text database is possible.
         /// </summary>
         /// <returns></returns>
-        IList<string> GetAvailableLanguages();
+        ReadOnlyCollection<string> GetAvailableLanguages();
 
         /// <summary>
         /// Get the current build version of E³ in form of main version number + 2000 and main version number * 100 + patchlevel.
@@ -141,20 +143,20 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// Available since Build 2014-1400
         /// Get selected components from the Component Table 
         /// </summary>
-        /// <param name="ComponentArray">Contains selected component from the Component Table </param>
-        /// <param name="VersionArray">Contains version numbers</param>
+        /// <param name="componentArray">Contains selected component from the Component Table </param>
+        /// <param name="versionArray">Contains version numbers</param>
         /// <returns>Number of objects found</returns>
-        int GetDatabaseTableSelectedComponents(ref object ComponentArray, ref object VersionArray);
+        int GetDatabaseTableSelectedComponents(ref object componentArray, ref object versionArray);
 
         // TODO: Convert to return array
         /// <summary>
         /// Available since Build 2014-1400
         /// Get selected components from the Database Tree
         /// </summary>
-        /// <param name="ComponentArray">Contains selected components from the Database Tree</param>
-        /// <param name="VersionArray">Contains version numbers</param>
+        /// <param name="componentArray">Contains selected components from the Database Tree</param>
+        /// <param name="versionArray">Contains version numbers</param>
         /// <returns>Number of objects found</returns>
-        int GetDatabaseTreeSelectedComponents(out object ComponentArray, out object VersionArray);
+        int GetDatabaseTreeSelectedComponents(out object componentArray, out object versionArray);
 
         // TODO: Convert to return array
         /// <summary>
@@ -162,36 +164,36 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// Get selected models from the Database and Model Trees 
         /// cnt number of objects found
         /// </summary>
-        /// <param name="ModelArray">Contains selected models from the Database and Model Trees</param>
+        /// <param name="modelArray">Contains selected models from the Database and Model Trees</param>
         /// <returns>Number of objects found</returns>
-        int GetDatabaseTreeSelectedModels(out object ModelArray);
+        int GetDatabaseTreeSelectedModels(out object modelArray);
 
         // TODO: Convert to return array
         /// <summary>
         /// Get selected symbols from the Database, Symbol and Misc Trees
         /// </summary>
-        /// <param name="SymbolArray">Contains selected symbols from the Database, Symbol and Misc Trees</param>
-        /// <param name="VersionArray">Contains version numbers</param>
+        /// <param name="symbolArray">Contains selected symbols from the Database, Symbol and Misc Trees</param>
+        /// <param name="versionArray">Contains version numbers</param>
         /// <returns>Number of objects found</returns>
-        int GetDatabaseTreeSelectedSymbols(out object SymbolArray, out object VersionArray);
+        int GetDatabaseTreeSelectedSymbols(out object symbolArray, out object versionArray);
 
         // TODO: Convert to return array
         /// <summary>
         /// Returns for dbname the configured connection strings. 
         /// </summary>
         /// <param name="dbname">As dbname only names are supported that are visible in the component tab</param>
-        /// <param name="cmp_cs">Components database connection string</param>
-        /// <param name="sym_cs">Symbols database connection string</param>
-        /// <param name="cnf_cs">Configuration database connection string</param>
+        /// <param name="cmpCs">Components database connection string</param>
+        /// <param name="symCs">Symbols database connection string</param>
+        /// <param name="cnfCs">Configuration database connection string</param>
         /// <returns></returns>
-        int GetDefinedDatabaseConnectionStrings(string dbname, out object cmp_cs, out object sym_cs, out object cnf_cs);
+        int GetDefinedDatabaseConnectionStrings(string dbname, out object cmpCs, out object symCs, out object cnfCs);
 
         /// <summary>
         /// Returns an array of database names, that can be used with e3.SetActualDatabase(). 
         /// Note: Only names that are visible in the component tab are visible.
         /// </summary>
         /// <returns></returns>
-        IList<string> GetDefinedDatabases();
+        ReadOnlyCollection<string> GetDefinedDatabases();
 
         /// <summary>
         /// There are situations in which a user wants to permit explicit (modal) dialogs because certain scripts can only run interactively (also in the presence of the user).  
@@ -255,25 +257,135 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <returns></returns>
         int GetJobCount();
 
-        int GetJobIds(ref object ids);
+        /// <summary>
+        /// To determine the number and Ids of open projects, use e3.GetJobIds. prj.SetId assigns an ID to a project object.
+        /// Presently, E³ allows you to have only one open project
+        /// </summary>
+        /// <returns></returns>
+        ReadOnlyCollection<int> GetJobIds();
+
+        /// <summary>
+        /// Get connection name of currently active language database
+        /// </summary>
+        /// <returns></returns>
         string GetLanguageDatabase();
+
+        /// <summary>
+        /// Determine the languages database's table schema.
+        /// </summary>
+        /// <returns></returns>
         string GetLanguageDatabaseTableSchema();
+
         int GetLicense(string feature);
+
         int GetLicensePermanent(string feature);
+
+        // TODO: Make parameter enum instead int
+        /// <summary>
+        /// Returns the log file name of an Output window, if one has already been defined. 
+        /// </summary>
+        /// <param name="index">index is an optional parameter (default value = 0) 
+        /// Index 0: Log file of the Message window
+        /// Index 1: Log file of the Results window
+        /// </param>
+        /// <returns></returns>
         string GetLogfileName(int index = 0);
-        object GetModalWindow();
-        int GetMultiuserFolderPath(out object path);
-        int GetMultiuserProjects(ref object name);
+
+        /// <summary>
+        /// Returns a window handle that is currently placed "in front of" E³.series. If none is set, 0 is returned
+        /// </summary>
+        /// <returns></returns>
+        IntPtr GetModalWindow();
+
+        /// <summary>
+        /// This command opens the dialog to select a multi-user folder (server must be running) and returns its path after folder selection and OK. 
+        /// </summary>
+        /// <returns>Key - folder id, Value - folder path</returns>
+        KeyValuePair<int, string> GetMultiuserFolderPath();
+
+        /// <summary>
+        /// Returns all names of all multi-user projects saved on the multi-user server that can be opened by the current user.
+        /// </summary>
+        /// <returns></returns>
+        ReadOnlyCollection<string> GetMultiuserProjects();
+
+        /// <summary>
+        /// Returns the application's name
+        /// </summary>
+        /// <returns></returns>
         string GetName();
-        object GetPluginObject(ref object Plugin);
+
+        /// <summary>
+        /// Returns the plugin COM object that is saved in E³.series.
+        /// </summary>
+        /// <param name="plugin">Plugin is the com object's name defined in the registry. For example: AcroPDF.PDF.1</param>
+        /// <returns></returns>
+        object GetPluginObject(ref object plugin);
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Return value is the definition of the 'Print crop marks' option
+        /// </summary>
+        /// <returns></returns>
         int GetPrintCropMarks();
+
+        /// <summary>
+        /// Returns the current colour setting 
+        /// </summary>
+        /// <returns>
+        /// -1 means: use colours as drawn on sheets 
+        /// 0: use only black and white
+        /// </returns>
         int GetPrinterColour();
+
+        /// <summary>
+        /// Returns the current line width setting
+        /// </summary>
+        /// <returns>
+        /// -1 means: use line width as defined on sheets and scale them according to scaling parameters of methods prj.PrintOut and sht.PrintOut 
+        /// 0: use line width on sheets but ignore scaling parameters
+        /// </returns>
         double GetPrinterLinewidth();
+
+        // TODO: convert return value to struct instead of ref
+        /// <summary>
+        /// Returns the current margin settings: top, bottom, left, right in the predefined unit of measure.
+        /// </summary>
+        /// <param name="top"></param>
+        /// <param name="bottom"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         int GetPrinterMargins(ref object top, ref object bottom, ref object left, ref object right);
+
+        /// <summary>
+        /// Returns the current printer's name, which is defined in the File -> Printer Setup
+        /// </summary>
+        /// <returns></returns>
         string GetPrinterName();
-        int GetPrintPageNumbers();
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Return value is the definition of the 'Print page numbers' option
+        /// </summary>
+        /// <returns></returns>
+        bool GetPrintPageNumbers();
+
+        // TODO: convert return value to enum instead of int
+        /// <summary>
+        /// Available since Build 2011-1020
+        /// Get print sheet order
+        /// </summary>
+        /// <returns></returns>
         int GetPrintSheetOrder();
-        int GetPrintSplitPages();
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Return value is the definition of the 'Select pages' option
+        /// </summary>
+        /// <returns></returns>
+        bool GetPrintSplitPages();
+
         object GetProcessProperty(string what);
         int GetProjectInformation(ref object filename, ref object type, ref object is_dbe);
         string GetProjectLifecycle(string project);
