@@ -319,9 +319,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetProcessProperty(what);
         }
 
-        public int GetProjectInformation(ref object filename, ref object type, ref object is_dbe)
+        public int GetProjectInformation(ref object filename, ref object type, ref object isDbe)
         {
-            return ComObject.GetProjectInformation(ref filename, ref type, ref is_dbe);
+            return ComObject.GetProjectInformation(ref filename, ref type, ref isDbe);
         }
 
         public string GetProjectLifecycle(string project)
@@ -339,9 +339,11 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetRegistryVersion();
         }
 
-        public object GetScriptArguments()
+        public ReadOnlyCollection<string> GetScriptArguments()
         {
-            return ComObject.GetScriptArguments();
+            object args = ComObject.GetScriptArguments();
+
+            return new ReadOnlyCollection<string>(args.CastToIEnumerable<string>().ToList());
         }
 
         public int GetScriptReturn()
@@ -369,9 +371,12 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetSymbolDatabaseTableSchema();
         }
 
-        public int GetSystemMenuItemIds(ref object ids)
+        public ReadOnlyCollection<int> GetSystemMenuItemIds()
         {
-            return ComObject.GetSystemMenuItemIds(ref ids);
+            object ids = null;
+            ComObject.GetSystemMenuItemIds(ref ids);
+
+            return new ReadOnlyCollection<int>(ids.CastToIEnumerable().ToList());
         }
 
         public string GetTemplateFile()
@@ -394,9 +399,12 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetTranslatedText(text, language);
         }
 
-        public int GetTrigger(string name, ref object filename)
+        public string GetTrigger(string name)
         {
-            return ComObject.GetTrigger(name, ref filename);
+            object filename = null;
+            var result = ComObject.GetTrigger(name, ref filename);
+
+            return result == -2 ? string.Empty : (string) filename;
         }
 
         public int GetTriggerReturn()
@@ -404,14 +412,17 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetTriggerReturn();
         }
 
-        public int GetUserMenuItemIds(ref object ids)
+        public ReadOnlyCollection<int> GetUserMenuItemIds()
         {
-            return ComObject.GetUserMenuItemIds(ref ids);
+            object ids = null;
+            ComObject.GetUserMenuItemIds(ref ids);
+
+            return new ReadOnlyCollection<int>(ids.CastToIEnumerable().ToList());
         }
 
-        public int GetUseSheetOrientation()
+        public bool GetUseSheetOrientation()
         {
-            return ComObject.GetUseSheetOrientation();
+            return ComObject.GetUseSheetOrientation() == 1;
         }
 
         public int GetVerifyCount()
@@ -439,134 +450,134 @@ namespace E3Series.Wrapper.Entities
             return ComObject.Include(text);
         }
 
-        public int IsBasic()
+        public bool IsBasic()
         {
-            return ComObject.IsBasic();
+            return ComObject.IsBasic() == 1;
         }
 
-        public int IsBoard()
+        public bool IsBoard()
         {
-            return ComObject.IsBoard();
+            return ComObject.IsBoard() == 1;
         }
 
-        public int IsCable()
+        public bool IsCable()
         {
-            return ComObject.IsCable();
+            return ComObject.IsCable() == 1;
         }
 
-        public int IsCaddy()
+        public bool IsCaddy()
         {
-            return ComObject.IsCaddy();
+            return ComObject.IsCaddy() == 1;
         }
 
-        public int IsCaddyBasic()
+        public bool IsCaddyBasic()
         {
-            return ComObject.IsCaddyBasic();
+            return ComObject.IsCaddyBasic() == 1;
         }
 
-        public int IsCaddyDemo()
+        public bool IsCaddyDemo()
         {
-            return ComObject.IsCaddyDemo();
+            return ComObject.IsCaddyDemo() == 1;
         }
 
-        public int IsCaddyEconomy()
+        public bool IsCaddyEconomy()
         {
-            return ComObject.IsCaddyEconomy();
+            return ComObject.IsCaddyEconomy() == 1;
         }
 
-        public int IsDemo()
+        public bool IsDemo()
         {
-            return ComObject.IsDemo();
+            return ComObject.IsDemo() == 1;
         }
 
-        public int IsEconomy()
+        public bool IsEconomy()
         {
-            return ComObject.IsEconomy();
+            return ComObject.IsEconomy() == 1;
         }
 
-        public int IsFluid()
+        public bool IsFluid()
         {
-            return ComObject.IsFluid();
+            return ComObject.IsFluid() == 1;
         }
 
-        public int IsFormboard()
+        public bool IsFormboard()
         {
-            return ComObject.IsFormboard();
+            return ComObject.IsFormboard() == 1;
         }
 
-        public int IsFunctionalDesign()
+        public bool IsFunctionalDesign()
         {
-            return ComObject.IsFunctionalDesign();
+            return ComObject.IsFunctionalDesign() == 1;
         }
 
-        public int IsLogic()
+        public bool IsLogic()
         {
-            return ComObject.IsLogic();
+            return ComObject.IsLogic() == 1;
         }
 
-        public int IsMultiuser()
+        public bool IsMultiuser()
         {
-            return ComObject.IsMultiuser();
+            return ComObject.IsMultiuser() == 1;
         }
 
-        public int IsPanel()
+        public bool IsPanel()
         {
-            return ComObject.IsPanel();
+            return ComObject.IsPanel() == 1;
         }
 
-        public int IsRedliner()
+        public bool IsRedliner()
         {
-            return ComObject.IsRedliner();
+            return ComObject.IsRedliner() == 1;
         }
 
-        public int IsSchema()
+        public bool IsSchema()
         {
-            return ComObject.IsSchema();
+            return ComObject.IsSchema() == 1;
         }
 
-        public int IsScriptRunning()
+        public bool IsScriptRunning()
         {
-            return ComObject.IsScriptRunning();
+            return ComObject.IsScriptRunning() == 1;
         }
 
-        public int IsSmallBusiness()
+        public bool IsSmallBusiness()
         {
-            return ComObject.IsSmallBusiness();
+            return ComObject.IsSmallBusiness() == 1;
         }
 
-        public int IsStudent()
+        public bool IsStudent()
         {
-            return ComObject.IsStudent();
+            return ComObject.IsStudent() == 1;
         }
 
-        public int IsViewer()
+        public bool IsViewer()
         {
-            return ComObject.IsViewer();
+            return ComObject.IsViewer() == 1;
         }
 
-        public int IsViewPlus()
+        public bool IsViewPlus()
         {
-            return ComObject.IsViewPlus();
+            return ComObject.IsViewPlus() == 1;
         }
 
-        public int IsWago()
+        public bool IsWago()
         {
-            return ComObject.IsWago();
+            return ComObject.IsWago() == 1;
         }
 
-        public int IsWagoDemo()
+        public bool IsWagoDemo()
         {
-            return ComObject.IsWagoDemo();
+            return ComObject.IsWagoDemo() == 1;
         }
 
-        public int IsWire()
+        public bool IsWire()
         {
-            return ComObject.IsWire();
+            return ComObject.IsWire() == 1;
         }
 
-        public int IsWireWorks()
+        public bool IsWireWorks()
         {
-            return ComObject.IsWireWorks();
+            return ComObject.IsWireWorks() == 1;
         }
 
         public int Maximize()
@@ -579,9 +590,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.Minimize();
         }
 
-        public int PutError(int ok, string text, int item = 0)
+        public int PutError(bool wait, string text, int itemId = 0)
         {
-            return ComObject.PutError(ok, text, item);
+            return ComObject.PutError(wait ? 1 : 0, text, itemId);
         }
 
         public int PutInfo(int ok, string text, int item = 0)

@@ -6,7 +6,7 @@ using E3Series.Wrapper.Entities.Base.Interfaces;
 namespace E3Series.Wrapper.Entities.Interfaces
 {
     /// <summary>
-    /// Interface for class-wrapper of e3Apllication COM object (E3.series COM version 16.5)
+    /// Interface for class-wrapper of e3Apllication COM object (E³ COM version 16.5)
     /// </summary>
     public interface IApplication : IComObjectProvider
     {
@@ -38,6 +38,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
         void ClearResultWindow();
 
         // TODO: Convert for return wrapped DllObject
+        [Obsolete("Unknown Method", false)]
         object CreateDllObject();
 
         /// <summary>
@@ -63,6 +64,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
         int Display();
 
         // ReSharper disable once InconsistentNaming
+        [Obsolete("Unknown Method", false)]
         int EnableCOM(string password);
 
         /// <summary>
@@ -82,8 +84,10 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// </returns>
         int EndForeignTask();
 
+        [Obsolete("Unknown Method", false)]
         int FreeLicense(string feature);
 
+        [Obsolete("Unknown Method", false)]
         int FreeLicensePermanent(string feature);
 
         /// <summary>
@@ -221,7 +225,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
         int GetId();
 
         /// <summary>
-        /// Get count of info messages
+        /// Returns the number of info messages already written
         /// </summary>
         /// <returns></returns>
         int GetInfoCount();
@@ -276,8 +280,10 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <returns></returns>
         string GetLanguageDatabaseTableSchema();
 
+        [Obsolete("Unknown Method", false)]
         int GetLicense(string feature);
 
+        [Obsolete("Unknown Method", false)]
         int GetLicensePermanent(string feature);
 
         // TODO: Make parameter enum instead int
@@ -386,60 +392,325 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <returns></returns>
         bool GetPrintSplitPages();
 
+        // TODO: convert parameter to enum instead of string, convert return value to string instead of object
+        /// <summary>
+        /// To determine the resources used
+        /// </summary>
+        /// <param name="what">what is a string that defines what is to be returned with ret:
+        /// [what] - [type of return value] - [description]
+        /// 
+        /// BuildTimeStamp - string - build timestamp
+        /// Dictionary - string - HKLM\SW\CT\E3\<NR>\MU\Dictionary, e.g.Provider=sqloledb;Server=name\E3_2007;Initial Catalog = E3DICTIONARY;
+        /// Host - string - Hostname
+        /// ProcessID - string (integer) -E³-PID
+        /// ProcessInfo - dictionary(string/string) - contains all E³ Process parameters(times values are milliseconds (integer), memory values are kilo bytes(integer))
+        /// ServerHost - string - Hostname of the MuService process, if connected
+        /// ServerPort - string - Port of the MuService process, if connected
+        /// ServerProcessInfo - dictionary(string/string) - contains all MuService Process parameters(times values are milliseconds (integer), memory values are kilo bytes(integer))
+        /// UserModeTime - string (integer) - User mode time of the E³ process in milliseconds(integer) since the start of E³
+        /// User - string - Username
+        /// WorkingSetSize - string (integer) - Working set size in kilo bytes(integer)
+        /// WindowHandle - string (integer) - WindowHandle
+        /// </param>
+        /// <returns></returns>
         object GetProcessProperty(string what);
-        int GetProjectInformation(ref object filename, ref object type, ref object is_dbe);
+
+        /// <summary>
+        /// Using this method, it's possible to read information of a *.e3s file:
+        /// </summary>
+        /// <param name="filename">filename path and name of the *.e3s file.</param>
+        /// <param name="type"> type = the returned value is the information of the *.e3s project
+        /// 1 = cable(also schema)
+        /// 2 = logic
+        /// 3 = WireWorks
+        /// 4 = demo
+        /// 5 = student </param>
+        /// <param name="isDbe">is_dbe = the returned value is 1, when the project was saved in Database Editor mode, otherwise 0.</param>
+        /// <returns>ret = the return value can have the following values:
+        /// 0 = the command could be successfully executed.
+        /// 1 = the file was not found.
+        /// 2 = the file information could not be read, for example because the project is older than e3 version 2004.
+        /// 3 = the file is already open, the file information could not be read.</returns>
+        int GetProjectInformation(ref object filename, ref object type, ref object isDbe);
+
+        /// <summary>
+        /// Returns the state of lifecycle of given project
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
         string GetProjectLifecycle(string project);
+
         string GetProvider(string dbname);
+
+        /// <summary>
+        /// Outputs the internal registry version number (e.g. 8.0, 9.0,...) .
+        /// </summary>
+        /// <returns></returns>
         string GetRegistryVersion();
-        object GetScriptArguments();
+
+        /// <summary>
+        /// Returns the handed over parameters as an array of strings for internal running scripts.
+        /// </summary>
+        /// <returns></returns>
+        ReadOnlyCollection<string> GetScriptArguments();
+
+        /// <summary>
+        /// This method and SetScriptReturn() can both be used to manipulate the return value. The default return value is 0. 
+        /// </summary>
+        /// <returns></returns>
         int GetScriptReturn();
+
+        /// <summary>
+        /// Get server name definition in E³. series multi-user environments. 
+        /// </summary>
+        /// <returns></returns>
         string GetServerName();
+
+        /// <summary>
+        /// Get server port definition in E³. series multi-user environments. 
+        /// </summary>
+        /// <returns></returns>
         int GetServerPort();
+
+        /// <summary>
+        /// Get connection string of currently active symbol database.
+        /// </summary>
+        /// <returns></returns>
         string GetSymbolDatabase();
+
+        /// <summary>
+        /// Get table schema of currently active symbol database.
+        /// </summary>
+        /// <returns></returns>
         string GetSymbolDatabaseTableSchema();
-        int GetSystemMenuItemIds(ref object ids);
+
+        /// <summary>
+        /// New since Build 2011-1000:
+        /// Returns the system menu item IDs.
+        /// </summary>
+        /// <returns></returns>
+        ReadOnlyCollection<int> GetSystemMenuItemIds();
+
+        /// <summary>
+        /// Returns the filename of the defined template file, which is used when creating new projects.
+        /// </summary>
+        /// <returns></returns>
         string GetTemplateFile();
+
+        /// <summary>
+        /// Returns the file name of the defines template file, which is used when creating new DBE objects
+        /// </summary>
+        /// <returns></returns>
         string GetTemplateFileDBE();
+
+        [Obsolete("Unknown Method", false)]
         int GetTestMark(int num);
+
+        // TODO: convert parameter 'language' to enum
+        /// <summary>
+        /// Get the translated text
+        /// </summary>
+        /// <param name="text">text must be the internal name (&#<num>), i.e. &#4</param>
+        /// <param name="language">language any language(as a string) from the text database.</param>
+        /// <returns></returns>
         string GetTranslatedText(string text, string language);
-        int GetTrigger(string name, ref object filename);
+
+        /// <summary>
+        /// Get file name for trigger
+        /// </summary>
+        /// <param name="name">Name of trigger</param>
+        /// <returns></returns>
+        string GetTrigger(string name);
+
+        /// <summary>
+        /// Returns a value valid for triggers, which was defined as trigger return value. 
+        /// When no trigger is active at the time of calling, the return value is always 0. 
+        /// When the trigger return value is not yet defined in the active trigger, the trigger's default value is returned (see description of the individual triggers). 
+        /// </summary>
+        /// <returns>Value     -    symbolic name in Visual Basic/Visual Basic Script
+        /// 1 - vbOK 
+        /// 2 - vbCancel 
+        /// 3 - vbAbort 
+        /// 4 - vbRetry 
+        /// 5 - vbIgnore 
+        /// 6 - vbYes 
+        /// 7 - vbNo
+        /// </returns>
         int GetTriggerReturn();
-        int GetUserMenuItemIds(ref object ids);
-        int GetUseSheetOrientation();
+
+        /// <summary>
+        /// Returns the UserMenuItem IDs.
+        /// New since Build 2011-1000: returns separators too
+        /// </summary>
+        /// <returns></returns>
+        ReadOnlyCollection<int> GetUserMenuItemIds();
+
+        /// <summary>
+        /// Get setting Use sheet orientation in the Print dialog. 
+        /// If this option is checked (default setting), the printer's settings are ignored and the orientation is used depending on the sheet format. 
+        /// </summary>
+        /// <returns></returns>
+        bool GetUseSheetOrientation();
+
+        [Obsolete("Unknown Method", false)]
         int GetVerifyCount();
+
+        /// <summary>
+        /// Returns the application's version
+        /// </summary>
+        /// <returns></returns>
         string GetVersion();
+
+        /// <summary>
+        /// Returns the number of warning messages already written
+        /// </summary>
+        /// <returns></returns>
         int GetWarningCount();
+
+        /// <summary>
+        /// Returns the name of the currently set workspace.
+        /// </summary>
+        /// <returns></returns>
         string GetWorkspaceName();
+
+        /// <summary>
+        /// Executes the script defined in the text and adds the functions defined therin to the current context so that they can be called up with the coded script parts. 
+        /// Note:
+        /// This method only works with internally running scripts(defined using the Tools menu or as Triggered Script). When a script is started externally(using WSCRIPT.EXE, CSCRIPT.EXE or by double-clicking in the Windows Explorer), it cannot be used.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        [Obsolete ("This method only works with internally running scripts", true)]
         int Include(string text);
-        int IsBasic();
-        int IsBoard();
-        int IsCable();
-        int IsCaddy();
-        int IsCaddyBasic();
-        int IsCaddyDemo();
-        int IsCaddyEconomy();
-        int IsDemo();
-        int IsEconomy();
-        int IsFluid();
-        int IsFormboard();
-        int IsFunctionalDesign();
-        int IsLogic();
-        int IsMultiuser();
-        int IsPanel();
-        int IsRedliner();
-        int IsSchema();
-        int IsScriptRunning();
-        int IsSmallBusiness();
-        int IsStudent();
-        int IsViewer();
-        int IsViewPlus();
-        int IsWago();
-        int IsWagoDemo();
-        int IsWire();
-        int IsWireWorks();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsBasic();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsBoard();
+
+        /// <summary>
+        /// Check is E³.Cable feature enabled
+        /// </summary>
+        /// <returns></returns>
+        bool IsCable();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsCaddy();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsCaddyBasic();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsCaddyDemo();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsCaddyEconomy();
+
+        /// <summary>
+        /// Check if runnung in Demo mode
+        /// </summary>
+        /// <returns></returns>
+        bool IsDemo();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsEconomy();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsFluid();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsFormboard();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsFunctionalDesign();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsLogic();
+
+        /// <summary>
+        /// Check is E³.Enterprise (multiuser support) feature enabled
+        /// </summary>
+        /// <returns></returns>
+        bool IsMultiuser();
+
+        /// <summary>
+        /// Check is E³.Panel feature enabled
+        /// </summary>
+        /// <returns></returns>
+        bool IsPanel();
+
+        /// <summary>
+        /// Check is E³.Redliner feature enabled
+        /// </summary>
+        /// <returns></returns>
+        bool IsRedliner();
+
+        /// <summary>
+        /// Check is E³.Schematic feature enabled
+        /// </summary>
+        /// <returns></returns>
+        bool IsSchema();
+
+        /// <summary>
+        /// The following COM method is available to check whether an application is already running in a project
+        /// Note: To check and see if another script is running, no E³.series COM objects, except the application object, must be defined in the script which executes the IsScriptRunning call.If necessary, existing objects may have to be first released.
+        /// </summary>
+        /// <returns>Returns 'true', when E³.series COM objects are generated, regardless of whether they were generated in the executing script or another one. Otherwise, the return value is 'false'.</returns>
+        bool IsScriptRunning();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsSmallBusiness();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsStudent();
+
+        /// <summary>
+        /// Check is E³.Viewer feature enabled
+        /// </summary>
+        /// <returns></returns>
+        bool IsViewer();
+
+        /// <summary>
+        /// Check is E³.ViewerPlus feature enabled
+        /// </summary>
+        /// <returns></returns>
+        bool IsViewPlus();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsWago();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsWagoDemo();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsWire();
+
+        [Obsolete("Unknown Method", false)]
+        bool IsWireWorks();
+
+        /// <summary>
+        /// Maximize the application's display window
+        /// </summary>
+        /// <returns></returns>
         int Maximize();
+
+        /// <summary>
+        /// Minimize the application's display window
+        /// </summary>
+        /// <returns></returns>
         int Minimize();
-        int PutError(int ok, string text, int item = 0);
+
+        /// <summary>
+        /// Writes message to the program's output window. The output line starts either with an "E - ". 
+        /// Errors are written in red.
+        /// </summary>
+        /// <param name="wait">wait indicates whether an additional message box should appear (wait='true')</param>
+        /// <param name="text"></param>
+        /// <param name="itemId">Id of the item for hyperlink</param>
+        /// <returns></returns>
+        int PutError(bool wait, string text, int itemId = 0);
+
         int PutInfo(int ok, string text, int item = 0);
         int PutMessage(string text, int item = 0);
         int PutMultiuserLogMessage(string source, string text);
