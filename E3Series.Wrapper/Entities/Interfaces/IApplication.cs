@@ -333,8 +333,9 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// Return value is the definition of the 'Print crop marks' option
         /// </summary>
         /// <returns></returns>
-        int GetPrintCropMarks();
+        bool GetPrintCropMarks();
 
+        // TODO: convert return value to struct
         /// <summary>
         /// Returns the current colour setting 
         /// </summary>
@@ -344,6 +345,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// </returns>
         int GetPrinterColour();
 
+        // TODO: convert return value to struct
         /// <summary>
         /// Returns the current line width setting
         /// </summary>
@@ -515,6 +517,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <returns></returns>
         string GetTranslatedText(string text, string language);
 
+        // TODO: convert parameter 'name' to enum
         /// <summary>
         /// Get file name for trigger
         /// </summary>
@@ -706,53 +709,433 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// Errors are written in red.
         /// </summary>
         /// <param name="wait">wait indicates whether an additional message box should appear (wait='true')</param>
-        /// <param name="text"></param>
+        /// <param name="text">Message text</param>
         /// <param name="itemId">Id of the item for hyperlink</param>
         /// <returns></returns>
         int PutError(bool wait, string text, int itemId = 0);
 
-        int PutInfo(int ok, string text, int item = 0);
-        int PutMessage(string text, int item = 0);
+        /// <summary>
+        /// Writes message to the program's output window. The output line starts either with an "I - ". 
+        /// </summary>
+        /// <param name="wait">wait indicates whether an additional message box should appear (wait='true')</param>
+        /// <param name="text">Message text</param>
+        /// <param name="itemId">Id of the item for hyperlink</param>
+        /// <returns></returns>
+        int PutInfo(bool wait, string text, int itemId = 0);
+
+        /// <summary>
+        /// Writes message to the program's output window.
+        /// </summary>
+        /// <param name="text">Message text</param>
+        /// <param name="itemId">Id of the item for hyperlink</param>
+        int PutMessage(string text, int itemId = 0);
+
+        [Obsolete("Unknown Method", false)]
         int PutMultiuserLogMessage(string source, string text);
-        int PutVerify(int ok, string text, int item = 0);
-        int PutWarning(int ok, string text, int item = 0);
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Generates a message in the Results Window, depending on the current verification setting, as information, warning or error. 
+        /// These messages are also output in the end results. 
+        /// This method can only be executed in scripts configured using XML files and only last while the check (Verify) is running.
+        /// </summary>
+        /// <param name="wait">wait indicates whether an additional message box should appear (wait='true')</param>
+        /// <param name="text">Message text</param>
+        /// <param name="itemId">Id of the item for hyperlink</param>
+        /// <returns></returns>
+        int PutVerify(bool wait, string text, int itemId = 0);
+
+        /// <summary>
+        /// Writes message to the program's output window. The output line starts either with an "W - ". 
+        /// Warning are written in red.
+        /// </summary>
+        /// <param name="wait">wait indicates whether an additional message box should appear (wait='true')</param>
+        /// <param name="text">Message text</param>
+        /// <param name="itemId">Id of the item for hyperlink</param>
+        /// <returns></returns>
+        int PutWarning(bool wait, string text, int itemId = 0);
+
+        /// <summary>
+        /// Immediately stops the execution of a script and releases all previously allocated objects.
+        /// </summary>
+        /// <returns></returns>
         int Quit();
+
+        /// <summary>
+        /// Available since Build 2011-1000
+        /// Reset counter of Errors
+        /// The return value is the counter reading before resetting.  
+        /// </summary>
+        /// <returns></returns>
         int ResetErrorCount();
+
+        /// <summary>
+        /// Available since Build 2011-1000
+        /// Reset counter of Infos
+        /// The return value is the counter reading before resetting.
+        /// </summary>
+        /// <returns></returns>
         int ResetInfoCount();
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Resets the verify counter
+        /// This method can only be executed in scripts configured using XML files and only last while the check (Verify) is running.
+        /// </summary>
+        /// <returns></returns>
         int ResetVerifyCount();
+
+        /// <summary>
+        /// Available since Build 2011-1000
+        /// Reset counter of Warnings
+        /// The return value is the counter reading before resetting.  
+        /// </summary>
+        /// <returns></returns>
         int ResetWarningCount();
+
+        /// <summary>
+        /// Executes the specified script in the internal script interpreter. The method only ends if the script has been completely run. 
+        /// Within an internally running script no additional scripts can be started with e3.Run(). 
+        /// </summary>
+        /// <param name="filename">Name of the script to be executed
+        /// This name may also contain DOS variable names(embedded in %-signs).
+        /// The file extension must be either.VBS or.VBX.</param>
+        /// <param name="arguments">is a VBS array (starting with Index 0) of strings, which are transferred to the executed script.</param>
+        /// <returns>Is an integer return, which was set by the method e3.SetScriptReturn()while executing</returns>
         int Run(string filename, ref object arguments);
+
+        /// <summary>
+        /// Returns the handed over parameters as an array of strings for internal running scripts.
+        /// </summary>
+        /// <returns></returns>
         object ScriptArguments();
+
+        /// <summary>
+        /// The object variable WScript is automatically connected with the E³ application object in the internally running engine. 
+        /// To differentiate, whether a script is internally or externally running, the WScript.FullName method has already been implemented, which returns the "E³.series" string in case of the internal engine:
+        /// <code>
+        /// If(InStr( WScript.FullName, "E³" ) ) Then
+        ///    Set e3 = WScript                           ' internal
+        /// Else
+        ///    Set e3 = CreateObject( "CT.Application" )  ' external
+        /// End If
+        /// </code>
+        /// There are, however, many situations in which it is important to know, from where the currently running script has been loaded. To do so, the engine of the external WSCRIPT or CSCRIPT hosts offers the 
+        /// WScript.ScriptFullName and
+        /// WScript.ScriptName
+        /// methods.Especially when working with many general sub-routines, it is common practise to derive the desired function from the script's name. Thus, these methods are now supported. 
+        /// </summary>
+        /// <returns></returns>
         string ScriptFullName();
+
+        /// <summary>
+        /// The object variable WScript is automatically connected with the E³ application object in the internally running engine. 
+        /// To differentiate, whether a script is internally or externally running, the WScript.FullName method has already been implemented, which returns the "E³.series" string in case of the internal engine:
+        /// <code>
+        /// If(InStr( WScript.FullName, "E³" ) ) Then
+        ///    Set e3 = WScript                           ' internal
+        /// Else
+        ///    Set e3 = CreateObject( "CT.Application" )  ' external
+        /// End If
+        /// </code>
+        /// There are, however, many situations in which it is important to know, from where the currently running script has been loaded. To do so, the engine of the external WSCRIPT or CSCRIPT hosts offers the 
+        /// WScript.ScriptFullName and
+        /// WScript.ScriptName
+        /// methods.Especially when working with many general sub-routines, it is common practise to derive the desired function from the script's name. Thus, these methods are now supported. 
+        /// </summary>
+        /// <returns></returns>
         string ScriptName();
-        int SelectComponentFromTable(ref object ComponentName, ref object ComponentVersion);
+
+        // TODO: Convert to return array
+        /// <summary>
+        /// Available since Build 2012-1100
+        /// Using this command the Component Table can be called up. Therein a component can be selected, whose name and version are returned. 
+        /// In the Component Table context menu only the two commands 'Cancel' and 'Select Component' are active. After selecting one of the commands, the dialog closes.
+        /// </summary>
+        /// <param name="componentName"></param>
+        /// <param name="componentVersion"></param>
+        /// <returns></returns>
+        int SelectComponentFromTable(ref object componentName, ref object componentVersion);
+
+        /// <summary>
+        /// To define and activate current database.
+        /// Defines all three databases (configuration, component and symbol), in which interactively only the database name is defined. 
+        /// Thus the configuration is not immediately updated.Therefore use prj.UpdateConfiguration(). 
+        /// </summary>
+        /// <param name="dbname"></param>
+        /// <returns></returns>
         int SetActualDatabase(string dbname);
-        int SetDefinedDatabaseConnectionStrings(string dbname, string cmp_cs, string sym_cs, string cnf_cs);
-        int SetEnableInteractiveDialogs(int value);
+
+        /// <summary>
+        /// Configured connection strings are stored in a combined definition. Thus it is possible to handle the complete interactive definition using a script. 
+        /// Using this call it is possible to change an existing definition in the registry (in case dbname already exists) or to create a database definition. dbname is valid for all databases.
+        /// sym_cs and cnf_cs can be empty in both cases (may however not miss). When changing, the definition of the symbol and/or configuration database is not adjusted.
+        ///  When adding, the component database is interpreted as symbol and/or configuration database.
+        /// The connection strings of both calls contain with SQL databases a table in form of 
+        /// Form; Table Schema=name
+        /// This has to be considered, when the connection string in the script is used for building up a database connection.In this case, this part has to be removed from the connection string.
+        /// </summary>
+        /// <param name="dbname"></param>
+        /// <param name="cmpCs"></param>
+        /// <param name="symCs"></param>
+        /// <param name="cnfCs"></param>
+        /// <returns></returns>
+        int SetDefinedDatabaseConnectionStrings(string dbname, string cmpCs, string symCs, string cnfCs);
+
+        /// <summary>
+        /// There are situations in which a user wants to permit explicit (modal) dialogs because certain scripts can only run interactively (also in the presence of the user).  
+        /// Changes the current setting. The current value is returned before it's changed. 
+        /// The setting remains permanently(also if a script closes). The default setting is 0 when starting E³.series(dialogs switched off). 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        int SetEnableInteractiveDialogs(bool value);
+
+        /// <summary>
+        /// This COM call is available for changing the language database (e.g. for automated outputs)
+        /// When no project is opened, the language database is simply changed using HKCU\Software\Zuken\E3.series\Version\Databases\Languages.
+        /// When the defined languages, which no longer exist in the new language database, are deleted from Settings... in an open project and all translatable texts are again output.
+        /// </summary>
+        /// <param name="dbname"></param>
+        /// <returns></returns>
         int SetLanguageDatabase(string dbname);
+
+        // TODO: Make parameter enum instead int
+        /// <summary>
+        /// Defines the log file name logfile of an Output window and closes the previous log file. 
+        /// logfile can also contain environment variables, which will be dissolved afterwards.
+        /// </summary>
+        /// <param name="logfile">logfile must contain a complete and valid path.This path can be relative or absolute. 
+        /// logfile can also contain environment variables, which will be dissolved afterwards.</param>
+        /// <param name="index">index is an optional parameter(default value = 0):  
+        /// Index 0: Log file of the message window
+        /// Index 1: Log file of the results window</param>
+        /// <returns>Return value when succussfully executed is 1, otherwise 0</returns>
         int SetLogfileName(string logfile, int index = 0);
-        int SetModalWindow(ref object hWnd);
-        int SetPrintCropMarks(int set);
-        int SetPrinterCollate(int col);
+
+        /// <summary>
+        /// Using the following methods to handle a modal dialog for external programs.
+        /// </summary>
+        /// <param name="hWnd">
+        /// If hWnd  is a window handle of window of an external program, this window is set as modal "in front of" E³.series.E³.series itself is then blocked.If the "foreign" window is iconifized E³.series disappears from the monitor.If E³.series (or the other window) appears again, then E³.series and the other window are displayed again.Whereas the other window is displayed "in front of" E³.series.This means the other window is displayed as a model dialog from E³.series.
+        //  If hWnd = IntPtr.Zero the connection to any other window of E³.series is cancelled.This means that the user can continue work in E³.series as normal.
+        /// </param>
+        /// <returns>The return value ok is either 1 (successful) or 0 (not successful). If hWnd = 0 and E³.series doesn't display any other modal window, 1 is also returned.</returns>
+        int SetModalWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Enable or disable 'Print crop marks' option
+        /// </summary>
+        /// <param name="set">New value for the definition of the 'Print crop marks' option</param>
+        /// <returns>Return value is the previous setting</returns>
+        bool SetPrintCropMarks(bool set);
+
+        /// <summary>
+        ///  If more than one copy is to be sento the printer as one print job, e3.SetPrinterCollate defines the sort order for the pages.
+        /// </summary>
+        /// <param name="col">
+        /// Use the following sort codes: 
+        /// true: 1-2-3 1-2-3 
+        /// false: 1-1 2-2 3-3 
+        /// </param>
+        /// <returns>Return value is the previous setting</returns>
+        bool SetPrinterCollate(bool col);
+
+        // TODO: convert return value to enum
+        /// <summary>
+        /// Defines the new colour setting (black and white only or use colours as drawn on sheets)
+        /// </summary>
+        /// <param name="colour">
+        /// -1 means: use colours as drawn on sheets 
+        /// 0: use only black and white
+        /// </param>
+        /// <returns></returns>
         int SetPrinterColour(int colour);
+
+        /// <summary>
+        /// Use e3.SetPrinterCopies to define the number of copies and the following sht.PrintOut commands will send n copies to the printer as one print job. 
+        /// </summary>
+        /// <param name="copies">Number of copies</param>
+        /// <returns></returns>
         int SetPrinterCopies(int copies);
+
+        // TODO: convert return and parameter value to enum
+        /// <summary>
+        /// Defines the new line width setting. Values other than those described above are not yet valid. 
+        /// </summary>
+        /// <param name="linewidth">
+        /// -1 means: use line width as defined on sheets and scale them according to scaling parameters of methods prj.PrintOut and sht.PrintOut 
+        /// 0: use line width on sheets but ignore scaling parameters</param>
+        /// <returns></returns>
         double SetPrinterLinewidth(double linewidth);
+
+        // TODO: convert parameter value to struct
+        /// <summary>
+        /// Set the margin settings: top, bottom, left, right in the predefined unit of measure.
+        /// </summary>
+        /// <param name="top"></param>
+        /// <param name="bottom"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         int SetPrinterMargins(double top, double bottom, double left, double right);
+
+        /// <summary>
+        ///  Defines the new default printer.
+        /// </summary>
+        /// <param name="name">The name must be entered as a string and match one of the installed Windows printers' names.
+        /// To use a network printer, specify its name in the format
+        /// \\computer\printerservicename</param>
+        /// <returns></returns>
         int SetPrinterName(string name);
-        int SetPrintPageNumbers(int set);
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Enable or disable 'Print page numbers' option
+        /// </summary>
+        /// <param name="set"></param>
+        /// <returns>Return value is the previous setting</returns>
+        bool SetPrintPageNumbers(bool set);
+
+        // TODO: convert return and parameters values to enum instead of int
+        /// <summary>
+        /// Available since Build 2011-1020
+        /// Set print sheet order
+        /// </summary>
+        /// <returns></returns>
         int SetPrintSheetOrder(int set);
-        int SetPrintSplitPages(int set);
-        int SetProjectLifecycle(string project, string lifecycle);
+
+        /// <summary>
+        /// Available since Build 2011-1010
+        /// Enable or disable 'Select pages' option
+        /// </summary>
+        /// <param name="set"></param>
+        /// <returns>Return value is the previous setting</returns>
+        bool SetPrintSplitPages(bool set);
+
+        /// <summary>
+        /// Set new lifecycle to given project
+        /// Note: After changing the lifecycle, new permissions are valid, that may result in the project no longer being able to be edited.
+        /// Users of another group can edit it now and change its lifecycle.
+        /// </summary>
+        /// <param name="project">Project name</param>
+        /// <param name="lifecycle">lifecycle = changes the lifecycle of given project, if lifecycle is a valid string</param>
+        /// <returns></returns>
+        bool SetProjectLifecycle(string project, string lifecycle);
+
+        /// <summary>
+        /// This method can be used to manipulate the return value. The default return value is 0. 
+        /// </summary>
+        /// <param name="value">value is the new return value to be defined</param>
+        /// <returns>The previous value that was set before with e3.SetScriptReturn()</returns>
         int SetScriptReturn(int value);
-        int SetTemplateFile(string templatefilename);
-        int SetTemplateFileDBE(string templatefilename);
+
+        /// <summary>
+        /// Define the template file (Settings... -> General -> Initial settings can be read from a file.) in project mode.
+        /// </summary>
+        /// <param name="templatefilename">Defines the file name templatefilename of the template file, which is used when creating new projects</param>
+        /// <returns></returns>
+        bool SetTemplateFile(string templatefilename);
+
+        /// <summary>
+        /// Define the template file (Settings... -> General -> Initial settings can be read from a file.) in DBE mode:
+        /// </summary>
+        /// <param name="templatefilename">Defines the file name templatefilename of the template file, which is used when creating new projects</param>
+        /// <returns></returns>
+        bool SetTemplateFileDBE(string templatefilename);
+
+        [Obsolete("Unknown Method", false)]
         int SetTestMark(int num, int value);
+
+        // TODO: convert parameter 'name' to enum
+        // TODO: convert parameter 'active' and return values to enum
+        /// <summary>
+        /// Defines 'filename' as trigger 'name'. 'active' defines, whether the trigger is to be activated.
+        /// </summary>
+        /// <param name="name">Must always be defined. All trigger names are allowed that can be defined in the Registry.</param>
+        /// <param name="filename">Must not be defined, when a trigger shall be activated or deactivated and the file name is already common from the registry or previous SetTrigger calls.</param>
+        /// <param name="active">
+        /// 0: deactivates a trigger (however, remembers the file name and file contents). 
+        /// 1: activates an either known trigger or a new file defined through 'filename'.
+        /// 2: activates an either known trigger or a new file defined through 'filename', however reloads the file even if the file name hasn't changed.
+        /// =-1: permanently deletes a trigger(forgets the file name and file contents), when no 'filename' is defined.When a 'filename' is defined, its contents are re-read.In this case, the old state of the 'active' designation of the trigger remains unchanged.
+        /// </param>
+        /// <returns>The return value is the state of the 'active' flag before it might be realized (usually 0 or 1). When a defined 'filename' name is not readable, -1 is returned.When an invalid trigger 'name' is defined, -2 is returned.When the registry key EnableTriggerModifications doesn't exist or is 0, -3 is returned.</returns>
         int SetTrigger(string name, string filename, int active);
+
+        /// <summary>
+        /// Set trigger return value. 
+        /// </summary>
+        /// <param name="value">Value     -    symbolic name in Visual Basic/Visual Basic Script
+        /// 1 - vbOK 
+        /// 2 - vbCancel 
+        /// 3 - vbAbort 
+        /// 4 - vbRetry 
+        /// 5 - vbIgnore 
+        /// 6 - vbYes 
+        /// 7 - vbNo</param>
+        /// <returns> When no trigger is active at the time of calling, the return value is always 0 and no value is defined.
+        /// Otherwise, the return value is value last defined for the trigger.
+        /// When the trigger return value is not yet defined in the active trigger, the trigger's default value is returned (see description of the individual triggers). 
+        /// </returns>
         int SetTriggerReturn(int value);
-        int SetUseSheetOrientation(int set);
+
+        /// <summary>
+        /// Enable or disable 'Use sheet orientation' option in the Print dialog.
+        /// </summary>
+        /// <param name="set">If this option is checked (default setting), the printer's settings are ignored and the orientation is used depending on the sheet format. </param>
+        /// <returns>Return value is the previous setting</returns>
+        bool SetUseSheetOrientation(bool set);
+
+        /// <summary>
+        /// Handling application's display window: displays it in 'normal mode' and 'not in full screen mode'.
+        /// </summary>
+        /// <returns></returns>
         int ShowNormal();
+
+        /// <summary>
+        /// Stops execution of script for specified number of msec milliseconds.
+        /// </summary>
+        /// <param name="msec"></param>
+        /// <returns></returns>
         int Sleep(int msec);
+
+        /// <summary>
+        /// Sorts the lines of a two-dimensional array, first by column 'sortindex1' and then all rows with the same value using 'sortindex2'. 
+        /// In complex strings only the numeric part will be sorted, alphanumeric parts will be ignored.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="rows">rows gives the number of lines(rows).</param>
+        /// <param name="columns">columns gives the number of columns.</param>
+        /// <param name="sortindex1">sortindex1 column number for first sorting.</param>
+        /// <param name="sortindex2">sortindex2 column number for second sorting. If sortindex2 is less than 1, the second sorting event will be ignored.</param>
+        /// <returns></returns>
         int SortArrayByIndex(ref object array, int rows, int columns, int sortindex1, int sortindex2);
+
+        /// <summary>
+        /// SortArrayByIndexEx( array, options ) sorts the 1 or 2 dimensional array according to options.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="options">
+        /// options is arranged as follows: 
+        /// options is a 2 dimensional array with n-lines and 3 columns.
+        /// for each column according to which the array should be sorted, one line has to be in options.
+        /// The first column of options contains the index of the column, according to which it should be sorted.
+        /// The second column contains a sorting algorithm: 
+        /// "0": for easy sorting(enough for numbers and easy strings).
+        /// "1": more complex sorting.
+        ///    E.g.before sorting: F1, F10, F1.1, F11, F2, F1.10, F1.11, F1.2... 
+        ///    After sorting: F1, F1.1, F1.10, F1.11, F1.2, F2, F10, F11,...
+        /// "2": tree sorting.
+        ///    E.g.before sorting: F1, F10, F1.1, F11, F2, F1.10, F1.11, F1.2... 
+        ///    After sorting: F1, F1.1, F1.2, F1.10, F1.11, F2, F10, F11,... 
+        /// The third column displays whether it should be sorting ascending or descending: 
+        /// "0": ascending
+        /// "1": descending
+        /// Note: The column's index starts with 1.
+        /// </param>
+        /// <returns>Return value when successful: "1", otherwise "0"</returns>
         int SortArrayByIndexEx(ref object array, ref object options);
     }
 }

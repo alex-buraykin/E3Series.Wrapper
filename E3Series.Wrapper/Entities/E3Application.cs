@@ -274,9 +274,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.GetPluginObject(ref plugin);
         }
 
-        public int GetPrintCropMarks()
+        public bool GetPrintCropMarks()
         {
-            return ComObject.GetPrintCropMarks();
+            return ComObject.GetPrintCropMarks() == 1;
         }
 
         public int GetPrinterColour()
@@ -595,14 +595,14 @@ namespace E3Series.Wrapper.Entities
             return ComObject.PutError(wait ? 1 : 0, text, itemId);
         }
 
-        public int PutInfo(int ok, string text, int item = 0)
+        public int PutInfo(bool wait, string text, int itemId = 0)
         {
-            return ComObject.PutInfo(ok, text, item);
+            return ComObject.PutInfo(wait ? 1 : 0, text, itemId);
         }
 
-        public int PutMessage(string text, int item = 0)
+        public int PutMessage(string text, int itemId = 0)
         {
-            return ComObject.PutMessage(text, item);
+            return ComObject.PutMessage(text, itemId);
         }
 
         public int PutMultiuserLogMessage(string source, string text)
@@ -610,14 +610,14 @@ namespace E3Series.Wrapper.Entities
             return ComObject.PutMultiuserLogMessage(source, text);
         }
 
-        public int PutVerify(int ok, string text, int item = 0)
+        public int PutVerify(bool wait, string text, int itemId = 0)
         {
-            return ComObject.PutVerify(ok, text, item);
+            return ComObject.PutVerify(wait ? 1 : 0, text, itemId);
         }
 
-        public int PutWarning(int ok, string text, int item = 0)
+        public int PutWarning(bool wait, string text, int itemId = 0)
         {
-            return ComObject.PutWarning(ok, text, item);
+            return ComObject.PutWarning(wait ? 1 : 0, text, itemId);
         }
 
         public int Quit()
@@ -665,9 +665,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.ScriptName();
         }
 
-        public int SelectComponentFromTable(ref object ComponentName, ref object ComponentVersion)
+        public int SelectComponentFromTable(ref object componentName, ref object componentVersion)
         {
-            return ComObject.SelectComponentFromTable(ref ComponentName, ref ComponentVersion);
+            return ComObject.SelectComponentFromTable(ref componentName, ref componentVersion);
         }
 
         public int SetActualDatabase(string dbname)
@@ -675,14 +675,14 @@ namespace E3Series.Wrapper.Entities
             return ComObject.SetActualDatabase(dbname);
         }
 
-        public int SetDefinedDatabaseConnectionStrings(string dbname, string cmp_cs, string sym_cs, string cnf_cs)
+        public int SetDefinedDatabaseConnectionStrings(string dbname, string cmpCs, string symCs, string cnfCs)
         {
-            return ComObject.SetDefinedDatabaseConnectionStrings(dbname, cmp_cs, sym_cs, cnf_cs);
+            return ComObject.SetDefinedDatabaseConnectionStrings(dbname, cmpCs, symCs, cnfCs);
         }
 
-        public int SetEnableInteractiveDialogs(int value)
+        public int SetEnableInteractiveDialogs(bool value)
         {
-            return ComObject.SetEnableInteractiveDialogs(value);
+           return ComObject.SetEnableInteractiveDialogs(value ? 1 : 0);
         }
 
         public int SetLanguageDatabase(string dbname)
@@ -695,19 +695,19 @@ namespace E3Series.Wrapper.Entities
             return ComObject.SetLogfileName(logfile, index);
         }
 
-        public int SetModalWindow(ref object hWnd)
+        public int SetModalWindow(IntPtr hWnd)
         {
             return ComObject.SetModalWindow(ref hWnd);
         }
 
-        public int SetPrintCropMarks(int set)
+        public bool SetPrintCropMarks(bool set)
         {
-            return ComObject.SetPrintCropMarks(set);
+            return ComObject.SetPrintCropMarks(set ? 1 : 0) == 1;
         }
 
-        public int SetPrinterCollate(int col)
+        public bool SetPrinterCollate(bool col)
         {
-            return ComObject.SetPrinterCollate(col);
+            return ComObject.SetPrinterCollate(col ? 1 : 0) == 1;
         }
 
         public int SetPrinterColour(int colour)
@@ -735,9 +735,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.SetPrinterName(name);
         }
 
-        public int SetPrintPageNumbers(int set)
+        public bool SetPrintPageNumbers(bool set)
         {
-            return ComObject.SetPrintPageNumbers(set);
+            return ComObject.SetPrintPageNumbers(set ? 1 : 0) == 1;
         }
 
         public int SetPrintSheetOrder(int set)
@@ -745,14 +745,14 @@ namespace E3Series.Wrapper.Entities
             return ComObject.SetPrintSheetOrder(set);
         }
 
-        public int SetPrintSplitPages(int set)
+        public bool SetPrintSplitPages(bool set)
         {
-            return ComObject.SetPrintSplitPages(set);
+            return ComObject.SetPrintSplitPages(set ? 1 : 0) == 1;
         }
 
-        public int SetProjectLifecycle(string project, string lifecycle)
+        public bool SetProjectLifecycle(string project, string lifecycle)
         {
-            return ComObject.SetProjectLifecycle(project, lifecycle);
+            return ComObject.SetProjectLifecycle(project, lifecycle) == 1;
         }
 
         public int SetScriptReturn(int value)
@@ -760,14 +760,14 @@ namespace E3Series.Wrapper.Entities
             return ComObject.SetScriptReturn(value);
         }
 
-        public int SetTemplateFile(string templatefilename)
+        public bool SetTemplateFile(string templatefilename)
         {
-            return ComObject.SetTemplateFile(templatefilename);
+            return ComObject.SetTemplateFile(templatefilename) == 1;
         }
 
-        public int SetTemplateFileDBE(string templatefilename)
+        public bool SetTemplateFileDBE(string templatefilename)
         {
-            return ComObject.SetTemplateFileDBE(templatefilename);
+            return ComObject.SetTemplateFileDBE(templatefilename) == 1;
         }
 
         public int SetTestMark(int num, int value)
@@ -785,9 +785,9 @@ namespace E3Series.Wrapper.Entities
             return ComObject.SetTriggerReturn(value);
         }
 
-        public int SetUseSheetOrientation(int set)
+        public bool SetUseSheetOrientation(bool set)
         {
-            return ComObject.SetUseSheetOrientation(set);
+            return ComObject.SetUseSheetOrientation(set ? 1 : 0) == 1;
         }
 
         public int ShowNormal()
