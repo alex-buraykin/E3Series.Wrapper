@@ -41,7 +41,11 @@
     <Compile Include="Entities\Base\Interfaces\IComObject.cs" />
     <Compile Include="Entities\Base\Interfaces\IComObjectProvider.cs" />
     <Compile Include="Entities\E3Application.cs" />
+    <Compile Include="Entities\E3Job.cs" />
+    <Compile Include="Entities\Extensions\EntityExtensions.cs" />
     <Compile Include="Entities\Interfaces\IApplication.cs" />
+    <Compile Include="Entities\Interfaces\IJob.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IConnector.cs" />
     <Compile Include="Interfaces\IConnectorSelectionDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

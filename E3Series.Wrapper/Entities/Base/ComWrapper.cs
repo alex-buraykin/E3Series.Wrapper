@@ -19,7 +19,7 @@ namespace E3Series.Wrapper.Entities.Base
 
         #endregion
 
-        #region Internal Fields
+        #region Public Fields
 
         /// <summary>
         /// Wrapped COM object
