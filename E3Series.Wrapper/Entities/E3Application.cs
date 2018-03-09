@@ -8,21 +8,17 @@ using E3Series.Wrapper.Entities.Interfaces;
 
 namespace E3Series.Wrapper.Entities
 {
+    /// <inheritdoc cref="ComWrapperBase" />
+    /// <inheritdoc cref="IApplication" />
     /// <summary>
     /// Implementation of IApplication interface
     /// </summary>
-    public class E3Application : ComWrapper, IApplication
+    public class E3Application : ComWrapperBase, IApplication
     {
-        #region Constructor
-
         protected internal E3Application(object comObject)
             : base(null, () => comObject)
         {
         }
-
-        #endregion
-
-        #region IApplication Members
 
         public int AvoidAutomaticClosing(bool avoid = true)
         {
@@ -164,8 +160,7 @@ namespace E3Series.Wrapper.Entities
 
         public ReadOnlyCollection<string> GetDefinedDatabases()
         {
-            object dbnames;
-            ComObject.GetDefinedDatabases(out dbnames);
+            ComObject.GetDefinedDatabases(out object dbnames);
 
             return new ReadOnlyCollection<string>(dbnames.CastToIEnumerable<string>().ToList());
         }
@@ -250,8 +245,7 @@ namespace E3Series.Wrapper.Entities
 
         public KeyValuePair<int, string> GetMultiuserFolderPath()
         {
-            object path;
-            var id = ComObject.GetMultiuserFolderPath(out path);
+            var id = ComObject.GetMultiuserFolderPath(out object path);
 
             return new KeyValuePair<int, string>(id, (string) path);
         }
@@ -809,7 +803,5 @@ namespace E3Series.Wrapper.Entities
         {
             return ComObject.SortArrayByIndexEx(ref array, ref options);
         }
-
-        #endregion
     }
 }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Interop\WinApi.cs" />
     <Compile Include="WpfConnector.cs" />
     <Compile Include="Models\RunningApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

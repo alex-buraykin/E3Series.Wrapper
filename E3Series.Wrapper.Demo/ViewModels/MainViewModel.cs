@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using E3Series.Wrapper.Demo.Views;
 using E3Series.Wrapper.Entities.Interfaces;
 using E3Series.Wrapper.Interfaces;
@@ -10,47 +11,38 @@ namespace E3Series.Wrapper.Demo.ViewModels
 {
     public class MainViewModel : ViewModelBase<MainWindow>
     {
-        #region Private Fields
-
         private readonly IConnector _connector = new WpfConnector();
-        private ICommand _connectCommand;
         private IApplication _app;
-        private ICommand _disconnectCommand;
 
-        #endregion
+        public ICommand ConnectCommand { get; private set; }
+        public ICommand DisconnectCommand { get; private set; }
 
-        #region Constructor
-
-        public MainViewModel() : base(new MainWindow())
+        public MainViewModel() 
+            : base(new MainWindow())
         {
+            CreateCommands();
         }
 
-        #endregion
-
-        #region Commands
-
-        public ICommand ConnectCommand
+        private void CreateCommands()
         {
-            get
-            {
-                return _connectCommand ??
-                       (_connectCommand = new RelayCommand(() => { _app = _connector.Connect(); }, () => _app == null));
-            }
+            ConnectCommand = new RelayCommand(OnConnect,
+                () => _app == null);
+            DisconnectCommand = new RelayCommand(OnDisconnect,
+                () => _app != null);
         }
 
-        public ICommand DisconnectCommand
+        private void OnConnect()
         {
-            get
-            {
-                return _disconnectCommand ??
-                       (_disconnectCommand = new RelayCommand(() =>
-                       {
-                           _app.Dispose();
-                           _app = null;
-                       }, () => _app != null));
-            }
+            _app = _connector.Connect();
+
+            if (_app == null)
+                MessageBox.Show("Unable to connect to E3series COM", "Error");
         }
 
-        #endregion
+        private void OnDisconnect()
+        {
+            _app.Dispose();
+            _app = null;
+        }
     }
 }

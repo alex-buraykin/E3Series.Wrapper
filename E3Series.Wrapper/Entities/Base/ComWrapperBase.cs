@@ -6,24 +6,34 @@ using E3Series.Wrapper.Entities.Base.Interfaces;
 
 namespace E3Series.Wrapper.Entities.Base
 {
+    /// <inheritdoc cref="IComObject" />
+    /// <inheritdoc cref="IComObjectProvider" />
     /// <summary>
     /// Base class for all classes-wrappers of E3.series COM objects
     /// </summary>
-    public abstract class ComWrapper : IComObject, IComObjectProvider
+    public abstract class ComWrapperBase : IComObject, IComObjectProvider
     {
-        #region Private Fields
-
         private readonly List<IComObject> _children;
         private object _comObject;
         private bool _disposed;
 
-        #endregion
+        /// <inheritdoc />
+        public IComObject Parent { get; }
 
-        #region Public Fields
+        protected ComWrapperBase(IComObject parent, Func<object> createAction)
+        {
+            Parent = parent;
+            _children = new List<IComObject>();
 
+            Parent?.RegisterChild(this);
+
+            _comObject = createAction.Invoke();
+        }
+
+        /// <inheritdoc />
         /// <summary>
         /// Wrapped COM object
-        /// <exception cref="ObjectDisposedException"/>
+        /// <exception cref="T:System.ObjectDisposedException" />
         /// </summary>
         public dynamic ComObject
         {
@@ -34,37 +44,19 @@ namespace E3Series.Wrapper.Entities.Base
             }
         }
 
-        #endregion
-
-        #region Constructor
-
-        protected ComWrapper(IComObject parent, Func<object> createAction)
-        {
-            Parent = parent;
-            _children = new List<IComObject>();
-
-            if (Parent != null)
-                Parent.RegisterChild(this);
-
-            _comObject = createAction.Invoke();
-        }
-
-        #endregion
-
-        #region IComObject Members
-
-        public IComObject Parent { get; private set; }
-
+        /// <inheritdoc />
         public void RegisterChild(IComObject child)
         {
             _children.Add(child);
         }
 
+        /// <inheritdoc />
         public void UnregisterChild(IComObject child)
         {
             _children.Remove(child);
         }
 
+        /// <inheritdoc />
         public void ReleaseComObject()
         {
             if (_comObject != null)
@@ -73,25 +65,24 @@ namespace E3Series.Wrapper.Entities.Base
             _comObject = null;
         }
 
+        /// <inheritdoc />
         public bool HasChild(Type childType)
         {
             return GetChild(childType) != null;
         }
 
+        /// <inheritdoc />
         public IComObject GetChild(Type childType)
         {
             return _children.FirstOrDefault(o => o.GetType() == childType);
         }
 
-        #endregion
-
-        #region IDisposable Members
-
+        /// <inheritdoc />
         /// <summary>
         /// <para>Releases COM object.</para>
-        /// <para>Calling <see cref="Dispose()"/> makes object disposed. 
-        /// Any subsequent call on any method except <see cref="Dispose()"/> would throw 
-        /// an <see cref="ObjectDisposedException"/>.</para>
+        /// <para>Calling <see cref="M:E3Series.Wrapper.Entities.Base.ComWrapperBase.Dispose" /> makes object disposed. 
+        /// Any subsequent call on any method except <see cref="M:E3Series.Wrapper.Entities.Base.ComWrapperBase.Dispose" /> would throw 
+        /// an <see cref="T:System.ObjectDisposedException" />.</para>
         /// </summary>
         public void Dispose()
         {
@@ -107,8 +98,7 @@ namespace E3Series.Wrapper.Entities.Base
             if (disposing)
             {
                 // Release from parent object
-                if (Parent != null)
-                    Parent.UnregisterChild(this);
+                Parent?.UnregisterChild(this);
 
                 // Release child objects
                 try
@@ -135,7 +125,5 @@ namespace E3Series.Wrapper.Entities.Base
         {
             if (_disposed) throw new ObjectDisposedException(GetType().ToString());
         }
-
-        #endregion
     }
 }

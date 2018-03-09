@@ -13,6 +13,6 @@ namespace E3Series.Wrapper.Interfaces
         /// <param name="processes">List of running E3.series instances</param>
         /// <param name="selectedProcess">Return selected instance</param>
         /// <returns></returns>
-        bool ShowDialog(Dictionary<int, object> processes, out object selectedProcess);
+        bool ShowDialog(IDictionary<int, object> processes, out object selectedProcess);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace E3Series.Wrapper.Entities.Base.Interfaces
 {
+    /// <inheritdoc />
     /// <summary>
     /// Generic interface for all class-wrappers with readonly access to ComObject field
     /// </summary>
@@ -10,7 +11,7 @@ namespace E3Series.Wrapper.Entities.Base.Interfaces
         /// <summary>
         /// Wrapped E3series COM object
         /// </summary>
-        [Obsolete("Use wrapped methods instead", false)]
+        [Obsolete("Use wrapped methods whenever possible", false)]
         dynamic ComObject { get; }
     }
 }

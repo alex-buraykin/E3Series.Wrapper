@@ -3,6 +3,7 @@ using E3Series.Wrapper.Demo.ViewModels;
 
 namespace E3Series.Wrapper.Demo
 {
+    /// <inheritdoc />
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

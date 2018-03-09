@@ -8,7 +8,8 @@
         Title="E3Series.Wrapper - Demo" 
         Height="350" Width="525"
         WindowStartupLocation="CenterScreen" 
-        d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}" Closed="Window_Closed"
+        >
     <Grid>
         <StackPanel Orientation="Vertical">
             <Expander Header="Connect to E3.series"

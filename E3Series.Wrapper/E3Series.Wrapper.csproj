@@ -35,9 +35,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseConnector.cs" />
+    <Compile Include="ConnectorBase.cs" />
     <Compile Include="Dispatcher.cs" />
-    <Compile Include="Entities\Base\ComWrapper.cs" />
+    <Compile Include="Entities\Base\ComWrapperBase.cs" />
     <Compile Include="Entities\Base\Interfaces\IComObject.cs" />
     <Compile Include="Entities\Base\Interfaces\IComObjectProvider.cs" />
     <Compile Include="Entities\E3Application.cs" />
@@ -48,6 +48,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IConnector.cs" />
     <Compile Include="Interfaces\IConnectorSelectionDialog.cs" />
+    <Compile Include="Interop\WinApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
