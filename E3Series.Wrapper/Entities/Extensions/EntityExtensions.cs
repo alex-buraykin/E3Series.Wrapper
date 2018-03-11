@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using E3Series.Proxy.Abstract;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Extensions;
 
@@ -12,8 +13,9 @@ namespace E3Series.Wrapper.Entities.Extensions
         /// A factory method for creating managed E3 API objects.
         /// </summary>
         /// <typeparam name="T">.NET public interface of E3 API object</typeparam>
+        /// <typeparam name="TProxy">Proxy class for E3.Series COM</typeparam>
         /// <returns>Managed E3 API object</returns>
-        internal static T CreateObject<T>(this ComWrapperBase entity) where T : IDisposable
+        internal static T CreateObject<T, TProxy>(this ComWrapperBase<TProxy> entity) where T : IDisposable where TProxy : E3ProxyBase
         {
             entity.GuardDisposed();
             var typeName = typeof(T).Name.ReplaceSuffix("I", "E3");

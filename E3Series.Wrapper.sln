@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Wrapper.Demo", "E3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{8E8A139F-B9D7-4E2B-B36F-EA363B4CA903}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Proxy", "E3Series.Proxy\E3Series.Proxy.csproj", "{F9F1607A-259A-41C2-9F22-7E0ADD33E284}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F1607A-259A-41C2-9F22-7E0ADD33E284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F1607A-259A-41C2-9F22-7E0ADD33E284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F1607A-259A-41C2-9F22-7E0ADD33E284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F1607A-259A-41C2-9F22-7E0ADD33E284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

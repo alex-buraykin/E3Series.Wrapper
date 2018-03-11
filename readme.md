@@ -1,6 +1,6 @@
 # E3Series.Wrapper
 
-A toolkit for simplify work with E3.series COM.
+A toolkit for simplify work with E3.series COM. Firstly generated for E3series 2015 Build 1613, but works for all versions
 
 [![Release](https://img.shields.io/github/release/alex-buraykin/E3Series.Wrapper.svg?style=flat-square)](https://github.com/alex-buraykin/E3Series.Wrapper/releases/latest)
 [![AppVeyor](https://img.shields.io/appveyor/ci/alex-buraykin/E3Series-Wrapper.svg?style=flat-square)](https://ci.appveyor.com/project/alex-buraykin/e3series-wrapper)

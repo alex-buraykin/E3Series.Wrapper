@@ -1,4 +1,5 @@
 ﻿using System;
+using E3Series.Proxy.Abstract;
 
 namespace E3Series.Wrapper.Entities.Base.Interfaces
 {
@@ -6,12 +7,11 @@ namespace E3Series.Wrapper.Entities.Base.Interfaces
     /// <summary>
     /// Generic interface for all class-wrappers with readonly access to ComObject field
     /// </summary>
-    public interface IComObjectProvider: IDisposable
+    public interface IComObjectProvider<out T>: IDisposable where T : E3ProxyBase
     {
         /// <summary>
-        /// Wrapped E3series COM object
+        /// Proxy for E3series COM object
         /// </summary>
-        [Obsolete("Use wrapped methods whenever possible", false)]
-        dynamic ComObject { get; }
+        T ComObject { get; }
     }
 }

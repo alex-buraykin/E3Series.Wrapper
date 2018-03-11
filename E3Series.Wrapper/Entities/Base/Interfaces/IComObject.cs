@@ -5,7 +5,7 @@ namespace E3Series.Wrapper.Entities.Base.Interfaces
     /// <summary>
     /// Interface for correct load/unload COM objects
     /// </summary>
-    public interface IComObject
+    public interface IComObject : IDisposable
     {
         /// <summary>
         /// Parent object
@@ -23,11 +23,6 @@ namespace E3Series.Wrapper.Entities.Base.Interfaces
         /// </summary>
         /// <param name="child">Child object</param>
         void UnregisterChild(IComObject child);
-
-        /// <summary>
-        /// Unload COM object
-        /// </summary>
-        void ReleaseComObject();
 
         /// <summary>
         /// Check child object already registered
