@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="E3Series.Proxy, Version=2015.1613.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\E3Series.Proxy.2015.1613.0\lib\net40\E3Series.Proxy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,10 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\E3Series.Proxy\E3Series.Proxy.csproj">
-      <Project>{F9F1607A-259A-41C2-9F22-7E0ADD33E284}</Project>
-      <Name>E3Series.Proxy</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
