@@ -2,6 +2,7 @@
 
 namespace E3Series.Wrapper.SelectionDialog.WPF.Views
 {
+    /// <inheritdoc cref="IDialogView" />
     /// <summary>
     /// Interaction logic for SelectionWindow.xaml
     /// </summary>

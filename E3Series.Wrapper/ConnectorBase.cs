@@ -2,29 +2,39 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using E3Series.Wrapper.Entities;
 using E3Series.Wrapper.Entities.Interfaces;
 using E3Series.Wrapper.Interfaces;
+using E3Series.Wrapper.Interop;
 
 namespace E3Series.Wrapper
 {
+    /// <inheritdoc />
     /// <summary>
     /// Entry point for this library
     /// </summary>
-    public class BaseConnector : IConnector
+    public class ConnectorBase : IConnector
     {
-        #region IConnector Members
+        private static readonly string[] Identifiers = { "E3SERI~1", "E3.series" };
 
-        /// <summary>
-        /// Connect to E3.series process
-        /// </summary>
-        /// <returns>Wrapped e3Application COM object</returns>
+        /// <inheritdoc />
         public virtual IApplication Connect()
         {
             var comObject = GetProcess();
 
-            return comObject != null ? new E3Application(comObject) : null;
+            return comObject != null 
+                ? new E3Application(comObject) 
+                : null;
+        }
+       
+        /// <inheritdoc />
+        public virtual IApplication Connect(int processId)
+        {
+            var comObject = GetProcess(processId);
+
+            return comObject != null 
+                ? new E3Application(comObject) 
+                : null;
         }
 
         /// <summary>
@@ -33,47 +43,14 @@ namespace E3Series.Wrapper
         /// <param name="connectorSelectionDialog">Implementation of Selection Dialog 
         /// (used in case of multiple running E3.series instances)</param>
         /// <returns>Wrapped e3Application COM object</returns>
-        public virtual IApplication Connect(IConnectorSelectionDialog connectorSelectionDialog)
+        protected IApplication Connect(IConnectorSelectionDialog connectorSelectionDialog)
         {
             var comObject = GetProcess(connectorSelectionDialog);
 
-            return comObject != null ? new E3Application(comObject) : null;
+            return comObject != null
+                ? new E3Application(comObject)
+                : null;
         }
-        
-        /// <summary>
-        /// Connect to E3.series process
-        /// </summary>
-        /// <param name="processId">E3.series application process id</param>
-        /// <returns>Wrapped e3Application COM object</returns>
-        public virtual IApplication Connect(int processId)
-        {
-            var comObject = GetProcess(processId);
-
-            return comObject != null ? new E3Application(comObject) : null;
-        }
-
-        #endregion
-
-        #region WinApi Imports
-
-        private enum GetWindowCmd : uint
-        {
-            GW_HWNDNEXT = 2,
-        }
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        private static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
-
-        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
-        private static extern IntPtr GetParent(IntPtr hWnd);
-
-        #endregion
 
         #region Private Methods
 
@@ -93,34 +70,32 @@ namespace E3Series.Wrapper
                 return processes.First().Value;
 
             // If multiple instances of E3.series, try to connect to foreground process
-            IntPtr hWnd = GetForegroundWindow();
-            int curPid;
-            GetWindowThreadProcessId(hWnd, out curPid);
+            var hWnd = WinApi.GetForegroundWindow();
+            WinApi.GetWindowThreadProcessId(hWnd, out var curPid);
 
             if (Process.GetProcessById(curPid).ProcessName == Assembly.GetEntryAssembly().GetName().Name)
             {
-                IntPtr targetHwnd = GetWindow(Process.GetCurrentProcess().MainWindowHandle,
-                    (uint) GetWindowCmd.GW_HWNDNEXT);
+                var targetHwnd = WinApi.GetWindow(Process.GetCurrentProcess().MainWindowHandle,
+                    (uint) WinApi.GetWindowCmd.GW_HWNDNEXT);
 
                 while (true)
                 {
-                    IntPtr temp = GetParent(targetHwnd);
+                    var temp = WinApi.GetParent(targetHwnd);
                     if (temp.Equals(IntPtr.Zero)) break;
                     targetHwnd = temp;
                 }
-                GetWindowThreadProcessId(targetHwnd, out curPid);
+                WinApi.GetWindowThreadProcessId(targetHwnd, out curPid);
             }
-            if (Process.GetProcessById(curPid).ProcessName == "E3.series")
+            if (Identifiers.Contains(Process.GetProcessById(curPid).ProcessName))
                 return GetProcess(Process.GetProcessById(curPid).Id);
 
             // If connection to foreground window fails, 
             // then show selection dialog (if exists) or throw exception
             if (connectorSelectionDialog == null)
-                throw new NotImplementedException(
+                throw new NotSupportedException(
                     "Multiple running E3.series processes. Bring needed E3.series instance on top and restart application or implement connectorSelectionDialog in your application");
 
-            object selectedProcess;
-            var result = connectorSelectionDialog.ShowDialog(processes, out selectedProcess);
+            var result = connectorSelectionDialog.ShowDialog(processes, out var selectedProcess);
             return result ? selectedProcess : null;
         }
 

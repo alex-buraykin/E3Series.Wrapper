@@ -8,14 +8,8 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.Commands
     /// </summary>
     public class RelayCommand : ICommand
     {
-        #region Private Fields
-
         private readonly Action _methodToExecute;
         private readonly Func<bool> _canExecuteEvaluator;
-
-        #endregion
-
-        #region Constructor
 
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
         {
@@ -28,14 +22,10 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.Commands
         {
         }
 
-        #endregion
-
-        #region ICommand Members
-
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public bool CanExecute(object parameter)
@@ -51,7 +41,5 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.Commands
         {
             _methodToExecute.Invoke();
         }
-
-        #endregion
     }
 }

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("E3Series.Wrapper.SelectionDialog.WPF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("WPF selection dialof for E3Series.Wrapper library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("E3Series.Wrapper.SelectionDialog.WPF")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright ©  2016 Alexey Buraykin")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

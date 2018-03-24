@@ -1,10 +1,14 @@
 # E3Series.Wrapper
 
-A toolkit for simplify work with E3.series COM.
+A toolkit for simplify work with E3.series COM. Firstly generated for E3series 2015 Build 1613, but works for all versions
 
 [![Release](https://img.shields.io/github/release/alex-buraykin/E3Series.Wrapper.svg?style=flat-square)](https://github.com/alex-buraykin/E3Series.Wrapper/releases/latest)
 [![AppVeyor](https://img.shields.io/appveyor/ci/alex-buraykin/E3Series-Wrapper.svg?style=flat-square)](https://ci.appveyor.com/project/alex-buraykin/e3series-wrapper)
 [![Issues](https://img.shields.io/github/issues/alex-buraykin/E3Series.Wrapper.svg?style=flat-square)](https://github.com/alex-buraykin/E3Series.Wrapper/issues)
+
+## Dependencies
+
+E3Series.Proxy Library: [Github](https://github.com/alex-buraykin/E3Series.Proxy) [![NuGet](https://img.shields.io/nuget/v/E3Series.Proxy.svg)](https://www.nuget.org/packages/E3Series.Proxy/)
 
 ## A short How To
 
@@ -34,7 +38,7 @@ namespace WpfApplication
 
             // Done
             if (app != null)
-                app.ComObject.PutMessage("E3Series.Wrapper connected!");
+                app.ComObject.PutInfo(0, "Successfully connected to E3.series")
         }
     }
 }

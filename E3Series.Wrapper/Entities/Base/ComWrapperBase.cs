@@ -1,31 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using E3Series.Proxy.Abstract;
 using E3Series.Wrapper.Entities.Base.Interfaces;
 
 namespace E3Series.Wrapper.Entities.Base
 {
+    /// <inheritdoc cref="IComObject" />
     /// <summary>
     /// Base class for all classes-wrappers of E3.series COM objects
     /// </summary>
-    public abstract class ComWrapper : IComObject, IComObjectProvider
+    public abstract class ComWrapperBase<T> : IComObject, IComObjectProvider<T> where T : E3ProxyBase
     {
-        #region Private Fields
-
         private readonly List<IComObject> _children;
-        private object _comObject;
+        private readonly T _comObject;
         private bool _disposed;
 
-        #endregion
+        /// <inheritdoc />
+        public IComObject Parent { get; }
 
-        #region Public Fields
+        protected ComWrapperBase(IComObject parent, Func<T> createAction)
+        {
+            Parent = parent;
+            _children = new List<IComObject>();
 
+            Parent?.RegisterChild(this);
+
+            _comObject = createAction.Invoke();
+        }
+
+        /// <inheritdoc />
         /// <summary>
         /// Wrapped COM object
-        /// <exception cref="ObjectDisposedException"/>
+        /// <exception cref="T:System.ObjectDisposedException" />
         /// </summary>
-        public dynamic ComObject
+        public T ComObject
         {
             get
             {
@@ -34,64 +43,36 @@ namespace E3Series.Wrapper.Entities.Base
             }
         }
 
-        #endregion
-
-        #region Constructor
-
-        protected ComWrapper(IComObject parent, Func<object> createAction)
-        {
-            Parent = parent;
-            _children = new List<IComObject>();
-
-            if (Parent != null)
-                Parent.RegisterChild(this);
-
-            _comObject = createAction.Invoke();
-        }
-
-        #endregion
-
-        #region IComObject Members
-
-        public IComObject Parent { get; private set; }
-
+        /// <inheritdoc />
         public void RegisterChild(IComObject child)
         {
             _children.Add(child);
         }
 
+        /// <inheritdoc />
         public void UnregisterChild(IComObject child)
         {
             _children.Remove(child);
         }
 
-        public void ReleaseComObject()
-        {
-            if (_comObject != null)
-                Marshal.ReleaseComObject(_comObject);
-
-            _comObject = null;
-        }
-
+        /// <inheritdoc />
         public bool HasChild(Type childType)
         {
             return GetChild(childType) != null;
         }
 
+        /// <inheritdoc />
         public IComObject GetChild(Type childType)
         {
             return _children.FirstOrDefault(o => o.GetType() == childType);
         }
 
-        #endregion
-
-        #region IDisposable Members
-
+        /// <inheritdoc />
         /// <summary>
         /// <para>Releases COM object.</para>
-        /// <para>Calling <see cref="Dispose()"/> makes object disposed. 
-        /// Any subsequent call on any method except <see cref="Dispose()"/> would throw 
-        /// an <see cref="ObjectDisposedException"/>.</para>
+        /// <para>Calling <see cref="M:E3Series.Wrapper.Entities.Base.ComWrapperBase.Dispose" /> makes object disposed. 
+        /// Any subsequent call on any method except <see cref="M:E3Series.Wrapper.Entities.Base.ComWrapperBase.Dispose" /> would throw 
+        /// an <see cref="T:System.ObjectDisposedException" />.</para>
         /// </summary>
         public void Dispose()
         {
@@ -107,22 +88,25 @@ namespace E3Series.Wrapper.Entities.Base
             if (disposing)
             {
                 // Release from parent object
-                if (Parent != null)
-                    Parent.UnregisterChild(this);
+                Parent?.UnregisterChild(this);
 
                 // Release child objects
-                try
+                foreach (var child in _children)
                 {
-                    foreach (var child in _children.Where(o => o != null))
-                        child.ReleaseComObject();
-                }
-                finally
-                {
-                    _children.Clear();
+                    try
+                    {
+                        child.Dispose();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
 
+                _children.Clear();
+
                 //Release managed resources
-                ReleaseComObject();
+                ComObject.Dispose();
             }
             _disposed = true;
         }
@@ -135,7 +119,5 @@ namespace E3Series.Wrapper.Entities.Base
         {
             if (_disposed) throw new ObjectDisposedException(GetType().ToString());
         }
-
-        #endregion
     }
 }

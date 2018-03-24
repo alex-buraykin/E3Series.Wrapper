@@ -4,28 +4,63 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:E3Series.Wrapper.Demo.ViewModels"
+        xmlns:converters="clr-namespace:E3Series.Wrapper.Demo.Converters"
         mc:Ignorable="d"
-        Title="E3Series.Wrapper - Demo" 
+        Title="E3Series.Wrapper - Demo"
         Height="350" Width="525"
-        WindowStartupLocation="CenterScreen" 
-        d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}" Closed="Window_Closed">
     <Grid>
         <StackPanel Orientation="Vertical">
             <Expander Header="Connect to E3.series"
                       IsExpanded="True">
                 <StackPanel Orientation="Vertical">
                     <Label Content="Connect\Disconnect E3.series COM"
-                           Margin="20 2 2 2"/>
+                           Margin="20 2 2 2" />
                     <StackPanel Orientation="Horizontal"
                                 Margin="40 2 2 2">
                         <Button Content="Connect"
                                 MinWidth="100"
-                                Command="{Binding Path=ConnectCommand}"/>
+                                Command="{Binding Path=ConnectApplicationCommand}" />
                         <Button Content="Disconnect"
                                 Margin="2 0 0 0"
                                 MinWidth="100"
-                                Command="{Binding Path=DisconnectCommand}"/>
+                                Command="{Binding Path=DisconnectApplicationCommand}" />
                     </StackPanel>
+                </StackPanel>
+            </Expander>
+            <Expander Header="Connect to project"
+                      IsExpanded="True"
+                      Visibility="{Binding IsConnected, Converter={converters:BoolToVisibilityConverter}}">
+                <StackPanel Orientation="Vertical"
+                            IsEnabled="{Binding Path=IsConnected, Mode=OneWay}">
+                    <Label Content="No opened project"
+                           Margin="20 2 2 2"
+                           Visibility="{Binding Path=IsProjectOpened, Converter={converters:BoolToVisibilityConverter TrueValue=Collapsed, FalseValue=Visible}}" />
+                    <Label Content="Get Project Info"
+                           Margin="20 2 2 2"
+                           IsEnabled="{Binding IsProjectOpened}" />
+                    <Button Content="Get"
+                            Margin="40 2 2 2"
+                            MinWidth="100"
+                            HorizontalAlignment="Left"
+                            Command="{Binding Path=GetJobInfoCommand}" />
+                    <Grid Margin="40 2 2 2"
+                          Visibility="{Binding Path=IsProjectOpened, Converter={converters:BoolToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Name: "/>
+                        <Label Grid.Column="1"
+                               Grid.Row="0"
+                               Content="{Binding ProjectName}"/>
+
+                    </Grid>
                 </StackPanel>
             </Expander>
         </StackPanel>

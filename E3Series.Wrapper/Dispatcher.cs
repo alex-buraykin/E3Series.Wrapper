@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using E3Series.Wrapper.Interop;
 
 namespace E3Series.Wrapper
 {
@@ -10,38 +10,25 @@ namespace E3Series.Wrapper
     /// </summary>
     public static class Dispatcher
     {
-        #region WinApi Imports
-
-        [DllImport("ole32.dll")]
-        private static extern int CreateBindCtx(int reserved, out IBindCtx ppbc);
-
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
         /// Get IEnumerablw
         /// </summary>
         /// <returns></returns>
         [STAThread]
-        public static Dictionary<int, object> GetRunningE3SeriesApplications()
+        public static IDictionary<int, object> GetRunningE3SeriesApplications()
         {
             var dict = new Dictionary<int, object>();
-            IRunningObjectTable runningObjectTable;
-            IEnumMoniker monikerEnumerator;
             var monikers = new IMoniker[1];
 
-            IBindCtx ctx;
-            CreateBindCtx(0, out ctx);
+            WinApi.CreateBindCtx(0, out var ctx);
 
-            ctx.GetRunningObjectTable(out runningObjectTable);
-            runningObjectTable.EnumRunning(out monikerEnumerator);
+            ctx.GetRunningObjectTable(out var runningObjectTable);
+            runningObjectTable.EnumRunning(out var monikerEnumerator);
             monikerEnumerator.Reset();
 
             while (monikerEnumerator.Next(1, monikers, IntPtr.Zero) == 0)
             {
-                string runningObjectName;
-                monikers[0].GetDisplayName(ctx, null, out runningObjectName);
+                monikers[0].GetDisplayName(ctx, null, out var runningObjectName);
 
                 if (!runningObjectName.StartsWith("!E3Application", StringComparison.InvariantCultureIgnoreCase))
                     continue;
@@ -49,15 +36,12 @@ namespace E3Series.Wrapper
                 int index = runningObjectName.IndexOf(':');
                 if (index == -1) continue;
 
-                object runningObjectVal;
-                runningObjectTable.GetObject(monikers[0], out runningObjectVal);
+                runningObjectTable.GetObject(monikers[0], out var runningObjectVal);
 
                 dict.Add(int.Parse(runningObjectName.Substring(index + 1)), runningObjectVal);
             }
 
             return dict;
         }
-
-        #endregion
     }
 }

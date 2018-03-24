@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using E3Series.Wrapper.Interfaces;
 using E3Series.Wrapper.SelectionDialog.WPF.Commands;
@@ -12,15 +12,6 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.ViewModels
 {
     internal class SelectionViewModel : ViewModelBase<SelectionWindow>, IConnectorSelectionDialog
     {
-        #region Private Fields
-
-        private ICommand _cancelCommand;
-        private ICommand _okCommand;
-
-        #endregion
-        
-        #region Public Fields
-
         /// <summary>
         /// Selected E3.series instance on form
         /// </summary>
@@ -29,59 +20,39 @@ namespace E3Series.Wrapper.SelectionDialog.WPF.ViewModels
         /// <summary>
         /// List of running E3.series instances
         /// </summary>
-        public ObservableCollection<RunningApplication> Processes { get; private set; }
+        public List<RunningApplication> Processes { get; }
 
-        #endregion
+        public ICommand OkCommand { get; private set; }
+
+        public ICommand CancelCommand { get; private set; }
         
-        #region Constructor
-
-        public SelectionViewModel() : base(new SelectionWindow())
+        public SelectionViewModel() 
+            : base(new SelectionWindow())
         {
-            Processes = new ObservableCollection<RunningApplication>();
+            Processes = new List<RunningApplication>();
+
+            CreateCommands();
         }
 
-        #endregion
-
-        #region IConnectorSelectionDialog Members
-
-        public bool ShowDialog(Dictionary<int, object> processes, out object selectedProcess)
+        public bool ShowDialog(IDictionary<int, object> processes, out object selectedProcess)
         {
-            foreach (var process in processes)
-                Processes.Add(new RunningApplication(process));
+            Processes.AddRange(processes.Select(p => new RunningApplication(p)));
 
             var result = View.ShowDialog() == true;
-            selectedProcess = SelectedProcess != null && result ? SelectedProcess.ComObject : null;
+            selectedProcess = SelectedProcess != null && result 
+                ? SelectedProcess.ComObject 
+                : null;
 
             return result;
         }
 
-        #endregion
-
-        #region Commands
-
-        public ICommand CancelCommand
+        private void CreateCommands()
         {
-            get
-            {
-                return _cancelCommand ??
-                       (_cancelCommand = new RelayCommand(() =>
-                           {
-                               (View as IDialogView).DialogResult = false;
-                           }));
-            }
+            OkCommand = new RelayCommand(
+                () => { (View as IDialogView).DialogResult = true; },
+                () => SelectedProcess != null);
+            CancelCommand = new RelayCommand(
+                () => { (View as IDialogView).DialogResult = false; });
         }
-
-        public ICommand OkCommand
-        {
-            get
-            {
-                return _okCommand ?? (_okCommand = new RelayCommand(() =>
-                {
-                    (View as IDialogView).DialogResult = true;
-                }, () => SelectedProcess != null));
-            }
-        }
-
-        #endregion
     }
 }

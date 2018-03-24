@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Wrapper", "E3Series.Wrapper\E3Series.Wrapper.csproj", "{88C2F944-148E-46E2-B749-61AE3F48AA08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Wrapper.SelectionDialog.WPF", "E3Series.Wrapper.SelectionDialog.WPF\E3Series.Wrapper.SelectionDialog.WPF.csproj", "{B95A7153-AE19-4D3F-BD95-77029E76381B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Series.Wrapper.Demo", "E3Series.Wrapper.Demo\E3Series.Wrapper.Demo.csproj", "{4CE8CF6F-1362-4806-A6B1-FF4C0A134232}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{8E8A139F-B9D7-4E2B-B36F-EA363B4CA903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +32,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4CE8CF6F-1362-4806-A6B1-FF4C0A134232} = {8E8A139F-B9D7-4E2B-B36F-EA363B4CA903}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8CA9144-D4FA-428F-8BE9-4CC5CAACDB95}
 	EndGlobalSection
 EndGlobal

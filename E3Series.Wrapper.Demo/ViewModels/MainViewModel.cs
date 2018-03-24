@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
+using E3Series.Wrapper.Demo.Extensions;
 using E3Series.Wrapper.Demo.Views;
 using E3Series.Wrapper.Entities.Interfaces;
 using E3Series.Wrapper.Interfaces;
@@ -10,47 +12,70 @@ namespace E3Series.Wrapper.Demo.ViewModels
 {
     public class MainViewModel : ViewModelBase<MainWindow>
     {
-        #region Private Fields
-
         private readonly IConnector _connector = new WpfConnector();
-        private ICommand _connectCommand;
+        private readonly string[] _appChangedPropertiesNames = {nameof(IsConnected), nameof(IsProjectOpened)};
         private IApplication _app;
-        private ICommand _disconnectCommand;
+        private string _projectName;
 
-        #endregion
+        public bool IsConnected => _app != null;
+        public bool IsProjectOpened => _app?.IsProjectOpened() ?? false;
 
-        #region Constructor
-
-        public MainViewModel() : base(new MainWindow())
+        public string ProjectName
         {
-        }
-
-        #endregion
-
-        #region Commands
-
-        public ICommand ConnectCommand
-        {
-            get
+            get => _projectName;
+            set
             {
-                return _connectCommand ??
-                       (_connectCommand = new RelayCommand(() => { _app = _connector.Connect(); }, () => _app == null));
+                _projectName = value;
+                RaisePropertyChanged(nameof(ProjectName));
             }
         }
 
-        public ICommand DisconnectCommand
+        public ICommand ConnectApplicationCommand { get; private set; }
+        public ICommand DisconnectApplicationCommand { get; private set; }
+        public ICommand GetJobInfoCommand { get; private set; }
+
+        public MainViewModel()
+            : base(new MainWindow())
         {
-            get
+            CreateCommands();
+        }
+
+        private void CreateCommands()
+        {
+            ConnectApplicationCommand = new RelayCommand(OnConnectApplication,
+                () => _app == null);
+            DisconnectApplicationCommand = new RelayCommand(OnDisconnectApplication,
+                () => _app != null);
+
+            GetJobInfoCommand = new RelayCommand(OnGetJobInfo,
+                () => _app != null && IsProjectOpened);
+        }
+
+        private void OnGetJobInfo()
+        {
+            using (var job = _app.CreateJobObject())
             {
-                return _disconnectCommand ??
-                       (_disconnectCommand = new RelayCommand(() =>
-                       {
-                           _app.Dispose();
-                           _app = null;
-                       }, () => _app != null));
+                ProjectName = job.ComObject.GetName();
             }
         }
 
-        #endregion
+        private void OnConnectApplication()
+        {
+            _app = _connector.Connect();
+            _appChangedPropertiesNames.ForEach(RaisePropertyChanged);
+
+            if (_app == null)
+                MessageBox.Show("Unable to connect to E3series COM", "Error");
+            else
+                _app.ComObject.PutInfo(0, "Successfully connected to E3.series");
+        }
+
+        private void OnDisconnectApplication()
+        {
+            _app.Dispose();
+            _app = null;
+            _appChangedPropertiesNames.ForEach(RaisePropertyChanged);
+            ProjectName = null;
+        }
     }
 }
