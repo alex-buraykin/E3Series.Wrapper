@@ -9,6 +9,16 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// </summary>
     public interface IApplication : IComObjectProvider<E3ApplicationProxy>
     {
+        /// <summary>
+        /// Check for opened project
+        /// </summary>
+        /// <returns></returns>
+        bool IsProjectOpened();
 
+        /// <summary>
+        /// Create wrapper for e3Job COM object
+        /// </summary>
+        /// <returns></returns>
+        IJob CreateJobObject();
     }
 }

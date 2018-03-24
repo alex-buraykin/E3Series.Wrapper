@@ -15,13 +15,14 @@ namespace E3Series.Wrapper.Entities.Extensions
         /// <typeparam name="T">.NET public interface of E3 API object</typeparam>
         /// <typeparam name="TProxy">Proxy class for E3.Series COM</typeparam>
         /// <returns>Managed E3 API object</returns>
-        internal static T CreateObject<T, TProxy>(this ComWrapperBase<TProxy> entity) where T : IDisposable where TProxy : E3ProxyBase
+        internal static T CreateObject<T, TProxy>(this ComWrapperBase<TProxy> entity)
+            where T : IDisposable where TProxy : E3ProxyBase
         {
             entity.GuardDisposed();
             var typeName = typeof(T).Name.ReplaceSuffix("I", "E3");
             var t = Type.GetType($"E3Series.Wrapper.Entities.{typeName}", true);
 
-            return (T)Activator.CreateInstance(t ?? throw new InvalidOperationException(), entity);
+            return (T) Activator.CreateInstance(t ?? throw new InvalidOperationException(), entity);
         }
 
         /// <summary>
