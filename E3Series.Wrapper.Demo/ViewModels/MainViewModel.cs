@@ -66,6 +66,8 @@ namespace E3Series.Wrapper.Demo.ViewModels
 
             if (_app == null)
                 MessageBox.Show("Unable to connect to E3series COM", "Error");
+            else
+                _app.ComObject.PutInfo(0, "Successfully connected to E3.series");
         }
 
         private void OnDisconnectApplication()
