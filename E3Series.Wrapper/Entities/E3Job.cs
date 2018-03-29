@@ -47,6 +47,54 @@ namespace E3Series.Wrapper.Entities
         }
 
         /// <inheritdoc />
+        public IConnection CreateConnectionObject()
+        {
+            return this.CreateObject<IConnection, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
+        public IConnectLine CreateConnectLineObject()
+        {
+            return this.CreateObject<IConnectLine, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
+        public IDevice CreateDeviceObject()
+        {
+            return this.CreateObject<IDevice, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
+        public IDimension CreateDimensionObject()
+        {
+            return this.CreateObject<IDimension, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
+        public IExternalDocument CreateExternalDocumentObject()
+        {
+            return this.CreateObject<IExternalDocument, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
+        public IField CreateFieldObject()
+        {
+            return this.CreateObject<IField, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
+        public IFunctionalPort CreateFunctionalPortObject()
+        {
+            return this.CreateObject<IFunctionalPort, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
+        public IFunctionalUnit CreateFunctionalUnitObject()
+        {
+            return this.CreateObject<IFunctionalUnit, E3JobProxy>();
+        }
+
+        /// <inheritdoc />
         public ISheet CreateSheetObject()
         {
             return this.CreateObject<ISheet, E3JobProxy>();
