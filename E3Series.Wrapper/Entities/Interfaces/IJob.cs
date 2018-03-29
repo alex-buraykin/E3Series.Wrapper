@@ -88,6 +88,48 @@ namespace E3Series.Wrapper.Entities.Interfaces
         IFunctionalUnit CreateFunctionalUnitObject();
 
         /// <summary>
+        /// Create object for working with graphs
+        /// </summary>
+        /// <returns></returns>
+        IGraph CreateGraphObject();
+
+        /// <summary>
+        /// Create object for working with groups
+        /// </summary>
+        /// <returns></returns>
+        IGroup CreateGroupObject();
+
+        /// <summary>
+        /// Create object for working with layers
+        /// </summary>
+        /// <returns></returns>
+        ILayer CreateLayerObject();
+
+        /// <summary>
+        /// Create object for working with modules
+        /// </summary>
+        /// <returns></returns>
+        IModule CreateModuleObject();
+
+        /// <summary>
+        /// Create object for working with module ports
+        /// </summary>
+        /// <returns></returns>
+        IModulePort CreateModulePortObject();
+
+        /// <summary>
+        /// Create object for working with nets
+        /// </summary>
+        /// <returns></returns>
+        INet CreateNetObject();
+
+        /// <summary>
+        /// Create object for working with net segments
+        /// </summary>
+        /// <returns></returns>
+        INetSegment CreateNetSegmentObject();
+
+        /// <summary>
         /// Create object for working with sheets
         /// </summary>
         /// <returns></returns>

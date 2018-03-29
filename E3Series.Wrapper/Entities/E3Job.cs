@@ -1,4 +1,5 @@
-﻿using E3Series.Proxy;
+﻿using System;
+using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
@@ -17,87 +18,71 @@ namespace E3Series.Wrapper.Entities
         }
 
         /// <inheritdoc />
-        public IAttribute CreateAttributeObject()
-        {
-            return this.CreateObject<IAttribute, E3JobProxy>();
-        }
+        public IAttribute CreateAttributeObject() => CreateObject<IAttribute>();
 
         /// <inheritdoc />
-        public IBinData CreateBinDataObject()
-        {
-            return this.CreateObject<IBinData, E3JobProxy>();
-        }
+        public IBinData CreateBinDataObject() => CreateObject<IBinData>();
 
         /// <inheritdoc />
-        public IBoard CreateBoardObject()
-        {
-            return this.CreateObject<IBoard, E3JobProxy>();
-        }
+        public IBoard CreateBoardObject() => CreateObject<IBoard>();
 
         /// <inheritdoc />
-        public IBundle CreateBundleObject()
-        {
-            return this.CreateObject<IBundle, E3JobProxy>();
-        }
+        public IBundle CreateBundleObject() =>  CreateObject<IBundle>();
 
         /// <inheritdoc />
-        public IComponent CreateComponentObject()
-        {
-            return this.CreateObject<IComponent, E3JobProxy>();
-        }
+        public IComponent CreateComponentObject() => CreateObject<IComponent>();
 
         /// <inheritdoc />
-        public IConnection CreateConnectionObject()
-        {
-            return this.CreateObject<IConnection, E3JobProxy>();
-        }
+        public IConnection CreateConnectionObject() => CreateObject<IConnection>();
 
         /// <inheritdoc />
-        public IConnectLine CreateConnectLineObject()
-        {
-            return this.CreateObject<IConnectLine, E3JobProxy>();
-        }
+        public IConnectLine CreateConnectLineObject() => CreateObject<IConnectLine>();
 
         /// <inheritdoc />
-        public IDevice CreateDeviceObject()
-        {
-            return this.CreateObject<IDevice, E3JobProxy>();
-        }
+        public IDevice CreateDeviceObject() => CreateObject<IDevice>();
 
         /// <inheritdoc />
-        public IDimension CreateDimensionObject()
-        {
-            return this.CreateObject<IDimension, E3JobProxy>();
-        }
+        public IDimension CreateDimensionObject() => CreateObject<IDimension>();
 
         /// <inheritdoc />
-        public IExternalDocument CreateExternalDocumentObject()
-        {
-            return this.CreateObject<IExternalDocument, E3JobProxy>();
-        }
+        public IExternalDocument CreateExternalDocumentObject() => CreateObject<IExternalDocument>();
 
         /// <inheritdoc />
-        public IField CreateFieldObject()
-        {
-            return this.CreateObject<IField, E3JobProxy>();
-        }
+        public IField CreateFieldObject() => CreateObject<IField>();
 
         /// <inheritdoc />
-        public IFunctionalPort CreateFunctionalPortObject()
-        {
-            return this.CreateObject<IFunctionalPort, E3JobProxy>();
-        }
+        public IFunctionalPort CreateFunctionalPortObject() => CreateObject<IFunctionalPort>();
 
         /// <inheritdoc />
-        public IFunctionalUnit CreateFunctionalUnitObject()
-        {
-            return this.CreateObject<IFunctionalUnit, E3JobProxy>();
-        }
+        public IFunctionalUnit CreateFunctionalUnitObject() => CreateObject<IFunctionalUnit>();
 
         /// <inheritdoc />
-        public ISheet CreateSheetObject()
+        public IGraph CreateGraphObject() => CreateObject<IGraph>();
+
+        /// <inheritdoc />
+        public IGroup CreateGroupObject() => CreateObject<IGroup>();
+
+        /// <inheritdoc />
+        public ILayer CreateLayerObject() => CreateObject<ILayer>();
+
+        /// <inheritdoc />
+        public IModule CreateModuleObject() => CreateObject<IModule>();
+
+        /// <inheritdoc />
+        public IModulePort CreateModulePortObject() => CreateObject<IModulePort>();
+
+        /// <inheritdoc />
+        public INet CreateNetObject() => CreateObject<INet>();
+
+        /// <inheritdoc />
+        public INetSegment CreateNetSegmentObject() => CreateObject<INetSegment>();
+
+        /// <inheritdoc />
+        public ISheet CreateSheetObject() => CreateObject<ISheet>();
+        
+        private T CreateObject<T>() where T : IDisposable
         {
-            return this.CreateObject<ISheet, E3JobProxy>();
+            return this.CreateObject<T, E3JobProxy>();
         }
     }
 }
