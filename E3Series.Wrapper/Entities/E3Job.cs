@@ -98,6 +98,24 @@ namespace E3Series.Wrapper.Entities
         /// <inheritdoc />
         public ISlot CreateSlotObject() => CreateObject<ISlot>();
 
+        /// <inheritdoc />
+        public IStructureNode CreateStructureNodeObject() => CreateObject<IStructureNode>();
+
+        /// <inheritdoc />
+        public ISupply CreateSupplyObject() => CreateObject<ISupply>();
+
+        /// <inheritdoc />
+        public ISymbol CreateSymbolObject() => CreateObject<ISymbol>();
+
+        /// <inheritdoc />
+        public ITestpoint CreateTestpointObject() => CreateObject<ITestpoint>();
+
+        /// <inheritdoc />
+        public IText CreateTextObject() => CreateObject<IText>();
+
+        /// <inheritdoc />
+        public ITree CreateTreeObject() => CreateObject<ITree>();
+
         private T CreateObject<T>() where T : IDisposable
         {
             return this.CreateObject<T, E3JobProxy>();

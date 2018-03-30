@@ -170,5 +170,41 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// </summary>
         /// <returns></returns>
         ISlot CreateSlotObject();
+
+        /// <summary>
+        /// Create object for working with structure nodes
+        /// </summary>
+        /// <returns></returns>
+        IStructureNode CreateStructureNodeObject();
+
+        /// <summary>
+        /// Create object for working with supplies
+        /// </summary>
+        /// <returns></returns>
+        ISupply CreateSupplyObject();
+
+        /// <summary>
+        /// Create object for working with symbols
+        /// </summary>
+        /// <returns></returns>
+        ISymbol CreateSymbolObject();
+
+        /// <summary>
+        /// Create object for working with testpoints
+        /// </summary>
+        /// <returns></returns>
+        ITestpoint CreateTestpointObject();
+
+        /// <summary>
+        /// Create object for working with texts
+        /// </summary>
+        /// <returns></returns>
+        IText CreateTextObject();
+
+        /// <summary>
+        /// Create object for working with trees
+        /// </summary>
+        /// <returns></returns>
+        ITree CreateTreeObject();
     }
 }
