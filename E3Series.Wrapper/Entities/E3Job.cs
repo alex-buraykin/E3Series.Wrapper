@@ -78,8 +78,26 @@ namespace E3Series.Wrapper.Entities
         public INetSegment CreateNetSegmentObject() => CreateObject<INetSegment>();
 
         /// <inheritdoc />
+        public IOption CreateOptionObject() => CreateObject<IOption>();
+
+        /// <inheritdoc />
+        public IOutline CreateOutlineObject() => CreateObject<IOutline>();
+
+        /// <inheritdoc />
+        public IPin CreatePinObject() => CreateObject<IPin>();
+
+        /// <inheritdoc />
         public ISheet CreateSheetObject() => CreateObject<ISheet>();
-        
+
+        /// <inheritdoc />
+        public ISignal CreateSignalObject() => CreateObject<ISignal>();
+
+        /// <inheritdoc />
+        public ISignalClass CreateSignalClassObject() => CreateObject<ISignalClass>();
+
+        /// <inheritdoc />
+        public ISlot CreateSlotObject() => CreateObject<ISlot>();
+
         private T CreateObject<T>() where T : IDisposable
         {
             return this.CreateObject<T, E3JobProxy>();

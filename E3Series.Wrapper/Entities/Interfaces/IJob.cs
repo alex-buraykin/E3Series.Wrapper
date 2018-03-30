@@ -130,9 +130,45 @@ namespace E3Series.Wrapper.Entities.Interfaces
         INetSegment CreateNetSegmentObject();
 
         /// <summary>
+        /// Create object for working with options
+        /// </summary>
+        /// <returns></returns>
+        IOption CreateOptionObject();
+
+        /// <summary>
+        /// Create object for working with outlines
+        /// </summary>
+        /// <returns></returns>
+        IOutline CreateOutlineObject();
+
+        /// <summary>
+        /// Create object for working with pins
+        /// </summary>
+        /// <returns></returns>
+        IPin CreatePinObject();
+
+        /// <summary>
         /// Create object for working with sheets
         /// </summary>
         /// <returns></returns>
         ISheet CreateSheetObject();
+
+        /// <summary>
+        /// Create object for working with signals
+        /// </summary>
+        /// <returns></returns>
+        ISignal CreateSignalObject();
+
+        /// <summary>
+        /// Create object for working with signal classes
+        /// </summary>
+        /// <returns></returns>
+        ISignalClass CreateSignalClassObject();
+
+        /// <summary>
+        /// Create object for working with slots
+        /// </summary>
+        /// <returns></returns>
+        ISlot CreateSlotObject();
     }
 }

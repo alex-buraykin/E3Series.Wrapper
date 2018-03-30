@@ -65,7 +65,13 @@
     <Compile Include="Entities\E3ModulePort.cs" />
     <Compile Include="Entities\E3Net.cs" />
     <Compile Include="Entities\E3NetSegment.cs" />
+    <Compile Include="Entities\E3Option.cs" />
+    <Compile Include="Entities\E3Outline.cs" />
+    <Compile Include="Entities\E3Pin.cs" />
     <Compile Include="Entities\E3Sheet.cs" />
+    <Compile Include="Entities\E3Signal.cs" />
+    <Compile Include="Entities\E3SignalClass.cs" />
+    <Compile Include="Entities\E3Slot.cs" />
     <Compile Include="Entities\Extensions\EntityExtensions.cs" />
     <Compile Include="Entities\Interfaces\IExternalDocument.cs" />
     <Compile Include="Entities\Interfaces\IApplication.cs" />
@@ -89,7 +95,13 @@
     <Compile Include="Entities\Interfaces\IModulePort.cs" />
     <Compile Include="Entities\Interfaces\INet.cs" />
     <Compile Include="Entities\Interfaces\INetSegment.cs" />
+    <Compile Include="Entities\Interfaces\IOption.cs" />
+    <Compile Include="Entities\Interfaces\IOutline.cs" />
+    <Compile Include="Entities\Interfaces\IPin.cs" />
     <Compile Include="Entities\Interfaces\ISheet.cs" />
+    <Compile Include="Entities\Interfaces\ISignal.cs" />
+    <Compile Include="Entities\Interfaces\ISignalClass.cs" />
+    <Compile Include="Entities\Interfaces\ISlot.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IConnector.cs" />
     <Compile Include="Interfaces\IConnectorSelectionDialog.cs" />
