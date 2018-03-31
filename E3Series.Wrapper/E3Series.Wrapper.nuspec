@@ -13,8 +13,8 @@
 		<dependencies>
 			<dependency id="E3Series.Proxy" version="2015.1613.0" />
 		</dependencies>
-		<files>
-			<file src="bin\Release\E3Series.Wrapper.dll" target="lib\net40\" />
-		</files>
     </metadata>
+	<files>
+		<file src="bin\Release\E3Series.Wrapper.dll" target="lib\net40\" />
+	</files>
 </package>

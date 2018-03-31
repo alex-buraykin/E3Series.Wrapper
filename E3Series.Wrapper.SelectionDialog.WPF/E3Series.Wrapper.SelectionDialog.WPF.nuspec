@@ -13,8 +13,8 @@
 		<dependencies>
 			<dependency id="E3Series.Wrapper" version="$version$" />
 		</dependencies>
-		<files>
-			<file src="bin\Release\E3Series.Wrapper.SelectionDialog.WPF.dll" target="lib\net40\" />
-		</files>
     </metadata>
+	<files>
+		<file src="bin\Release\E3Series.Wrapper.SelectionDialog.WPF.dll" target="lib\net40\" />
+	</files>
 </package>
