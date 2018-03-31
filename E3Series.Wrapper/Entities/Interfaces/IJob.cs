@@ -206,5 +206,11 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// </summary>
         /// <returns></returns>
         ITree CreateTreeObject();
+
+        /// <summary>
+        /// Create object for working with variants
+        /// </summary>
+        /// <returns></returns>
+        IVariant CreateVariantObject();
     }
 }

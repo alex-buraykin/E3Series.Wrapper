@@ -116,6 +116,9 @@ namespace E3Series.Wrapper.Entities
         /// <inheritdoc />
         public ITree CreateTreeObject() => CreateObject<ITree>();
 
+        /// <inheritdoc />
+        public IVariant CreateVariantObject() => CreateObject<IVariant>();
+
         private T CreateObject<T>() where T : IDisposable
         {
             return this.CreateObject<T, E3JobProxy>();
