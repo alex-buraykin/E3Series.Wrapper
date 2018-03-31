@@ -119,6 +119,13 @@ namespace E3Series.Wrapper.Entities
         /// <inheritdoc />
         public IVariant CreateVariantObject() => CreateObject<IVariant>();
 
+        #region Implementation of IE3NamedReadonly
+
+        /// <inheritdoc />
+        public string GetName() => ComObject.GetName();
+
+        #endregion
+
         private T CreateObject<T>() where T : IDisposable
         {
             return this.CreateObject<T, E3JobProxy>();

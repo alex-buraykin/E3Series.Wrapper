@@ -31,5 +31,37 @@ namespace E3Series.Wrapper.Entities
         }
 
         #endregion
+
+        #region Implementation of IE3NamedReadonly
+
+        /// <summary>
+        /// Get name of object
+        /// </summary>
+        /// <returns></returns>
+        public string GetName()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+
+        #region Implementation of IE3Named
+
+        /// <summary>
+        /// Set name for object
+        /// </summary>
+        /// <param name="name">New name</param>
+        /// <returns></returns>
+        public bool SetName(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Name of object
+        /// </summary>
+        public string Name { get; set; }
+
+        #endregion
     }
 }

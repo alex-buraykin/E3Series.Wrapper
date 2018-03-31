@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3Board COM object
     /// </summary>
     public interface IBoard : IComObjectProvider<E3BoardProxy>,
-        IE3Identificated
+        IE3Identificated, IE3NamedReadonly
     {
     }
 }

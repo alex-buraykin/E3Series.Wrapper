@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3Attribute COM object
     /// </summary>
     public interface IAttribute : IComObjectProvider<E3AttributeProxy>, 
-        IE3Identificated
+        IE3Identificated, IE3NamedReadonly
     {
     }
 }

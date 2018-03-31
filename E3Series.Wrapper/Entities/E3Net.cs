@@ -31,5 +31,12 @@ namespace E3Series.Wrapper.Entities
         }
 
         #endregion
+
+        #region Implementation of IE3NamedReadonly
+
+        /// <inheritdoc />
+        public string GetName() => ComObject.GetName();
+
+        #endregion
     }
 }

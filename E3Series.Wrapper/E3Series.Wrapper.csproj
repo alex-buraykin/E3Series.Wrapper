@@ -44,6 +44,8 @@
     <Compile Include="Entities\Base\Interfaces\IComObject.cs" />
     <Compile Include="Entities\Base\Interfaces\IComObjectProvider.cs" />
     <Compile Include="Entities\Base\Interfaces\IE3Identificated.cs" />
+    <Compile Include="Entities\Base\Interfaces\IE3Named.cs" />
+    <Compile Include="Entities\Base\Interfaces\IE3NamedReadonly.cs" />
     <Compile Include="Entities\E3Application.cs" />
     <Compile Include="Entities\E3Attribute.cs" />
     <Compile Include="Entities\E3BinData.cs" />
