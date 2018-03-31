@@ -6,6 +6,12 @@ A toolkit for simplify work with E3.series COM. Firstly generated for E3series 2
 [![AppVeyor](https://img.shields.io/appveyor/ci/alex-buraykin/E3Series-Wrapper.svg?style=flat-square)](https://ci.appveyor.com/project/alex-buraykin/e3series-wrapper)
 [![Issues](https://img.shields.io/github/issues/alex-buraykin/E3Series.Wrapper.svg?style=flat-square)](https://github.com/alex-buraykin/E3Series.Wrapper/issues)
 
+## Nuget packages
+
+(https://github.com/alex-buraykin/E3Series.Proxy) [![E3Series.Wrapper](https://img.shields.io/nuget/v/E3Series.Wrapper.svg)](https://www.nuget.org/packages/E3Series.Wrapper/) E3Series.Wrapper
+(https://github.com/alex-buraykin/E3Series.Proxy) [![E3Series.Wrapper.SelectionDialog.WPF](https://img.shields.io/nuget/v/E3Series.Wrapper.SelectionDialog.WPF.svg)](https://www.nuget.org/packages/E3Series.Wrapper.SelectionDialog.WPF/) E3Series.Wrapper.SelectionDialog.WPF
+
+
 ## Dependencies
 
 E3Series.Proxy Library: [Github](https://github.com/alex-buraykin/E3Series.Proxy) [![NuGet](https://img.shields.io/nuget/v/E3Series.Proxy.svg)](https://www.nuget.org/packages/E3Series.Proxy/)
