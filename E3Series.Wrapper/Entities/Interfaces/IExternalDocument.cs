@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3ExternalDocument COM object
     /// </summary>
-    public interface IExternalDocument : IComObjectProvider<E3ExternalDocumentProxy>
+    public interface IExternalDocument : IComObjectProvider<E3ExternalDocumentProxy>,
+        IE3Identificated
     {
     }
 }

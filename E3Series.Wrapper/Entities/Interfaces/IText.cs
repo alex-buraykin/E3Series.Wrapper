@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Text COM object
     /// </summary>
-    public interface IText : IComObjectProvider<E3TextProxy>
+    public interface IText : IComObjectProvider<E3TextProxy>,
+        IE3Identificated
     {
     }
 }

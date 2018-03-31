@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Device COM object
     /// </summary>
-    public interface IDevice : IComObjectProvider<E3DeviceProxy>
+    public interface IDevice : IComObjectProvider<E3DeviceProxy>,
+        IE3Identificated
     {
     }
 }

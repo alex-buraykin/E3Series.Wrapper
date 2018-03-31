@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Symbol COM object
     /// </summary>
-    public interface ISymbol : IComObjectProvider<E3SymbolProxy>
+    public interface ISymbol : IComObjectProvider<E3SymbolProxy>,
+        IE3Identificated
     {
     }
 }

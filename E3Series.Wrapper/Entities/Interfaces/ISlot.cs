@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Slot COM object
     /// </summary>
-    public interface ISlot : IComObjectProvider<E3SlotProxy>
+    public interface ISlot : IComObjectProvider<E3SlotProxy>,
+        IE3Identificated
     {
     }
 }

@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3ConnectLine COM object
     /// </summary>
-    public interface IConnectLine : IComObjectProvider<E3ConnectLineProxy>
+    public interface IConnectLine : IComObjectProvider<E3ConnectLineProxy>,
+        IE3Identificated
     {
     }
 }

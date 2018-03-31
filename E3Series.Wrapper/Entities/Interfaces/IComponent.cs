@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Component COM object
     /// </summary>
-    public interface IComponent : IComObjectProvider<E3ComponentProxy>
+    public interface IComponent : IComObjectProvider<E3ComponentProxy>,
+        IE3Identificated
     { 
     }
 }
