@@ -8,8 +8,9 @@ A toolkit for simplify work with E3.series COM. Firstly generated for E3series 2
 
 ## Nuget packages
 
-(https://github.com/alex-buraykin/E3Series.Proxy) [![E3Series.Wrapper](https://img.shields.io/nuget/v/E3Series.Wrapper.svg)](https://www.nuget.org/packages/E3Series.Wrapper/) E3Series.Wrapper
-(https://github.com/alex-buraykin/E3Series.Proxy) [![E3Series.Wrapper.SelectionDialog.WPF](https://img.shields.io/nuget/v/E3Series.Wrapper.SelectionDialog.WPF.svg)](https://www.nuget.org/packages/E3Series.Wrapper.SelectionDialog.WPF/) E3Series.Wrapper.SelectionDialog.WPF
+[![E3Series.Wrapper](https://img.shields.io/nuget/v/E3Series.Wrapper.svg)](https://www.nuget.org/packages/E3Series.Wrapper/) E3Series.Wrapper
+
+[![E3Series.Wrapper.SelectionDialog.WPF](https://img.shields.io/nuget/v/E3Series.Wrapper.SelectionDialog.WPF.svg)](https://www.nuget.org/packages/E3Series.Wrapper.SelectionDialog.WPF/) E3Series.Wrapper.SelectionDialog.WPF
 
 
 ## Dependencies
