@@ -40,9 +40,9 @@
   <ItemGroup>
     <Compile Include="ConnectorBase.cs" />
     <Compile Include="Dispatcher.cs" />
-    <Compile Include="Entities\Base\ComWrapperBase.cs" />
-    <Compile Include="Entities\Base\Interfaces\IComObject.cs" />
-    <Compile Include="Entities\Base\Interfaces\IComObjectProvider.cs" />
+    <Compile Include="Entities\Base\ProxyWrapperBase.cs" />
+    <Compile Include="Entities\Base\Interfaces\IProxyWrapper.cs" />
+    <Compile Include="Entities\Base\Interfaces\IProxyProvider.cs" />
     <Compile Include="Entities\Base\Interfaces\IE3Attributed.cs" />
     <Compile Include="Entities\Base\Interfaces\IE3Identificated.cs" />
     <Compile Include="Entities\Base\Interfaces\IE3IdentificatedGlobal.cs" />

@@ -8,10 +8,10 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of IBinData interface
     /// </summary>
-    public class E3BinData : ComWrapperBase<E3BinDataProxy>, IBinData
+    public class E3BinData : ProxyWrapperBase<E3BinDataProxy>, IBinData
     {
         public E3BinData(E3Job job)
-            : base(job, () => new E3BinDataProxy(job.ComObject.CreateBinDataObject()))
+            : base(job, () => new E3BinDataProxy(job.Proxy.CreateBinDataObject()))
         {
         }
     }

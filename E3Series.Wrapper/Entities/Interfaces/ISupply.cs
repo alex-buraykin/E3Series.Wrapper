@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Supply COM object
     /// </summary>
-    public interface ISupply : IComObjectProvider<E3SupplyProxy>,
+    public interface ISupply : IProxyProvider<E3SupplyProxy>,
         IE3Identificated, IE3Named, IE3IdentificatedGlobal
     {
     }

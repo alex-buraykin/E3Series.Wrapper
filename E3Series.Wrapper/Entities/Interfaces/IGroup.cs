@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Group COM object
     /// </summary>
-    public interface IGroup : IComObjectProvider<E3GroupProxy>,
+    public interface IGroup : IProxyProvider<E3GroupProxy>,
         IE3Identificated, IE3Named, IE3IdentificatedGlobal, IE3Attributed
     {
     }

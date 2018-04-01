@@ -8,20 +8,20 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of IConnectLine interface
     /// </summary>
-    public class E3ConnectLine : ComWrapperBase<E3ConnectLineProxy>, IConnectLine
+    public class E3ConnectLine : ProxyWrapperBase<E3ConnectLineProxy>, IConnectLine
     {
         public E3ConnectLine(E3Job job)
-            : base(job, () => new E3ConnectLineProxy(job.ComObject.CreateConnectLineObject()))
+            : base(job, () => new E3ConnectLineProxy(job.Proxy.CreateConnectLineObject()))
         {
         }
 
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
-        public int GetId() => ComObject.GetId();
+        public int GetId() => Proxy.GetId();
 
         /// <inheritdoc />
-        public int SetId(int id) => ComObject.SetId(id);
+        public int SetId(int id) => Proxy.SetId(id);
 
         /// <inheritdoc />
         public int Id
@@ -41,7 +41,7 @@ namespace E3Series.Wrapper.Entities
         public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
 
         /// <inheritdoc />
-        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+        public int SetId(string globalId) => Proxy.SetId(((IJob)Parent).GetIdOfGid(globalId));
 
         #endregion
     }

@@ -17,7 +17,7 @@ namespace E3Series.Wrapper.Demo.ViewModels
         private IApplication _app;
         private string _projectName;
 
-        public bool IsConnected => _app != null;
+        public bool IsConnected => _app.IsApplicationRunning();
         public bool IsProjectOpened => _app?.IsProjectOpened() ?? false;
 
         public string ProjectName
@@ -55,7 +55,7 @@ namespace E3Series.Wrapper.Demo.ViewModels
         {
             using (var job = _app.CreateJobObject())
             {
-                ProjectName = job.ComObject.GetName();
+                ProjectName = job.Proxy.GetName();
             }
         }
 
@@ -67,7 +67,7 @@ namespace E3Series.Wrapper.Demo.ViewModels
             if (_app == null)
                 MessageBox.Show("Unable to connect to E3series COM", "Error");
             else
-                _app.ComObject.PutInfo(0, "Successfully connected to E3.series");
+                _app.Proxy.PutInfo(0, "Successfully connected to E3.series");
         }
 
         private void OnDisconnectApplication()
