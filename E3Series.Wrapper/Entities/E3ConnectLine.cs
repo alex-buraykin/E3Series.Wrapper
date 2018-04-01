@@ -31,5 +31,18 @@ namespace E3Series.Wrapper.Entities
         }
 
         #endregion
+
+        #region Implementation of IE3IdentificatedGlobal
+
+        /// <inheritdoc />
+        public string GlobalId => GetGlobalId();
+
+        /// <inheritdoc />
+        public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
+
+        /// <inheritdoc />
+        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+
+        #endregion
     }
 }

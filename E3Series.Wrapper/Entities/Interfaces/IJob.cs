@@ -213,5 +213,19 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// </summary>
         /// <returns></returns>
         IVariant CreateVariantObject();
+
+        /// <summary>
+        /// Get global identifier by object identifier
+        /// </summary>
+        /// <param name="id">Object identifier</param>
+        /// <returns></returns>
+        string GetGidOfId(int id);
+
+        /// <summary>
+        /// Get object identifier by global identifier
+        /// </summary>
+        /// <param name="gid">Global identifier</param>
+        /// <returns></returns>
+        int GetIdOfGid(string gid);
     }
 }

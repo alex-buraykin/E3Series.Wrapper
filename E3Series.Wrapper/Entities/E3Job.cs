@@ -119,6 +119,12 @@ namespace E3Series.Wrapper.Entities
         /// <inheritdoc />
         public IVariant CreateVariantObject() => CreateObject<IVariant>();
 
+        /// <inheritdoc />
+        public string GetGidOfId(int id) => ComObject.GetGidOfId(id);
+
+        /// <inheritdoc />
+        public int GetIdOfGid(string gid) => ComObject.GetIdOfGid(gid);
+
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />

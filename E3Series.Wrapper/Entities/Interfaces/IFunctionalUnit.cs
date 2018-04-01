@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3FunctionalUnit COM object
     /// </summary>
     public interface IFunctionalUnit : IComObjectProvider<E3FunctionalUnitProxy>,
-        IE3Identificated, IE3Named
+        IE3Identificated, IE3Named, IE3IdentificatedGlobal
     {
     }
 }

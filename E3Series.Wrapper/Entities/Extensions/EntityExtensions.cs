@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using E3Series.Proxy.Abstract;
 using E3Series.Wrapper.Entities.Base;
+using E3Series.Wrapper.Entities.Base.Interfaces;
 using E3Series.Wrapper.Extensions;
 
 namespace E3Series.Wrapper.Entities.Extensions
@@ -22,7 +23,7 @@ namespace E3Series.Wrapper.Entities.Extensions
             var typeName = typeof(T).Name.ReplaceSuffix("I", "E3");
             var t = Type.GetType($"E3Series.Wrapper.Entities.{typeName}", true);
 
-            return (T) Activator.CreateInstance(t ?? throw new InvalidOperationException(), entity);
+            return (T) Activator.CreateInstance(t ?? throw new TypeLoadException($"Unable to find 'E3Series.Wrapper.Entities.{typeName}'"), entity);
         }
 
         /// <summary>
@@ -50,6 +51,41 @@ namespace E3Series.Wrapper.Entities.Extensions
         public static IEnumerable<int> CastToIEnumerable(this object obj)
         {
             return obj.CastToIEnumerable<int>();
+        }
+
+        /// <summary>
+        /// Enumerate object with single iterator
+        /// </summary>
+        /// <typeparam name="T">Iterator type</typeparam>
+        /// <param name="iterator">Iterator</param>
+        /// <param name="func">Func to get objects identifiers</param>
+        /// <returns></returns>
+        public static IEnumerable<T> GetEnumerable<T>(this T iterator, Func<IEnumerable<int>> func) 
+            where T : IE3Identificated
+        {
+            return GetEnumerable(iterator, func.Invoke());
+        }
+
+        /// <summary>
+        /// Enumerate object with single iterator
+        /// </summary>
+        /// <typeparam name="T">Iterator type</typeparam>
+        /// <param name="iterator">Iterator</param>
+        /// <param name="ids">Objects identifiers</param>
+        /// <returns></returns>
+        public static IEnumerable<T> GetEnumerable<T>(this T iterator, IEnumerable<int> ids) 
+            where T : IE3Identificated
+        {
+            var oldId = iterator.Id;
+            foreach (var devId in ids)
+            {
+                iterator.Id = devId;
+                if (iterator.Id == 0) continue;
+
+                yield return iterator;
+
+            }
+            iterator.Id = oldId;
         }
     }
 }

@@ -3,20 +3,20 @@
     public interface IE3Identificated
     {
         /// <summary>
-        /// Get object Id
+        /// Get object identifier
         /// </summary>
-        /// <returns>Object Id</returns>
+        /// <returns>Object identifier</returns>
         int GetId();
 
         /// <summary>
-        /// Set Id to object
+        /// Set identifier to object
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>Object Id</returns>
+        /// <param name="id">Identifier</param>
+        /// <returns>Object identifier</returns>
         int SetId(int id);
 
         /// <summary>
-        /// Object Id
+        /// Object identifier
         /// </summary>
         int Id { get; set; }
     }

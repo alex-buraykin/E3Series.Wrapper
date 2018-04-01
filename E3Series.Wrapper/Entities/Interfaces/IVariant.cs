@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3Variant COM object
     /// </summary>
     public interface IVariant : IComObjectProvider<E3VariantProxy>,
-        IE3Identificated, IE3Named
+        IE3Identificated, IE3Named, IE3IdentificatedGlobal
     {
     }
 }

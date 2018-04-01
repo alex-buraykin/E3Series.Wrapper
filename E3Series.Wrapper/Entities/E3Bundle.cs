@@ -1,5 +1,6 @@
 ﻿using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
+using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
 
 namespace E3Series.Wrapper.Entities
@@ -34,33 +35,35 @@ namespace E3Series.Wrapper.Entities
 
         #region Implementation of IE3NamedReadonly
 
-        /// <summary>
-        /// Get name of object
-        /// </summary>
-        /// <returns></returns>
-        public string GetName()
-        {
-            throw new System.NotImplementedException();
-        }
+        /// <inheritdoc />
+        public string GetName() => ComObject.GetName();
 
         #endregion
 
         #region Implementation of IE3Named
 
-        /// <summary>
-        /// Set name for object
-        /// </summary>
-        /// <param name="name">New name</param>
-        /// <returns></returns>
-        public bool SetName(string name)
+        /// <inheritdoc />
+        public bool SetName(string name) => ComObject.SetName(name).CastToBool();
+
+        /// <inheritdoc />
+        public string Name
         {
-            throw new System.NotImplementedException();
+            get => GetName();
+            set => ComObject.SetName(value);
         }
 
-        /// <summary>
-        /// Name of object
-        /// </summary>
-        public string Name { get; set; }
+        #endregion
+
+        #region Implementation of IE3IdentificatedGlobal
+
+        /// <inheritdoc />
+        public string GlobalId => GetGlobalId();
+
+        /// <inheritdoc />
+        public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
+
+        /// <inheritdoc />
+        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
 
         #endregion
     }
