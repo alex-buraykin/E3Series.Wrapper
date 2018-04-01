@@ -1,5 +1,6 @@
 ﻿using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
+using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
 
 namespace E3Series.Wrapper.Entities
@@ -14,6 +15,13 @@ namespace E3Series.Wrapper.Entities
             : base(job, () => new E3AttributeProxy(job.ComObject.CreateAttributeObject()))
         {
         }
+
+        /// <inheritdoc />
+        public string GetInternalName() => ComObject.GetInternalName();
+
+        /// <inheritdoc />
+        public bool CheckName(string name) =>
+            name.EqualsIgnoreCase(GetInternalName()) || name.EqualsIgnoreCase(GetName());
 
         #region Implementation of IE3Identificated
 

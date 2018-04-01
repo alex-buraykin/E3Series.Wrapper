@@ -89,8 +89,7 @@ namespace E3Series.Wrapper.Entities
         /// <inheritdoc />
         public IEnumerable<IAttribute> GetAttributes(IAttribute iterator, string attributeName) =>
             GetAttributes(iterator)
-                .Where(a => attributeName.EqualsIgnoreCase(a.ComObject.GetInternalName()) ||
-                            attributeName.EqualsIgnoreCase(a.GetName()));
+                .Where(a => a.CheckName(attributeName));
 
         /// <inheritdoc />
         public int DeleteAttribute(string attributeName) => ComObject.DeleteAttribute(attributeName);

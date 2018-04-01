@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3NetSegment COM object
     /// </summary>
     public interface INetSegment : IComObjectProvider<E3NetSegmentProxy>,
-        IE3Identificated, IE3NamedReadonly, IE3IdentificatedGlobal
+        IE3Identificated, IE3NamedReadonly, IE3IdentificatedGlobal, IE3Attributed
     {
     }
 }

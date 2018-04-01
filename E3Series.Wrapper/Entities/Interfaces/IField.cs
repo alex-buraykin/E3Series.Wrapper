@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3Field COM object
     /// </summary>
     public interface IField : IComObjectProvider<E3FieldProxy>,
-        IE3Identificated, IE3Named, IE3IdentificatedGlobal
+        IE3Identificated, IE3Named, IE3IdentificatedGlobal, IE3Attributed
     {
     }
 }

@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3Job COM object
     /// </summary>
     public interface IJob : IComObjectProvider<E3JobProxy>,
-        IE3NamedReadonly
+        IE3NamedReadonly, IE3Attributed
     {
         /// <summary>
         /// Create object for working with attributes

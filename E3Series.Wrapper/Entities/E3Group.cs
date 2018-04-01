@@ -1,4 +1,7 @@
-﻿using E3Series.Proxy;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
@@ -64,6 +67,34 @@ namespace E3Series.Wrapper.Entities
 
         /// <inheritdoc />
         public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+
+        #endregion
+
+        #region Implementation of IE3Attributed
+
+        /// <inheritdoc />
+        [Obsolete("Method is not supported", true)]
+        public bool HasAttribute(string attributeName) => throw new NotSupportedException("Method is not supported");
+
+        /// <inheritdoc />
+        public string GetAttributeValue(string attributeName) => ComObject.GetAttributeValue(attributeName);
+
+        /// <inheritdoc />
+        public int SetAttributeValue(string attributeName, string attributeValue) => ComObject.SetAttributeValue(attributeName, attributeValue);
+
+        /// <inheritdoc />
+        public IEnumerable<int> GetAttributeIds() => ComObject.GetAttributeIdsList();
+
+        /// <inheritdoc />
+        public IEnumerable<IAttribute> GetAttributes(IAttribute iterator) => iterator.GetEnumerable(GetAttributeIds);
+
+        /// <inheritdoc />
+        public IEnumerable<IAttribute> GetAttributes(IAttribute iterator, string attributeName) =>
+            GetAttributes(iterator)
+                .Where(a => a.CheckName(attributeName));
+
+        /// <inheritdoc />
+        public int DeleteAttribute(string attributeName) => ComObject.DeleteAttribute(attributeName);
 
         #endregion
     }

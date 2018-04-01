@@ -8,7 +8,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3Dimension COM object
     /// </summary>
     public interface IDimension : IComObjectProvider<E3DimensionProxy>,
-        IE3Identificated, IE3IdentificatedGlobal
+        IE3Identificated, IE3IdentificatedGlobal, IE3Attributed
     {
     }
 }
