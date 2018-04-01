@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="E3Series.Proxy, Version=2015.1613.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\E3Series.Proxy.2015.1613.0\lib\net40\E3Series.Proxy.dll</HintPath>
+    <Reference Include="E3Series.Proxy, Version=2015.1613.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\E3Series.Proxy.2015.1613.11\lib\net40\E3Series.Proxy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,6 +43,11 @@
     <Compile Include="Entities\Base\ComWrapperBase.cs" />
     <Compile Include="Entities\Base\Interfaces\IComObject.cs" />
     <Compile Include="Entities\Base\Interfaces\IComObjectProvider.cs" />
+    <Compile Include="Entities\Base\Interfaces\IE3Attributed.cs" />
+    <Compile Include="Entities\Base\Interfaces\IE3Identificated.cs" />
+    <Compile Include="Entities\Base\Interfaces\IE3IdentificatedGlobal.cs" />
+    <Compile Include="Entities\Base\Interfaces\IE3Named.cs" />
+    <Compile Include="Entities\Base\Interfaces\IE3NamedReadonly.cs" />
     <Compile Include="Entities\E3Application.cs" />
     <Compile Include="Entities\E3Attribute.cs" />
     <Compile Include="Entities\E3BinData.cs" />
@@ -79,7 +84,10 @@
     <Compile Include="Entities\E3Text.cs" />
     <Compile Include="Entities\E3Tree.cs" />
     <Compile Include="Entities\E3Variant.cs" />
+    <Compile Include="Entities\Extensions\E3ObjectExtensions.cs" />
+    <Compile Include="Entities\Extensions\E3ProxyAttributedExtensions.cs" />
     <Compile Include="Entities\Extensions\EntityExtensions.cs" />
+    <Compile Include="Entities\Extensions\StringExtensions.cs" />
     <Compile Include="Entities\Interfaces\IExternalDocument.cs" />
     <Compile Include="Entities\Interfaces\IApplication.cs" />
     <Compile Include="Entities\Interfaces\IAttribute.cs" />

@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Pin COM object
     /// </summary>
-    public interface IPin : IComObjectProvider<E3PinProxy>
+    public interface IPin : IComObjectProvider<E3PinProxy>,
+        IE3Identificated, IE3Named, IE3IdentificatedGlobal, IE3Attributed
     {
     }
 }

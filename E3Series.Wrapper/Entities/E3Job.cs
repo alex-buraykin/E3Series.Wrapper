@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
@@ -118,6 +120,46 @@ namespace E3Series.Wrapper.Entities
 
         /// <inheritdoc />
         public IVariant CreateVariantObject() => CreateObject<IVariant>();
+
+        /// <inheritdoc />
+        public string GetGidOfId(int id) => ComObject.GetGidOfId(id);
+
+        /// <inheritdoc />
+        public int GetIdOfGid(string gid) => ComObject.GetIdOfGid(gid);
+
+        #region Implementation of IE3NamedReadonly
+
+        /// <inheritdoc />
+        public string GetName() => ComObject.GetName();
+
+        #endregion
+
+        #region Implementation of IE3Attributed
+
+        /// <inheritdoc />
+        public bool HasAttribute(string attributeName) => ComObject.HasAttribute(attributeName).CastToBool();
+
+        /// <inheritdoc />
+        public string GetAttributeValue(string attributeName) => ComObject.GetAttributeValue(attributeName);
+
+        /// <inheritdoc />
+        public int SetAttributeValue(string attributeName, string attributeValue) => ComObject.SetAttributeValue(attributeName, attributeValue);
+
+        /// <inheritdoc />
+        public IEnumerable<int> GetAttributeIds() => ComObject.GetAttributeIdsList();
+
+        /// <inheritdoc />
+        public IEnumerable<IAttribute> GetAttributes(IAttribute iterator) => iterator.GetEnumerable(GetAttributeIds);
+
+        /// <inheritdoc />
+        public IEnumerable<IAttribute> GetAttributes(IAttribute iterator, string attributeName) =>
+            GetAttributes(iterator)
+                .Where(a => a.CheckName(attributeName));
+
+        /// <inheritdoc />
+        public int DeleteAttribute(string attributeName) => ComObject.DeleteAttribute(attributeName);
+
+        #endregion
 
         private T CreateObject<T>() where T : IDisposable
         {

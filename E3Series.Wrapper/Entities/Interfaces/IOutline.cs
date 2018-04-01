@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Outline COM object
     /// </summary>
-    public interface IOutline : IComObjectProvider<E3OutlineProxy>
+    public interface IOutline : IComObjectProvider<E3OutlineProxy>,
+        IE3Identificated, IE3NamedReadonly, IE3IdentificatedGlobal
     {
     }
 }

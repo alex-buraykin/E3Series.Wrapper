@@ -7,7 +7,8 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Apllication COM object
     /// </summary>
-    public interface IApplication : IComObjectProvider<E3ApplicationProxy>
+    public interface IApplication : IComObjectProvider<E3ApplicationProxy>,
+        IE3NamedReadonly
     {
         /// <summary>
         /// Check for opened project

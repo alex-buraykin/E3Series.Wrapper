@@ -24,5 +24,12 @@ namespace E3Series.Wrapper.Entities
         {
             return this.CreateObject<IJob, E3ApplicationProxy>();
         }
+
+        #region Implementation of IE3NamedReadonly
+
+        /// <inheritdoc />
+        public string GetName() => ComObject.GetName();
+
+        #endregion
     }
 }

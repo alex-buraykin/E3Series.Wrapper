@@ -11,7 +11,7 @@
         <description>Wrapper for Zuken E3series COM</description>
         <tags>Zuken E3Series E3.series</tags>
 		<dependencies>
-			<dependency id="E3Series.Proxy" version="2015.1613.0" />
+			<dependency id="E3Series.Proxy" version="2015.1613.11" />
 		</dependencies>
     </metadata>
 	<files>
