@@ -12,10 +12,10 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of IJob interface
     /// </summary>
-    public class E3Job : ComWrapperBase<E3JobProxy>, IJob
+    public class E3Job : ProxyWrapperBase<E3JobProxy>, IJob
     {
         public E3Job(E3Application app) 
-            : base(app, () => new E3JobProxy(app.ComObject.CreateJobObject()))
+            : base(app, () => new E3JobProxy(app.Proxy.CreateJobObject()))
         {
         }
 
@@ -122,31 +122,35 @@ namespace E3Series.Wrapper.Entities
         public IVariant CreateVariantObject() => CreateObject<IVariant>();
 
         /// <inheritdoc />
-        public string GetGidOfId(int id) => ComObject.GetGidOfId(id);
+        public string GetGidOfId(int id) => Proxy.GetGidOfId(id);
 
         /// <inheritdoc />
-        public int GetIdOfGid(string gid) => ComObject.GetIdOfGid(gid);
+        public int GetIdOfGid(string gid) => Proxy.GetIdOfGid(gid);
+
+        /// <inheritdoc />
+        public IEnumerable<INetSegment> GetSelectedNetSegments(INetSegment iterator)
+            => iterator.GetEnumerable(Proxy.GetSelectedNetSegmentIdsEnumerable);
 
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
-        public string GetName() => ComObject.GetName();
+        public string GetName() => Proxy.GetName();
 
         #endregion
 
         #region Implementation of IE3Attributed
 
         /// <inheritdoc />
-        public bool HasAttribute(string attributeName) => ComObject.HasAttribute(attributeName).CastToBool();
+        public bool HasAttribute(string attributeName) => Proxy.HasAttribute(attributeName).CastToBool();
 
         /// <inheritdoc />
-        public string GetAttributeValue(string attributeName) => ComObject.GetAttributeValue(attributeName);
+        public string GetAttributeValue(string attributeName) => Proxy.GetAttributeValue(attributeName);
 
         /// <inheritdoc />
-        public int SetAttributeValue(string attributeName, string attributeValue) => ComObject.SetAttributeValue(attributeName, attributeValue);
+        public int SetAttributeValue(string attributeName, string attributeValue) => Proxy.SetAttributeValue(attributeName, attributeValue);
 
         /// <inheritdoc />
-        public IEnumerable<int> GetAttributeIds() => ComObject.GetAttributeIdsList();
+        public IEnumerable<int> GetAttributeIds() => Proxy.GetAttributeIdsEnumerable();
 
         /// <inheritdoc />
         public IEnumerable<IAttribute> GetAttributes(IAttribute iterator) => iterator.GetEnumerable(GetAttributeIds);
@@ -157,7 +161,7 @@ namespace E3Series.Wrapper.Entities
                 .Where(a => a.CheckName(attributeName));
 
         /// <inheritdoc />
-        public int DeleteAttribute(string attributeName) => ComObject.DeleteAttribute(attributeName);
+        public int DeleteAttribute(string attributeName) => Proxy.DeleteAttribute(attributeName);
 
         #endregion
 

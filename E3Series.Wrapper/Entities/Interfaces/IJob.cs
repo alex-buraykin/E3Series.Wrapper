@@ -1,4 +1,5 @@
-﻿using E3Series.Proxy;
+﻿using System.Collections.Generic;
+using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base.Interfaces;
 
 namespace E3Series.Wrapper.Entities.Interfaces
@@ -7,8 +8,9 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Job COM object
     /// </summary>
-    public interface IJob : IComObjectProvider<E3JobProxy>,
-        IE3NamedReadonly, IE3Attributed
+    public interface IJob : IProxyProvider<E3JobProxy>,
+        IE3NamedReadonly,
+        IE3Attributed
     {
         /// <summary>
         /// Create object for working with attributes
@@ -227,5 +229,12 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <param name="gid">Global identifier</param>
         /// <returns></returns>
         int GetIdOfGid(string gid);
+
+        /// <summary>
+        /// Returns iterator of all selected net segments
+        /// </summary>
+        /// <param name="iterator">INetSegment iterator</param>
+        /// <returns></returns>
+        IEnumerable<INetSegment> GetSelectedNetSegments(INetSegment iterator);
     }
 }

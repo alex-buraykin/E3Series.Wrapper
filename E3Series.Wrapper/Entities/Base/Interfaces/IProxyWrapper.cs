@@ -3,26 +3,26 @@
 namespace E3Series.Wrapper.Entities.Base.Interfaces
 {
     /// <summary>
-    /// Interface for correct load/unload COM objects
+    /// Interface for working with proxy objects
     /// </summary>
-    public interface IComObject : IDisposable
+    public interface IProxyWrapper : IDisposable
     {
         /// <summary>
         /// Parent object
         /// </summary>
-        IComObject Parent { get; }
+        IProxyWrapper Parent { get; }
 
         /// <summary>
         /// Register child object
         /// </summary>
         /// <param name="child">Child object</param>
-        void RegisterChild(IComObject child);
+        void RegisterChild(IProxyWrapper child);
 
         /// <summary>
         /// Unregister child object
         /// </summary>
         /// <param name="child">Child object</param>
-        void UnregisterChild(IComObject child);
+        void UnregisterChild(IProxyWrapper child);
 
         /// <summary>
         /// Check child object already registered
@@ -36,6 +36,6 @@ namespace E3Series.Wrapper.Entities.Base.Interfaces
         /// </summary>
         /// <param name="childType">Type of child object</param>
         /// <returns></returns>
-        IComObject GetChild(Type childType);
+        IProxyWrapper GetChild(Type childType);
     }
 }

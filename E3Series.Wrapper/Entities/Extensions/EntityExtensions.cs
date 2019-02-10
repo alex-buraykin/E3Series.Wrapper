@@ -16,7 +16,7 @@ namespace E3Series.Wrapper.Entities.Extensions
         /// <typeparam name="T">.NET public interface of E3 API object</typeparam>
         /// <typeparam name="TProxy">Proxy class for E3.Series COM</typeparam>
         /// <returns>Managed E3 API object</returns>
-        internal static T CreateObject<T, TProxy>(this ComWrapperBase<TProxy> entity)
+        internal static T CreateObject<T, TProxy>(this ProxyWrapperBase<TProxy> entity)
             where T : IDisposable where TProxy : E3ProxyBase
         {
             entity.GuardDisposed();

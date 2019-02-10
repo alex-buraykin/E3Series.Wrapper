@@ -8,20 +8,20 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of IBoard interface
     /// </summary>
-    public class E3Board : ComWrapperBase<E3BoardProxy>, IBoard
+    public class E3Board : ProxyWrapperBase<E3BoardProxy>, IBoard
     {
         public E3Board(E3Job job)
-            : base(job, () => new E3BoardProxy(job.ComObject.CreateBoardObject()))
+            : base(job, () => new E3BoardProxy(job.Proxy.CreateBoardObject()))
         {
         }
 
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
-        public int GetId() => ComObject.GetId();
+        public int GetId() => Proxy.GetId();
 
         /// <inheritdoc />
-        public int SetId(int id) => ComObject.SetId(id);
+        public int SetId(int id) => Proxy.SetId(id);
 
         /// <inheritdoc />
         public int Id
@@ -35,7 +35,7 @@ namespace E3Series.Wrapper.Entities
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
-        public string GetName() => ComObject.GetName();
+        public string GetName() => Proxy.GetName();
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace E3Series.Wrapper.Entities
         public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
 
         /// <inheritdoc />
-        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+        public int SetId(string globalId) => Proxy.SetId(((IJob)Parent).GetIdOfGid(globalId));
 
         #endregion
     }

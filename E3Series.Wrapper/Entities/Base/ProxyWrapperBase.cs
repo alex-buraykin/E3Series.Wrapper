@@ -6,23 +6,23 @@ using E3Series.Wrapper.Entities.Base.Interfaces;
 
 namespace E3Series.Wrapper.Entities.Base
 {
-    /// <inheritdoc cref="IComObject" />
+    /// <inheritdoc cref="IProxyWrapper" />
     /// <summary>
     /// Base class for all classes-wrappers of E3.series COM objects
     /// </summary>
-    public abstract class ComWrapperBase<T> : IComObject, IComObjectProvider<T> where T : E3ProxyBase
+    public abstract class ProxyWrapperBase<T> : IProxyWrapper, IProxyProvider<T> where T : E3ProxyBase
     {
-        private readonly List<IComObject> _children;
+        private readonly List<IProxyWrapper> _children;
         private readonly T _comObject;
         private bool _disposed;
 
         /// <inheritdoc />
-        public IComObject Parent { get; }
+        public IProxyWrapper Parent { get; }
 
-        protected ComWrapperBase(IComObject parent, Func<T> createAction)
+        protected ProxyWrapperBase(IProxyWrapper parent, Func<T> createAction)
         {
             Parent = parent;
-            _children = new List<IComObject>();
+            _children = new List<IProxyWrapper>();
 
             Parent?.RegisterChild(this);
 
@@ -34,7 +34,7 @@ namespace E3Series.Wrapper.Entities.Base
         /// Wrapped COM object
         /// <exception cref="T:System.ObjectDisposedException" />
         /// </summary>
-        public T ComObject
+        public T Proxy
         {
             get
             {
@@ -44,13 +44,13 @@ namespace E3Series.Wrapper.Entities.Base
         }
 
         /// <inheritdoc />
-        public void RegisterChild(IComObject child)
+        public void RegisterChild(IProxyWrapper child)
         {
             _children.Add(child);
         }
 
         /// <inheritdoc />
-        public void UnregisterChild(IComObject child)
+        public void UnregisterChild(IProxyWrapper child)
         {
             _children.Remove(child);
         }
@@ -62,7 +62,7 @@ namespace E3Series.Wrapper.Entities.Base
         }
 
         /// <inheritdoc />
-        public IComObject GetChild(Type childType)
+        public IProxyWrapper GetChild(Type childType)
         {
             return _children.FirstOrDefault(o => o.GetType() == childType);
         }
@@ -70,8 +70,8 @@ namespace E3Series.Wrapper.Entities.Base
         /// <inheritdoc />
         /// <summary>
         /// <para>Releases COM object.</para>
-        /// <para>Calling <see cref="M:E3Series.Wrapper.Entities.Base.ComWrapperBase.Dispose" /> makes object disposed. 
-        /// Any subsequent call on any method except <see cref="M:E3Series.Wrapper.Entities.Base.ComWrapperBase.Dispose" /> would throw 
+        /// <para>Calling <see cref="M:E3Series.Wrapper.Entities.Base.ProxyWrapperBase.Dispose" /> makes object disposed. 
+        /// Any subsequent call on any method except <see cref="M:E3Series.Wrapper.Entities.Base.ProxyWrapperBase.Dispose" /> would throw 
         /// an <see cref="T:System.ObjectDisposedException" />.</para>
         /// </summary>
         public void Dispose()
@@ -106,7 +106,7 @@ namespace E3Series.Wrapper.Entities.Base
                 _children.Clear();
 
                 //Release managed resources
-                ComObject.Dispose();
+                Proxy.Dispose();
             }
             _disposed = true;
         }

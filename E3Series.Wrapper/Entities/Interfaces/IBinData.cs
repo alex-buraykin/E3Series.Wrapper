@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3BinData COM object
     /// </summary>
-    public interface IBinData : IComObjectProvider<E3BinDataProxy>
+    public interface IBinData : IProxyProvider<E3BinDataProxy>
     {
     }
 }

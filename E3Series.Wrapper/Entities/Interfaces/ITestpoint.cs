@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Testpoint COM object
     /// </summary>
-    public interface ITestpoint : IComObjectProvider<E3TestpointProxy>,
+    public interface ITestpoint : IProxyProvider<E3TestpointProxy>,
         IE3Identificated, IE3Named, IE3IdentificatedGlobal, IE3Attributed
     {
     }

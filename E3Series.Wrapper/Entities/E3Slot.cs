@@ -8,20 +8,20 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of ISlot interface
     /// </summary>
-    public class E3Slot : ComWrapperBase<E3SlotProxy>, ISlot
+    public class E3Slot : ProxyWrapperBase<E3SlotProxy>, ISlot
     {
         public E3Slot(E3Job job)
-            : base(job, () => new E3SlotProxy(job.ComObject.CreateSlotObject()))
+            : base(job, () => new E3SlotProxy(job.Proxy.CreateSlotObject()))
         {
         }
 
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
-        public int GetId() => ComObject.GetId();
+        public int GetId() => Proxy.GetId();
 
         /// <inheritdoc />
-        public int SetId(int id) => ComObject.SetId(id);
+        public int SetId(int id) => Proxy.SetId(id);
 
         /// <inheritdoc />
         public int Id
@@ -35,7 +35,7 @@ namespace E3Series.Wrapper.Entities
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
-        public string GetName() => ComObject.GetName();
+        public string GetName() => Proxy.GetName();
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace E3Series.Wrapper.Entities
         public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
 
         /// <inheritdoc />
-        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+        public int SetId(string globalId) => Proxy.SetId(((IJob)Parent).GetIdOfGid(globalId));
 
         #endregion
     }

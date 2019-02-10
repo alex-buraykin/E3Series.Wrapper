@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Graph COM object
     /// </summary>
-    public interface IGraph : IComObjectProvider<E3GraphProxy>,
+    public interface IGraph : IProxyProvider<E3GraphProxy>,
         IE3Identificated, IE3IdentificatedGlobal, IE3Attributed
     {
     }

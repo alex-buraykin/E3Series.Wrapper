@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3StructureNode COM object
     /// </summary>
-    public interface IStructureNode : IComObjectProvider<E3StructureNodeProxy>,
+    public interface IStructureNode : IProxyProvider<E3StructureNodeProxy>,
         IE3Identificated, IE3Named, IE3IdentificatedGlobal, IE3Attributed
     {
     }

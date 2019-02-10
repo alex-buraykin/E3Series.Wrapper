@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Sheet COM object
     /// </summary>
-    public interface ISheet : IComObjectProvider<E3SheetProxy>,
+    public interface ISheet : IProxyProvider<E3SheetProxy>,
         IE3Identificated, IE3Named, IE3IdentificatedGlobal, IE3Attributed
     {
     }

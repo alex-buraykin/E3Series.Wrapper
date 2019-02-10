@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3FunctionalPort COM object
     /// </summary>
-    public interface IFunctionalPort : IComObjectProvider<E3FunctionalPortProxy>,
+    public interface IFunctionalPort : IProxyProvider<E3FunctionalPortProxy>,
         IE3Identificated, IE3Named, IE3IdentificatedGlobal
     {
     }

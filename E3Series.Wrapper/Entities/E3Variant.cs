@@ -9,20 +9,20 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of IVariant interface
     /// </summary>
-    public class E3Variant : ComWrapperBase<E3VariantProxy>, IVariant
+    public class E3Variant : ProxyWrapperBase<E3VariantProxy>, IVariant
     {
         public E3Variant(E3Job job)
-            : base(job, () => new E3VariantProxy(job.ComObject.CreateVariantObject()))
+            : base(job, () => new E3VariantProxy(job.Proxy.CreateVariantObject()))
         {
         }
 
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
-        public int GetId() => ComObject.GetId();
+        public int GetId() => Proxy.GetId();
 
         /// <inheritdoc />
-        public int SetId(int id) => ComObject.SetId(id);
+        public int SetId(int id) => Proxy.SetId(id);
 
         /// <inheritdoc />
         public int Id
@@ -36,20 +36,20 @@ namespace E3Series.Wrapper.Entities
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
-        public string GetName() => ComObject.GetName();
+        public string GetName() => Proxy.GetName();
 
         #endregion
 
         #region Implementation of IE3Named
 
         /// <inheritdoc />
-        public bool SetName(string name) => ComObject.SetName(name).CastToBool();
+        public bool SetName(string name) => Proxy.SetName(name).CastToBool();
 
         /// <inheritdoc />
         public string Name
         {
             get => GetName();
-            set => ComObject.SetName(value);
+            set => Proxy.SetName(value);
         }
 
         #endregion
@@ -63,7 +63,7 @@ namespace E3Series.Wrapper.Entities
         public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
 
         /// <inheritdoc />
-        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+        public int SetId(string globalId) => Proxy.SetId(((IJob)Parent).GetIdOfGid(globalId));
 
         #endregion
     }

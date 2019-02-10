@@ -4,6 +4,7 @@ using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
+using E3Series.Wrapper.Entities.Models;
 
 namespace E3Series.Wrapper.Entities
 {
@@ -11,20 +12,38 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of IPin interface
     /// </summary>
-    public class E3Pin : ComWrapperBase<E3PinProxy>, IPin
+    public class E3Pin : ProxyWrapperBase<E3PinProxy>, IPin
     {
         public E3Pin(E3Job job)
-            : base(job, () => new E3PinProxy(job.ComObject.CreatePinObject()))
+            : base(job, () => new E3PinProxy(job.Proxy.CreatePinObject()))
         {
+        }
+
+        /// <inheritdoc />
+        public string SignalName
+        {
+            get => Proxy.GetSignalName();
+            set => Proxy.SetSignalName(value);
+        }
+
+        /// <inheritdoc />
+        public SignalNameType GetSignalNameType()
+        {
+            var signalName = SignalName;
+            return string.IsNullOrWhiteSpace(signalName) 
+                       ? SignalNameType.NotSet 
+                       : signalName.StartsWith("#") 
+                           ? SignalNameType.System 
+                           : SignalNameType.User;
         }
 
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
-        public int GetId() => ComObject.GetId();
+        public int GetId() => Proxy.GetId();
 
         /// <inheritdoc />
-        public int SetId(int id) => ComObject.SetId(id);
+        public int SetId(int id) => Proxy.SetId(id);
 
         /// <inheritdoc />
         public int Id
@@ -38,20 +57,20 @@ namespace E3Series.Wrapper.Entities
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
-        public string GetName() => ComObject.GetName();
+        public string GetName() => Proxy.GetName();
 
         #endregion
 
         #region Implementation of IE3Named
 
         /// <inheritdoc />
-        public bool SetName(string name) => ComObject.SetName(name).CastToBool();
+        public bool SetName(string name) => Proxy.SetName(name).CastToBool();
 
         /// <inheritdoc />
         public string Name
         {
             get => GetName();
-            set => ComObject.SetName(value);
+            set => Proxy.SetName(value);
         }
 
         #endregion
@@ -65,23 +84,23 @@ namespace E3Series.Wrapper.Entities
         public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
 
         /// <inheritdoc />
-        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+        public int SetId(string globalId) => Proxy.SetId(((IJob)Parent).GetIdOfGid(globalId));
 
         #endregion
 
         #region Implementation of IE3Attributed
 
         /// <inheritdoc />
-        public bool HasAttribute(string attributeName) => ComObject.HasAttribute(attributeName).CastToBool();
+        public bool HasAttribute(string attributeName) => Proxy.HasAttribute(attributeName).CastToBool();
 
         /// <inheritdoc />
-        public string GetAttributeValue(string attributeName) => ComObject.GetAttributeValue(attributeName);
+        public string GetAttributeValue(string attributeName) => Proxy.GetAttributeValue(attributeName);
 
         /// <inheritdoc />
-        public int SetAttributeValue(string attributeName, string attributeValue) => ComObject.SetAttributeValue(attributeName, attributeValue);
+        public int SetAttributeValue(string attributeName, string attributeValue) => Proxy.SetAttributeValue(attributeName, attributeValue);
 
         /// <inheritdoc />
-        public IEnumerable<int> GetAttributeIds() => ComObject.GetAttributeIdsList();
+        public IEnumerable<int> GetAttributeIds() => Proxy.GetAttributeIdsEnumerable();
 
         /// <inheritdoc />
         public IEnumerable<IAttribute> GetAttributes(IAttribute iterator) => iterator.GetEnumerable(GetAttributeIds);
@@ -92,7 +111,17 @@ namespace E3Series.Wrapper.Entities
                 .Where(a => a.CheckName(attributeName));
 
         /// <inheritdoc />
-        public int DeleteAttribute(string attributeName) => ComObject.DeleteAttribute(attributeName);
+        public int DeleteAttribute(string attributeName) => Proxy.DeleteAttribute(attributeName);
+
+        #endregion
+
+        #region Implementation of IE3SchemaLocation
+
+        /// <inheritdoc />
+        public bool IsPlaced() => Proxy.IsPlaced();
+
+        /// <inheritdoc />
+        public SchemaLocationStruct? GetSchemaLocationStruct() => Proxy.GetSchemaLocationStruct();
 
         #endregion
     }

@@ -9,15 +9,15 @@ namespace E3Series.Wrapper.Entities
     /// <summary>
     /// Implementation of IAttribute interface
     /// </summary>
-    public class E3Attribute : ComWrapperBase<E3AttributeProxy>, IAttribute
+    public class E3Attribute : ProxyWrapperBase<E3AttributeProxy>, IAttribute
     {
         public E3Attribute(E3Job job)
-            : base(job, () => new E3AttributeProxy(job.ComObject.CreateAttributeObject()))
+            : base(job, () => new E3AttributeProxy(job.Proxy.CreateAttributeObject()))
         {
         }
 
         /// <inheritdoc />
-        public string GetInternalName() => ComObject.GetInternalName();
+        public string GetInternalName() => Proxy.GetInternalName();
 
         /// <inheritdoc />
         public bool CheckName(string name) =>
@@ -26,10 +26,10 @@ namespace E3Series.Wrapper.Entities
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
-        public int GetId() => ComObject.GetId();
+        public int GetId() => Proxy.GetId();
 
         /// <inheritdoc />
-        public int SetId(int id) => ComObject.SetId(id);
+        public int SetId(int id) => Proxy.SetId(id);
 
         /// <inheritdoc />
         public int Id
@@ -43,7 +43,7 @@ namespace E3Series.Wrapper.Entities
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
-        public string GetName() => ComObject.GetName();
+        public string GetName() => Proxy.GetName();
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace E3Series.Wrapper.Entities
         public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
 
         /// <inheritdoc />
-        public int SetId(string globalId) => ComObject.SetId(((IJob)Parent).GetIdOfGid(globalId));
+        public int SetId(string globalId) => Proxy.SetId(((IJob)Parent).GetIdOfGid(globalId));
 
         #endregion
     }

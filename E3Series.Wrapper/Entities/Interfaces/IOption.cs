@@ -7,7 +7,7 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// <summary>
     /// Interface for class-wrapper of e3Option COM object
     /// </summary>
-    public interface IOption : IComObjectProvider<E3OptionProxy>,
+    public interface IOption : IProxyProvider<E3OptionProxy>,
         IE3Identificated, IE3Named, IE3IdentificatedGlobal, IE3Attributed
     {
     }

@@ -45,7 +45,7 @@ namespace WpfApplication
 
             // Done
             if (app != null)
-                app.ComObject.PutInfo(0, "Successfully connected to E3.series")
+                app.Proxy.PutInfo(0, "Successfully connected to E3.series")
         }
     }
 }
