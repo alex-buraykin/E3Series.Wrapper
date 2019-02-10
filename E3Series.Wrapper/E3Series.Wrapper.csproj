@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="E3Series.Proxy, Version=2015.1613.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\uesp\e3Shell.RenameChains\packages\E3Series.Proxy.2015.1613.11\lib\net40\E3Series.Proxy.dll</HintPath>
+      <HintPath>..\packages\E3Series.Proxy.2015.1613.11\lib\net40\E3Series.Proxy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
