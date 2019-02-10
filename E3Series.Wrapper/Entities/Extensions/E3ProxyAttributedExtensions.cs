@@ -12,7 +12,7 @@ namespace E3Series.Wrapper.Entities.Extensions
         /// <param name="proxy">E3.series proxy object</param>
         /// <param name="attributeName">Returns only attributes with name <c>attributeName</c></param>
         /// <returns>IEnumerable of ids or empty collection</returns>
-        public static IEnumerable<int> GetAttributeIdsList(this IAttributed proxy, string attributeName = "")
+        public static IEnumerable<int> GetAttributeIdsEnumerable(this IAttributed proxy, string attributeName = "")
         {
             if (attributeName == null)
                 throw new ArgumentNullException(nameof(attributeName));

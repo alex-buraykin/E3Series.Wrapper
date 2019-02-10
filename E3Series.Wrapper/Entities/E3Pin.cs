@@ -4,6 +4,7 @@ using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
+using E3Series.Wrapper.Entities.Models;
 
 namespace E3Series.Wrapper.Entities
 {
@@ -16,6 +17,24 @@ namespace E3Series.Wrapper.Entities
         public E3Pin(E3Job job)
             : base(job, () => new E3PinProxy(job.Proxy.CreatePinObject()))
         {
+        }
+
+        /// <inheritdoc />
+        public string SignalName
+        {
+            get => Proxy.GetSignalName();
+            set => Proxy.SetSignalName(value);
+        }
+
+        /// <inheritdoc />
+        public SignalNameType GetSignalNameType()
+        {
+            var signalName = SignalName;
+            return string.IsNullOrWhiteSpace(signalName) 
+                       ? SignalNameType.NotSet 
+                       : signalName.StartsWith("#") 
+                           ? SignalNameType.System 
+                           : SignalNameType.User;
         }
 
         #region Implementation of IE3Identificated
@@ -81,7 +100,7 @@ namespace E3Series.Wrapper.Entities
         public int SetAttributeValue(string attributeName, string attributeValue) => Proxy.SetAttributeValue(attributeName, attributeValue);
 
         /// <inheritdoc />
-        public IEnumerable<int> GetAttributeIds() => Proxy.GetAttributeIdsList();
+        public IEnumerable<int> GetAttributeIds() => Proxy.GetAttributeIdsEnumerable();
 
         /// <inheritdoc />
         public IEnumerable<IAttribute> GetAttributes(IAttribute iterator) => iterator.GetEnumerable(GetAttributeIds);
@@ -93,6 +112,16 @@ namespace E3Series.Wrapper.Entities
 
         /// <inheritdoc />
         public int DeleteAttribute(string attributeName) => Proxy.DeleteAttribute(attributeName);
+
+        #endregion
+
+        #region Implementation of IE3SchemaLocation
+
+        /// <inheritdoc />
+        public bool IsPlaced() => Proxy.IsPlaced();
+
+        /// <inheritdoc />
+        public SchemaLocationStruct? GetSchemaLocationStruct() => Proxy.GetSchemaLocationStruct();
 
         #endregion
     }

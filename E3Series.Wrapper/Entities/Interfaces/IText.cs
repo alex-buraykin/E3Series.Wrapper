@@ -8,7 +8,10 @@ namespace E3Series.Wrapper.Entities.Interfaces
     /// Interface for class-wrapper of e3Text COM object
     /// </summary>
     public interface IText : IProxyProvider<E3TextProxy>,
-        IE3Identificated, IE3IdentificatedGlobal, IE3Attributed
+        IE3Identificated,
+        IE3IdentificatedGlobal,
+        IE3Attributed,
+        IE3SchemaLocation
     {
     }
 }

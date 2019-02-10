@@ -127,6 +127,10 @@ namespace E3Series.Wrapper.Entities
         /// <inheritdoc />
         public int GetIdOfGid(string gid) => Proxy.GetIdOfGid(gid);
 
+        /// <inheritdoc />
+        public IEnumerable<INetSegment> GetSelectedNetSegments(INetSegment iterator)
+            => iterator.GetEnumerable(Proxy.GetSelectedNetSegmentIdsEnumerable);
+
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
@@ -146,7 +150,7 @@ namespace E3Series.Wrapper.Entities
         public int SetAttributeValue(string attributeName, string attributeValue) => Proxy.SetAttributeValue(attributeName, attributeValue);
 
         /// <inheritdoc />
-        public IEnumerable<int> GetAttributeIds() => Proxy.GetAttributeIdsList();
+        public IEnumerable<int> GetAttributeIds() => Proxy.GetAttributeIdsEnumerable();
 
         /// <inheritdoc />
         public IEnumerable<IAttribute> GetAttributes(IAttribute iterator) => iterator.GetEnumerable(GetAttributeIds);
