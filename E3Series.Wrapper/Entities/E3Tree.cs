@@ -1,4 +1,5 @@
-﻿using E3Series.Proxy;
+﻿using System.Collections.Generic;
+using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
@@ -15,6 +16,10 @@ namespace E3Series.Wrapper.Entities
             : base(job, () => new E3TreeProxy(job.Proxy.CreateTreeObject()))
         {
         }
+
+        /// <inheritdoc />
+        public IEnumerable<IDevice> GetSelectedTerminals(IDevice iterator)
+            => iterator.GetEnumerable(Proxy.GetSelectedTerminalIdsEnumerable());
 
         #region Implementation of IE3Identificated
 
