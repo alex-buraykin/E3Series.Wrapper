@@ -21,8 +21,7 @@ namespace E3Series.Wrapper.Entities.Extensions
 
             return new SchemaLocationStruct((double)x, (double)y, grid as string, sheetId);
         }
-
-
+        
         /// <summary>
         /// Check for pin is placed on the sheet
         /// </summary>

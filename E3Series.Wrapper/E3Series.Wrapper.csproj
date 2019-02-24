@@ -133,8 +133,12 @@
     <Compile Include="Entities\Interfaces\IText.cs" />
     <Compile Include="Entities\Interfaces\ITree.cs" />
     <Compile Include="Entities\Interfaces\IVariant.cs" />
+    <Compile Include="Entities\Models\CheckOutMode.cs" />
+    <Compile Include="Entities\Models\CheckOutResult.cs" />
+    <Compile Include="Entities\Models\PanelLocationStruct.cs" />
     <Compile Include="Entities\Models\SchemaLocationStruct.cs" />
     <Compile Include="Entities\Models\SignalNameType.cs" />
+    <Compile Include="Entities\Models\SymbolModeEnum.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IConnector.cs" />
     <Compile Include="Interfaces\IConnectorSelectionDialog.cs" />

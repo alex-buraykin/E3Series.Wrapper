@@ -111,7 +111,12 @@ namespace E3Series.Wrapper.Entities
                 .Where(a => a.CheckName(attributeName));
 
         /// <inheritdoc />
-        public int DeleteAttribute(string attributeName) => Proxy.DeleteAttribute(attributeName);
+        public int DeleteAttribute(string attributeName)
+            => Proxy.DeleteAttribute(attributeName);
+
+        /// <inheritdoc />
+        public ISheet GetSheet(ISheet iterator) 
+            => iterator.SetId(Proxy.GetSchemaLocationStruct()?.SheetId ?? 0) == 0 ? null : iterator;
 
         #endregion
 

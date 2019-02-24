@@ -4,6 +4,7 @@ using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
+using E3Series.Wrapper.Entities.Models;
 
 namespace E3Series.Wrapper.Entities
 {
@@ -22,6 +23,51 @@ namespace E3Series.Wrapper.Entities
         public IEnumerable<IDevice> GetDevices(IDevice iterator, bool expandAll = false)
             => iterator.GetEnumerable(Proxy.GetDeviceIdsEnumerable(expandAll));
 
+        /// <inheritdoc />
+        public int GetSymbolCountByPins(
+            IPin pinIterator,
+            ISheet sheetIterator,
+            SymbolModeEnum mode = SymbolModeEnum.AllSymbols)
+        {
+            if (((IJob) Parent).IsMultiuserProject())
+            {
+                foreach (var sheet in GetPins(pinIterator)
+                                      .Select(pin => pin.GetSheet(sheetIterator))
+                                      .Where(sheet => sheet != null && sheet.IsOffline()))
+                {
+                    sheet.CheckOut(CheckOutMode.ReadOnly);
+                }
+            }
+
+            return GetSymbolCount(mode);
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<ISymbol> GetSymbols(ISymbol iterator, SymbolModeEnum mode = SymbolModeEnum.AllSymbols)
+            => iterator.GetEnumerable(() => GetSymbolIds(mode));
+
+        /// <inheritdoc />
+        public IEnumerable<int> GetSymbolIds(SymbolModeEnum mode = SymbolModeEnum.AllSymbols)
+            => Proxy.GetSymbolIdsEnumerable(mode);
+
+        /// <inheritdoc />
+        public int GetSymbolCount(SymbolModeEnum mode = SymbolModeEnum.AllSymbols)
+            => Proxy.GetSymbolCount((int) mode);
+
+        /// <inheritdoc />
+        public IEnumerable<IPin> GetPins(IPin iterator)
+            => iterator.GetEnumerable(Proxy.GetPinIdsEnumerable);
+
+        /// <inheritdoc />
+        public PanelLocationStruct? GetPanelLocation() => Proxy.GetPanelLocation();
+
+        #region Implementation of IE3NamedReadonly
+
+        /// <inheritdoc />
+        public string GetName() => Proxy.GetName();
+
+        #endregion
+
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
@@ -36,13 +82,6 @@ namespace E3Series.Wrapper.Entities
             get => GetId();
             set => SetId(value);
         }
-
-        #endregion
-
-        #region Implementation of IE3NamedReadonly
-
-        /// <inheritdoc />
-        public string GetName() => Proxy.GetName();
 
         #endregion
 
@@ -66,10 +105,10 @@ namespace E3Series.Wrapper.Entities
         public string GlobalId => GetGlobalId();
 
         /// <inheritdoc />
-        public string GetGlobalId() => ((IJob)Parent).GetGidOfId(Id);
+        public string GetGlobalId() => ((IJob) Parent).GetGidOfId(Id);
 
         /// <inheritdoc />
-        public int SetId(string globalId) => Proxy.SetId(((IJob)Parent).GetIdOfGid(globalId));
+        public int SetId(string globalId) => Proxy.SetId(((IJob) Parent).GetIdOfGid(globalId));
 
         #endregion
 

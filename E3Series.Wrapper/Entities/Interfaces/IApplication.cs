@@ -27,5 +27,11 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// </summary>
         /// <returns></returns>
         IJob CreateJobObject();
+
+        /// <summary>
+        /// Check for E3.series application running with /multiuser modifier
+        /// </summary>
+        /// <returns></returns>
+        bool IsMultiuser();
     }
 }

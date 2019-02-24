@@ -236,5 +236,11 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// <param name="iterator">INetSegment iterator</param>
         /// <returns></returns>
         IEnumerable<INetSegment> GetSelectedNetSegments(INetSegment iterator);
+
+        /// <summary>
+        /// Check project is Multiuser
+        /// </summary>
+        /// <returns></returns>
+        bool IsMultiuserProject();
     }
 }
