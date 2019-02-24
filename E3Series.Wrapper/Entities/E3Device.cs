@@ -18,6 +18,10 @@ namespace E3Series.Wrapper.Entities
         {
         }
 
+        /// <inheritdoc />
+        public IEnumerable<IDevice> GetDevices(IDevice iterator, bool expandAll = false)
+            => iterator.GetEnumerable(Proxy.GetDeviceIdsEnumerable(expandAll));
+
         #region Implementation of IE3Identificated
 
         /// <inheritdoc />
