@@ -131,6 +131,10 @@ namespace E3Series.Wrapper.Entities
         public IEnumerable<INetSegment> GetSelectedNetSegments(INetSegment iterator)
             => iterator.GetEnumerable(Proxy.GetSelectedNetSegmentIdsEnumerable);
 
+        /// <inheritdoc />
+        public bool IsMultiuserProject()
+            => ((IApplication)Parent).IsMultiuser() && Proxy.IsMultiuserProject() == 1;
+
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />

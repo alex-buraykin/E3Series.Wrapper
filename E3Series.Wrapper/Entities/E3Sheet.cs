@@ -4,6 +4,7 @@ using E3Series.Proxy;
 using E3Series.Wrapper.Entities.Base;
 using E3Series.Wrapper.Entities.Extensions;
 using E3Series.Wrapper.Entities.Interfaces;
+using E3Series.Wrapper.Entities.Models;
 
 namespace E3Series.Wrapper.Entities
 {
@@ -17,6 +18,14 @@ namespace E3Series.Wrapper.Entities
             : base(job, () => new E3SheetProxy(job.Proxy.CreateSheetObject()))
         {
         }
+
+        /// <inheritdoc />
+        public bool IsOffline()
+            => Proxy.IsOffline() == 1;
+
+        /// <inheritdoc />
+        public CheckOutResult CheckOut(CheckOutMode mode = CheckOutMode.ReadAndWrite)
+            => (CheckOutResult) Proxy.CheckOut((int) mode);
 
         #region Implementation of IE3Identificated
 

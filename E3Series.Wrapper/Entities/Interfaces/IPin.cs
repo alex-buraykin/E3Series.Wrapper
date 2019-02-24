@@ -25,5 +25,12 @@ namespace E3Series.Wrapper.Entities.Interfaces
         /// </summary>
         /// <returns></returns>
         SignalNameType GetSignalNameType();
+
+        /// <summary>
+        /// Get Sheet if pin is placed
+        /// </summary>
+        /// <param name="iterator"></param>
+        /// <returns></returns>
+        ISheet GetSheet(ISheet iterator);
     }
 }

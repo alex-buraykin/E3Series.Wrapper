@@ -25,6 +25,9 @@ namespace E3Series.Wrapper.Entities
         /// <inheritdoc />
         public IJob CreateJobObject() => this.CreateObject<IJob, E3ApplicationProxy>();
 
+        /// <inheritdoc />
+        public bool IsMultiuser() => Proxy.IsMultiuser() == 1;
+
         #region Implementation of IE3NamedReadonly
 
         /// <inheritdoc />
