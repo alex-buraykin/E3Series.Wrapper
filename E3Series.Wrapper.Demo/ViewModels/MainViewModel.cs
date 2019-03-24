@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using E3Series.Wrapper.Demo.Extensions;
 using E3Series.Wrapper.Demo.Views;
@@ -7,6 +8,7 @@ using E3Series.Wrapper.Interfaces;
 using E3Series.Wrapper.SelectionDialog.WPF;
 using E3Series.Wrapper.SelectionDialog.WPF.Commands;
 using E3Series.Wrapper.SelectionDialog.WPF.ViewModels.Base;
+using E3Series.Wrapper.Entities.Extensions;
 
 namespace E3Series.Wrapper.Demo.ViewModels
 {
@@ -56,6 +58,20 @@ namespace E3Series.Wrapper.Demo.ViewModels
             using (var job = _app.CreateJobObject())
             {
                 ProjectName = job.Proxy.GetName();
+
+                // Sample working with arrays (use proxy object)
+                object ids = null;
+                var selectedCount = job.Proxy.GetSelectedDeviceIds(ref ids);
+                Console.WriteLine(selectedCount);
+                var idsEnumerable = ids.ToIEnumerable(); // using E3Series.Wrapper.Entities.Extensions;
+                using (var dev = job.CreateDeviceObject())
+                {
+                    foreach (var id in idsEnumerable)
+                    {
+                        dev.Id = id;
+                        Console.WriteLine(dev.Name);
+                    }
+                }
             }
         }
 
