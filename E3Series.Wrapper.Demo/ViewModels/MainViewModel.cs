@@ -17,7 +17,7 @@ namespace E3Series.Wrapper.Demo.ViewModels
         private IApplication _app;
         private string _projectName;
 
-        public bool IsConnected => _app.IsApplicationRunning();
+        public bool IsConnected => _app?.IsApplicationRunning() ?? false;
         public bool IsProjectOpened => _app?.IsProjectOpened() ?? false;
 
         public string ProjectName
